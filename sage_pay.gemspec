@@ -37,7 +37,7 @@ gateway for accepting credit card payments through your web app.
 
   ## List your runtime dependencies here. Runtime dependencies are those
   ## that are needed for an end user to actually USE your code.
-  # s.add_dependency('DEPNAME', [">= 1.1.0", "< 2.0.0"])
+  s.add_dependency('validatable', [">= 1.6.7"])
 
   ## List your development dependencies here. Development dependencies are
   ## those that are only needed during development
