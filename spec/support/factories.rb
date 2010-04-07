@@ -1,4 +1,8 @@
 module Factories
+  def model_factory(model_name, overrides = {})
+    send("#{model_name}_factory", overrides)
+  end
+
   def address_factory(overrides = {})
     # Data provided courtesy of Faker
     address = SagePay::Server::Address.new :first_names => "Aryanna", :surname => "Larkin",

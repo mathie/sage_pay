@@ -8,27 +8,27 @@ describe SagePay::Server::Address do
   end
 
   describe "validations" do
-    it { validates_the_presence_of(:first_names) }
-    it { validates_the_presence_of(:surname)     }
-    it { validates_the_presence_of(:address_1)   }
-    it { validates_the_presence_of(:city)        }
-    it { validates_the_presence_of(:post_code)   }
-    it { validates_the_presence_of(:country)     }
+    it { validates_the_presence_of(:address, :first_names) }
+    it { validates_the_presence_of(:address, :surname)     }
+    it { validates_the_presence_of(:address, :address_1)   }
+    it { validates_the_presence_of(:address, :city)        }
+    it { validates_the_presence_of(:address, :post_code)   }
+    it { validates_the_presence_of(:address, :country)     }
 
-    it { does_not_validate_the_presence_of(:address_2) }
-    it { does_not_validate_the_presence_of(:state)     }
-    it { does_not_validate_the_presence_of(:phone)     }
+    it { does_not_validate_the_presence_of(:address, :address_2) }
+    it { does_not_validate_the_presence_of(:address, :state)     }
+    it { does_not_validate_the_presence_of(:address, :phone)     }
 
-    it { validates_the_length_of(:first_names, :max => 20) }
-    it { validates_the_length_of(:surname, :max => 20)     }
-    it { validates_the_length_of(:address_1, :max => 100)  }
-    it { validates_the_length_of(:address_2, :max => 100)  }
-    it { validates_the_length_of(:city, :max => 40)        }
-    it { validates_the_length_of(:post_code, :max => 10)   }
-    it { validates_the_length_of(:phone, :max => 20)       }
+    it { validates_the_length_of(:address, :first_names, :max => 20) }
+    it { validates_the_length_of(:address, :surname, :max => 20)     }
+    it { validates_the_length_of(:address, :address_1, :max => 100)  }
+    it { validates_the_length_of(:address, :address_2, :max => 100)  }
+    it { validates_the_length_of(:address, :city, :max => 40)        }
+    it { validates_the_length_of(:address, :post_code, :max => 10)   }
+    it { validates_the_length_of(:address, :phone, :max => 20)       }
 
     it "validates the format of first names" do
-      validates_the_format_of :first_names,
+      validates_the_format_of :address, :first_names,
         :valid => [
           "Bob", "Graham & Sarah", "John-Angus", "Graeme R.", "O'Brien", "Gr/\\eme"
         ],
@@ -38,7 +38,7 @@ describe SagePay::Server::Address do
     end
 
     it "validates the format of surname" do
-      validates_the_format_of :surname,
+      validates_the_format_of :address, :surname,
         :valid => [
           "Bob", "Graham & Sarah", "John-Angus", "Graeme R.", "O'Brien", "Gr/\\eme"
         ],
@@ -48,7 +48,7 @@ describe SagePay::Server::Address do
     end
 
     it "validates the format of address 1" do
-      validates_the_format_of :address_1,
+      validates_the_format_of :address, :address_1,
       :valid => [
         "123 Any Street, Suburb", "123 Any Street\nSuburb",
         "123+ Al'Agrathia", "Attn: Bob & Sarah (not John-Angus)."
@@ -59,7 +59,7 @@ describe SagePay::Server::Address do
     end
 
     it "validates the format of address 2" do
-      validates_the_format_of :address_2,
+      validates_the_format_of :address, :address_2,
       :valid => [
         "123 Any Street, Suburb", "123 Any Street\nSuburb",
         "123+ Al'Agrathia", "Attn: Bob & Sarah (not John-Angus)."
@@ -70,7 +70,7 @@ describe SagePay::Server::Address do
     end
 
     it "validates the format of city" do
-      validates_the_format_of :city,
+      validates_the_format_of :address, :city,
       :valid => [
         "123 Any Street, Suburb", "123 Any Street\nSuburb",
         "123+ Al'Agrathia", "Attn: Bob & Sarah (not John-Angus)."
@@ -81,7 +81,7 @@ describe SagePay::Server::Address do
     end
 
     it "validates the format of post code" do
-      validates_the_format_of :post_code,
+      validates_the_format_of :address, :post_code,
       :valid => [
         "AB12 3CD", "EH21-7PB"
       ],
@@ -91,7 +91,7 @@ describe SagePay::Server::Address do
     end
 
     it "validates the format of phone" do
-      validates_the_format_of :phone,
+      validates_the_format_of :address, :phone,
       :valid => [
         "+44 (0)131 273 5271", "01312735271", "0131 CALL-FOR-HELP"
       ],
