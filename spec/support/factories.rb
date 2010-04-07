@@ -18,6 +18,7 @@ module Factories
 
   def transaction_registration_factory(overrides = {})
     defaults = {
+      :mode             => :test,
       :tx_type          => :payment,
       :vendor           => "BobTheBuilder",
       :vendor_tx_code   => "random-transaction-id",
