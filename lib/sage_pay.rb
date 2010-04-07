@@ -1,4 +1,5 @@
 require 'validatable'
+require 'bigdecimal'
 
 module SagePay
   VERSION = '0.1.0'
