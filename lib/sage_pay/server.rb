@@ -33,8 +33,8 @@ module SagePay
       # contains two-character strings, so this validation has no real win.
       # validates_length_of :country, :state, :maximum => 2
 
-      validates_true_for :state,   :logic => lambda { state.nil?   || state.empty?   || self.class.us_states.include?(state.upcase) }, :message => "is not a US state"
-      validates_true_for :country, :logic => lambda { country.nil? || country.empty? || self.class.iso_3166_country_codes.include?(country.upcase) }, :message => "is not an ISO3166-1 country code"
+      validates_inclusion_of :state,   :in => us_states,              :allow_blank => true, :message => "is not a US state"
+      validates_inclusion_of :country, :in => iso_3166_country_codes, :allow_blank => true, :message => "is not an ISO3166-1 country code"
 
       def initialize(attributes = {})
         attributes.each do |k, v|
