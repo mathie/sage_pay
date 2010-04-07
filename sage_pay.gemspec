@@ -60,5 +60,5 @@ gateway for accepting credit card payments through your web app.
 
   ## Test files will be grabbed from the file list. Make sure the path glob
   ## matches what you actually use.
-  s.test_files = s.files.select { |path| path =~ /^test\/test_.*\.rb/ }
+  s.test_files = s.files.select { |path| path =~ /^spec\/.*_spec\.rb/ }
 end
