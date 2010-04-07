@@ -5,4 +5,7 @@ module SagePay
 end
 
 require 'validatable-ext'
+
+require 'sage_pay/server/address'
+require 'sage_pay/server/transaction_registration'
 require 'sage_pay/server'
