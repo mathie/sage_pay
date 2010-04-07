@@ -80,6 +80,7 @@ end
 #
 #############################################################################
 
+desc "Release the new version of the gem into the wild"
 task :release => :build do
   unless `git branch` =~ /^\* master$/
     puts "You must be on the master branch to release!"
@@ -92,6 +93,7 @@ task :release => :build do
   sh "gem push pkg/#{name}-#{version}.gem"
 end
 
+desc "Build the gem"
 task :build => :gemspec do
   sh "mkdir -p pkg"
   sh "gem build #{gemspec_file}"
