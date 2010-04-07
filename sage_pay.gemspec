@@ -41,7 +41,7 @@ gateway for accepting credit card payments through your web app.
 
   ## List your development dependencies here. Development dependencies are
   ## those that are only needed during development
-  # s.add_development_dependency('DEVDEPNAME', [">= 1.1.0", "< 2.0.0"])
+  s.add_development_dependency('rspec')
 
   ## Leave this section as-is. It will be automatically generated from the
   ## contents of your Git repository via the gemspec task. DO NOT REMOVE
@@ -53,6 +53,8 @@ gateway for accepting credit card payments through your web app.
     Rakefile
     lib/sage_pay.rb
     sage_pay.gemspec
+    spec/spec_helper.rb
+    spec/unit/sage_pay_spec.rb
   ]
   # = MANIFEST =
 
