@@ -19,13 +19,13 @@ describe SagePay::Server::Address do
     it { does_not_validate_the_presence_of(:address, :state)     }
     it { does_not_validate_the_presence_of(:address, :phone)     }
 
-    it { validates_the_length_of(:address, :first_names, :max => 20) }
-    it { validates_the_length_of(:address, :surname, :max => 20)     }
-    it { validates_the_length_of(:address, :address_1, :max => 100)  }
-    it { validates_the_length_of(:address, :address_2, :max => 100)  }
-    it { validates_the_length_of(:address, :city, :max => 40)        }
-    it { validates_the_length_of(:address, :post_code, :max => 10)   }
-    it { validates_the_length_of(:address, :phone, :max => 20)       }
+    it { validates_the_length_of(:address, :first_names, :max => 20)  }
+    it { validates_the_length_of(:address, :surname,     :max => 20)  }
+    it { validates_the_length_of(:address, :address_1,   :max => 100) }
+    it { validates_the_length_of(:address, :address_2,   :max => 100) }
+    it { validates_the_length_of(:address, :city,        :max => 40)  }
+    it { validates_the_length_of(:address, :post_code,   :max => 10)  }
+    it { validates_the_length_of(:address, :phone,       :max => 20)  }
 
     it "validates the format of first names" do
       validates_the_format_of :address, :first_names,
