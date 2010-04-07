@@ -15,9 +15,9 @@ describe SagePay::Server::Address do
     it { validates_the_presence_of(:address, :post_code)   }
     it { validates_the_presence_of(:address, :country)     }
 
-    it { does_not_validate_the_presence_of(:address, :address_2) }
-    it { does_not_validate_the_presence_of(:address, :state)     }
-    it { does_not_validate_the_presence_of(:address, :phone)     }
+    it { does_not_require_the_presence_of(:address, :address_2) }
+    it { does_not_require_the_presence_of(:address, :state)     }
+    it { does_not_require_the_presence_of(:address, :phone)     }
 
     it { validates_the_length_of(:address, :first_names, :max => 20)  }
     it { validates_the_length_of(:address, :surname,     :max => 20)  }

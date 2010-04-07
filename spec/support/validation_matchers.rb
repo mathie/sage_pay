@@ -5,7 +5,7 @@ module ValidationMatchers
     model.errors.on(attribute).should == message
   end
 
-  def does_not_validate_the_presence_of(model_name, attribute)
+  def does_not_require_the_presence_of(model_name, attribute)
     model = model_factory(model_name, attribute => "")
     model.should be_valid
     model.errors.on(attribute).should be_nil
