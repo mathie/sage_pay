@@ -11,7 +11,7 @@ module Validatable
       valid = true
       value = instance.send(self.attribute)
       
-      if value.nil? || value.empty?
+      if value.nil? || (value.respond_to?(:empty?) && value.empty?)
         return true if allow_blank
         value = ""
       end
