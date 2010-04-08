@@ -31,4 +31,10 @@ module Factories
     }
     transaction_registration = SagePay::Server::TransactionRegistration.new(defaults.merge(overrides))
   end
+
+  def transaction_registration_response_factory(overrides = {})
+    defaults = {
+    }
+    transaction_registration_response = SagePay::Server::TransactionRegistrationResponse.new(defaults.merge(overrides))
+  end
 end
