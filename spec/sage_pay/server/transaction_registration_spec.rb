@@ -513,17 +513,19 @@ describe TransactionRegistration do
     context "when SagePay returns a useful response" do
       before(:each) do
         @mock_http_response = mock("HTTP response", :code => "200", :body => "mock response body")
+        @mock_response = mock("Transaction registration response")
         @transaction_registration = transaction_registration_factory
         @transaction_registration.stub(:post).and_return(@mock_http_response)
+        TransactionRegistrationResponse.stub(:from_response_body).and_return @mock_response
       end
 
       it "should return a newly created TransactionRegistrationResponse with the response" do
         response = @transaction_registration.register!
-        response.should be_a(TransactionRegistrationResponse)
+        response.should == @mock_response
       end
 
       it "should pass the response body to TransactionRegistrationResponse.from_response_body to let it parse and initialize" do
-        TransactionRegistrationResponse.should_receive(:from_response_body).with("mock response body").and_return TransactionRegistrationResponse.new
+        TransactionRegistrationResponse.should_receive(:from_response_body).with("mock response body")
         @transaction_registration.register!
       end
 
