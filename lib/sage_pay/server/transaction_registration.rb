@@ -44,6 +44,10 @@ module SagePay
         end
       end
 
+      def register!
+        handle_response(post)
+      end
+
       def url
         case mode
         when :simulator
@@ -109,6 +113,29 @@ module SagePay
       end
 
       private
+
+      def post
+        parsed_uri = URI.parse(url)
+        request = Net::HTTP::Post.new(parsed_uri.request_uri)
+        request.form_data = post_params
+
+        http = Net::HTTP.new(parsed_uri.host, parsed_uri.port)
+        http.use_ssl = true if parsed_uri.scheme == "https"
+        http.start { |http|
+          http.request(request)
+        }
+      end
+
+      def handle_response(response)
+        case response.code.to_i
+        when 200
+          TransactionRegistrationResponse.from_response_body(response.body)
+        else
+          # FIXME: custom error response would be nice.
+          raise RuntimeError, "I guess SagePay doesn't like us today."
+        end
+      end
+
       def account_type_param
         case account_type
         when :ecommerce

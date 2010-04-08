@@ -1,6 +1,9 @@
 require 'spec_helper'
 
-describe SagePay::Server::TransactionRegistration do
+include SagePay::Server
+
+describe TransactionRegistration do
+
   it "should work straight from the factory" do
     lambda {
       transaction_registration_factory.should be_valid
@@ -8,7 +11,7 @@ describe SagePay::Server::TransactionRegistration do
   end
 
   it "should report protocol version 2.23" do
-    transaction_registration = SagePay::Server::TransactionRegistration.new
+    transaction_registration = TransactionRegistration.new
     transaction_registration.vps_protocol.should == "2.23"
   end
 
@@ -224,7 +227,7 @@ describe SagePay::Server::TransactionRegistration do
 
   end
 
-  context "post params generation" do
+  describe "post params generation" do
     context "given one or more invalid parameters" do
       it "should raise an error when trying to generate the URL" do
         transaction_registration = transaction_registration_factory(:tx_type => :invalid)
@@ -489,6 +492,44 @@ describe SagePay::Server::TransactionRegistration do
           transaction_registration.account_type = :mail_order
           transaction_registration.post_params['AccountType'].should == "M"
         end
+      end
+    end
+  end
+
+  describe "#register!" do
+    context "if SagePay is having a bad day" do
+      before(:each) do
+        @transaction_registration = transaction_registration_factory
+        @transaction_registration.stub(:post).and_return(mock("HTTP Response", :code => "500"))
+      end
+
+      it "should raise an exception to say that we couldn't talk to SagePay" do
+        lambda {
+          @transaction_registration.register!
+        }.should raise_error RuntimeError, "I guess SagePay doesn't like us today."
+      end
+    end
+
+    context "when SagePay returns a useful response" do
+      before(:each) do
+        @mock_http_response = mock("HTTP response", :code => "200", :body => "mock response body")
+        @transaction_registration = transaction_registration_factory
+        @transaction_registration.stub(:post).and_return(@mock_http_response)
+      end
+
+      it "should return a newly created TransactionRegistrationResponse with the response" do
+        response = @transaction_registration.register!
+        response.should be_a(TransactionRegistrationResponse)
+      end
+
+      it "should pass the response body to TransactionRegistrationResponse.from_response_body to let it parse and initialize" do
+        TransactionRegistrationResponse.should_receive(:from_response_body).with("mock response body").and_return TransactionRegistrationResponse.new
+        @transaction_registration.register!
+      end
+
+      it "should post the request to SagePay" do
+        @transaction_registration.should_receive(:post)
+        @transaction_registration.register!
       end
     end
   end
