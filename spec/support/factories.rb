@@ -43,6 +43,16 @@ module Factories
   def transaction_notification_factory(overrides = {})
     defaults = {
     }
-    SagePay::Server::TransactionNotification.new(defaults.merge(overrides))
+    TransactionNotification.new(defaults.merge(overrides))
   end
+
+  def transaction_notification_response_factory(overrides = {})
+    defaults = {
+      :status        => :ok,
+      :status_detail => "A-OK!",
+      :redirect_url  => "http://test.host/redirect"
+    }
+    TransactionNotificationResponse.new(defaults.merge(overrides))
+  end
+
 end
