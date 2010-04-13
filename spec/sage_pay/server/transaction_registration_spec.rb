@@ -516,7 +516,7 @@ describe TransactionRegistration do
       end
     end
 
-    context "when SagePay returns a useful response" do
+    context "when SagePay can return a useful response" do
       before(:each) do
         @mock_http_response = mock("HTTP response", :code => "200", :body => "mock response body")
         @mock_response = mock("Transaction registration response")
@@ -538,6 +538,21 @@ describe TransactionRegistration do
       it "should post the request to SagePay" do
         @transaction_registration.should_receive(:post)
         @transaction_registration.register!
+      end
+
+      it "should not allow us to attempt to register twice with the same vendor transaction code" do
+        @transaction_registration.register!
+        lambda {
+          @transaction_registration.register!
+        }.should raise_error(RuntimeError, "This vendor transaction code has already been registered")
+      end
+
+      it "should allow us to register twice if we change the vendor transaction code in between times" do
+        @transaction_registration.register!
+        lambda {
+          @transaction_registration.vendor_tx_code = TransactionCode.random
+          @transaction_registration.register!.should == @mock_response
+        }.should_not raise_error(RuntimeError, "This vendor transaction code has already been registered")
       end
     end
   end

@@ -45,7 +45,12 @@ module SagePay
       end
 
       def register!
-        @response ||= handle_response(post)
+        if @response.nil? || (@vendor_tx_code_sent != vendor_tx_code)
+          @vendor_tx_code_sent = vendor_tx_code
+          @response = handle_response(post)
+        else
+          raise RuntimeError, "This vendor transaction code has already been registered"
+        end
       end
 
       def signature_verification_details
