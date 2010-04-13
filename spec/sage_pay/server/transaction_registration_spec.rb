@@ -225,6 +225,12 @@ describe TransactionRegistration do
       transaction_registration.url.should == "https://live.sagepay.com/gateway/service/vspserver-register.vsp"
     end
 
+    it "should raise an error if the mode has been set to something dodgy" do
+      lambda {
+        transaction_registration = transaction_registration_factory(:mode => :dead_chickens)
+        transaction_registration.url
+      }.should raise_error(ArgumentError, "Invalid transaction mode")
+    end
   end
 
   describe "post params generation" do
