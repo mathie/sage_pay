@@ -59,11 +59,11 @@ module SagePay
       end
 
       def malformed?
-        status == :invalid
+        status == :malformed
       end
 
       def error?
-        status == :invalid
+        status == :error
       end
 
       def transaction_id

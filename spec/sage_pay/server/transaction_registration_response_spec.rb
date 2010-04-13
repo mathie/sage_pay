@@ -65,6 +65,116 @@ StatusDetail=4000 : The VendorName is invalid or the account is not active.
       end
     end
 
+    context "with a malformed response" do
+      before(:each) do
+        @response_body = <<-RESPONSE
+VPSProtocol=2.23
+Status=MALFORMED
+StatusDetail=5000 : Your request had too many toes.
+        RESPONSE
+        @response = TransactionRegistrationResponse.from_response_body(@response_body)
+      end
+
+      it "should successfully parse the body" do
+        lambda {
+          TransactionRegistrationResponse.from_response_body(@response_body)
+        }.should_not raise_error
+      end
+
+      it "should report the vps_protocol as '2.23'" do
+        @response.vps_protocol.should == "2.23"
+      end
+
+      it "should report the status as :malformed" do
+        @response.status.should == :malformed
+      end
+
+      it "should report the status detail as the status detail message supplied" do
+        @response.status_detail.should == "5000 : Your request had too many toes."
+      end
+
+      it "should admit to being malformed" do
+        @response.should be_malformed
+      end
+
+      it "should admit to having failed" do
+        @response.should be_failed
+      end
+
+      it "should raise an error if we try to ask for the transaction id" do
+        lambda {
+          @response.transaction_id
+        }.should raise_error RuntimeError, "Unable to retrieve the transaction id as the status was not OK."
+      end
+
+      it "should raise an error if we try to ask for the security key" do
+        lambda {
+          @response.security_key
+        }.should raise_error RuntimeError, "Unable to retrieve the security key as the status was not OK."
+      end
+
+      it "should raise an error if we try to ask for the next URL" do
+        lambda {
+          @response.next_url
+        }.should raise_error RuntimeError, "Unable to retrieve the next URL as the status was not OK."
+      end
+    end
+
+    context "with an error response" do
+      before(:each) do
+        @response_body = <<-RESPONSE
+VPSProtocol=2.23
+Status=ERROR
+StatusDetail=5000 : SagePay blew up.
+        RESPONSE
+        @response = TransactionRegistrationResponse.from_response_body(@response_body)
+      end
+
+      it "should successfully parse the body" do
+        lambda {
+          TransactionRegistrationResponse.from_response_body(@response_body)
+        }.should_not raise_error
+      end
+
+      it "should report the vps_protocol as '2.23'" do
+        @response.vps_protocol.should == "2.23"
+      end
+
+      it "should report the status as :error" do
+        @response.status.should == :error
+      end
+
+      it "should report the status detail as the status detail message supplied" do
+        @response.status_detail.should == "5000 : SagePay blew up."
+      end
+
+      it "should admit to being an error" do
+        @response.should be_error
+      end
+
+      it "should admit to having failed" do
+        @response.should be_failed
+      end
+
+      it "should raise an error if we try to ask for the transaction id" do
+        lambda {
+          @response.transaction_id
+        }.should raise_error RuntimeError, "Unable to retrieve the transaction id as the status was not OK."
+      end
+
+      it "should raise an error if we try to ask for the security key" do
+        lambda {
+          @response.security_key
+        }.should raise_error RuntimeError, "Unable to retrieve the security key as the status was not OK."
+      end
+
+      it "should raise an error if we try to ask for the next URL" do
+        lambda {
+          @response.next_url
+        }.should raise_error RuntimeError, "Unable to retrieve the next URL as the status was not OK."
+      end
+    end
+
     context "with a valid response" do
       before(:each) do
         @response_body = <<-RESPONSE
