@@ -1,4 +1,6 @@
 module Factories
+  include SagePay::Server
+
   def model_factory(model_name, overrides = {})
     send("#{model_name}_factory", overrides)
   end
@@ -13,7 +15,7 @@ module Factories
       :post_code   => "UI62 7BJ",
       :country     => "GB"
     }
-    SagePay::Server::Address.new(defaults.merge(overrides))
+    Address.new(defaults.merge(overrides))
   end
 
   def transaction_registration_factory(overrides = {})
@@ -29,12 +31,18 @@ module Factories
       :billing_address  => address_factory,
       :delivery_address => address_factory
     }
-    transaction_registration = SagePay::Server::TransactionRegistration.new(defaults.merge(overrides))
+    TransactionRegistration.new(defaults.merge(overrides))
   end
 
   def transaction_registration_response_factory(overrides = {})
     defaults = {
     }
-    transaction_registration_response = SagePay::Server::TransactionRegistrationResponse.new(defaults.merge(overrides))
+    TransactionRegistrationResponse.new(defaults.merge(overrides))
+  end
+
+  def transaction_notification_factory(overrides = {})
+    defaults = {
+    }
+    SagePay::Server::TransactionNotification.new(defaults.merge(overrides))
   end
 end
