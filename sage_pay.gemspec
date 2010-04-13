@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   ## If your rubyforge_project name is different, then edit it and comment out
   ## the sub! line in the Rakefile
   s.name              = 'sage_pay'
-  s.version           = '0.1.0'
-  s.date              = '2010-04-07'
+  s.version           = '0.2.0'
+  s.date              = '2010-04-13'
   s.rubyforge_project = 'sage_pay'
 
   ## Make sure your summary is short. The description may be as long
@@ -53,9 +53,31 @@ gateway for accepting credit card payments through your web app.
     README.md
     Rakefile
     lib/sage_pay.rb
+    lib/sage_pay/server.rb
+    lib/sage_pay/server/address.rb
+    lib/sage_pay/server/signature_verification_details.rb
+    lib/sage_pay/server/transaction_code.rb
+    lib/sage_pay/server/transaction_notification.rb
+    lib/sage_pay/server/transaction_notification_response.rb
+    lib/sage_pay/server/transaction_registration.rb
+    lib/sage_pay/server/transaction_registration_response.rb
+    lib/validatable-ext.rb
+    lib/validations/validates_inclusion_of.rb
     sage_pay.gemspec
+    spec/integration/sage_pay/server_spec.rb
+    spec/sage_pay/server/address_spec.rb
+    spec/sage_pay/server/signature_verification_details_spec.rb
+    spec/sage_pay/server/transaction_code_spec.rb
+    spec/sage_pay/server/transaction_notification_response_spec.rb
+    spec/sage_pay/server/transaction_notification_spec.rb
+    spec/sage_pay/server/transaction_registration_response_spec.rb
+    spec/sage_pay/server/transaction_registration_spec.rb
+    spec/sage_pay/server_spec.rb
+    spec/sage_pay_spec.rb
     spec/spec_helper.rb
-    spec/unit/sage_pay_spec.rb
+    spec/support/factories.rb
+    spec/support/integration.rb
+    spec/support/validation_matchers.rb
   ]
   # = MANIFEST =
 
