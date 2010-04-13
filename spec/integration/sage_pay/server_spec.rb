@@ -26,9 +26,20 @@ if run_integration_specs?
         @payment.register!.should_not be_nil
       end
 
-      it "the registered payment should be OK" do
+      it "should be a valid registered payment" do
         registration = @payment.register!
         registration.should be_ok
+      end
+
+      it "should have a next URL" do
+        registration = @payment.register!
+        registration.next_url.should_not be_nil
+      end
+
+      it "should allow us to follow the next URL and the response should be successful" do
+        pending "URI#parse claims that the URL SagePay hands us isn't a valid URI."
+        registration = @payment.register!
+        uri = URI.parse(registration.next_url)
       end
 
       it "should allow us to retrieve signature verification details" do
