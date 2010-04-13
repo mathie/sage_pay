@@ -8,7 +8,7 @@ module SagePay
           "VPSProtocol"  => :vps_protocol,
           "Status"       => :status,
           "StatusDetail" => :status_detail,
-          "VPSTxId"      => :transaction_id,
+          "VPSTxId"      => :vps_tx_id,
           "SecurityKey"  => :security_key,
           "NextURL"      => :next_url
         }
@@ -66,9 +66,9 @@ module SagePay
         status == :error
       end
 
-      def transaction_id
+      def vps_tx_id
         if ok?
-          @transaction_id
+          @vps_tx_id
         else
           raise RuntimeError, "Unable to retrieve the transaction id as the status was not OK."
         end

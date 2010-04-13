@@ -48,7 +48,7 @@ StatusDetail=4000 : The VendorName is invalid or the account is not active.
 
       it "should raise an error if we try to ask for the transaction id" do
         lambda {
-          @response.transaction_id
+          @response.vps_tx_id
         }.should raise_error RuntimeError, "Unable to retrieve the transaction id as the status was not OK."
       end
 
@@ -103,7 +103,7 @@ StatusDetail=5000 : Your request had too many toes.
 
       it "should raise an error if we try to ask for the transaction id" do
         lambda {
-          @response.transaction_id
+          @response.vps_tx_id
         }.should raise_error RuntimeError, "Unable to retrieve the transaction id as the status was not OK."
       end
 
@@ -158,7 +158,7 @@ StatusDetail=5000 : SagePay blew up.
 
       it "should raise an error if we try to ask for the transaction id" do
         lambda {
-          @response.transaction_id
+          @response.vps_tx_id
         }.should raise_error RuntimeError, "Unable to retrieve the transaction id as the status was not OK."
       end
 
@@ -216,7 +216,7 @@ NextURL=https://test.sagepay.com/Simulator/VSPServerPaymentPage.asp?TransactionI
       end
 
       it "should report the transaction id" do
-        @response.transaction_id.should == "{728A5721-B45F-4570-937E-90A16B0A5000}"
+        @response.vps_tx_id.should == "{728A5721-B45F-4570-937E-90A16B0A5000}"
       end
 
       it "should report the security key" do
