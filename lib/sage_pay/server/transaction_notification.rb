@@ -6,7 +6,7 @@ module SagePay
         :threed_secure_status, :cavv, :address_status, :payer_status,
         :card_type, :last_4_digits, :vps_signature
 
-      def self.from_params(params, signature_verification_params = {})
+      def self.from_params(params, signature_verification_details = nil)
         key_converter = {
           "VPSProtocol"    => :vps_protocol,
           "Status"         => :status,
@@ -101,17 +101,17 @@ module SagePay
           end
         end
 
-        unless signature_verification_params.empty?
+        unless signature_verification_details.nil?
           # We need to calculate the VPS signature from the values passed in as
           # additional params from the original registration and notification.
           fields_used_in_signature = [
-            signature_verification_params[:vps_tx_id],
-            signature_verification_params[:vendor_tx_code],
+            signature_verification_details.vps_tx_id,
+            signature_verification_details.vendor_tx_code,
             params["Status"],
             params["TxAuthNo"],
-            signature_verification_params[:vendor_name],
+            signature_verification_details.vendor,
             params["AVSCV2"],
-            signature_verification_params[:security_key],
+            signature_verification_details.security_key,
             params["AddressResult"],
             params["PostCodeResult"],
             params["CV2Result"],

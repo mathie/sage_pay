@@ -45,7 +45,17 @@ module SagePay
       end
 
       def register!
-        handle_response(post)
+        @response ||= handle_response(post)
+      end
+
+      def signature_verification_details
+        if @response.nil?
+          raise RuntimeError, "Transaction not yet registered"
+        elsif @response.failed?
+          raise RuntimeError, "Transaction registration failed"
+        else
+          SignatureVerificationDetails.new(self, @response)
+        end
       end
 
       def url

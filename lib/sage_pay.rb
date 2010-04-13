@@ -13,6 +13,7 @@ require 'validatable-ext'
 
 require 'sage_pay/server/address'
 require 'sage_pay/server/transaction_code'
+require 'sage_pay/server/signature_verification_details'
 require 'sage_pay/server/transaction_registration'
 require 'sage_pay/server/transaction_registration_response'
 require 'sage_pay/server/transaction_notification'

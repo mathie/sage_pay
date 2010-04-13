@@ -12,12 +12,12 @@ describe TransactionNotification do
   describe ".from_params" do
     context "with an OK status" do
       before(:each) do
-        signature_verification_params = {
+        signature_verification_details = mock("Signature verification details",
           :vps_tx_id      => "{728A5721-B45F-4570-937E-90A16B0A5000}",
           :vendor_tx_code => "unique-tx-code",
-          :vendor_name    => "rubaidh",
+          :vendor         => "rubaidh",
           :security_key   => "17F13DCBD8"
-        }
+        )
 
         @params = {
           "VPSProtocol"    => "2.23",
@@ -41,7 +41,7 @@ describe TransactionNotification do
           "VPSSignature"   => "6AB7A7FFB5369AF953CD57A84D5C2979"
         }
 
-        @notification = TransactionNotification.from_params(@params, signature_verification_params)
+        @notification = TransactionNotification.from_params(@params, signature_verification_details)
       end
 
       it "should successfully parse the params" do

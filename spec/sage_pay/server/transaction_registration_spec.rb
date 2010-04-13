@@ -535,4 +535,64 @@ describe TransactionRegistration do
       end
     end
   end
+
+  describe "#signature_verification_details" do
+    before(:each) do
+      mock_response = mock("Transaction registration response", :vps_tx_id => "sage pay transaction id", :security_key => 'security key')
+
+      @transaction_registration = transaction_registration_factory :vendor_tx_code => "vendor transaction id", :vendor => "vendor"
+      @transaction_registration.stub(:handle_response).and_return(mock_response)
+      @transaction_registration.stub(:post)
+    end
+
+    context "before registering a transaction" do
+      it "should raise an error" do
+        lambda {
+          @transaction_registration.signature_verification_details
+        }.should raise_error(RuntimeError, "Transaction not yet registered")
+      end
+    end
+
+    context "with a transaction which failed" do
+      before(:each) do
+        mock_response = mock("Transaction registration response", :failed? => true)
+        @transaction_registration.stub(:handle_response).and_return(mock_response)
+        @transaction_registration.register!
+      end
+
+      it "should raise an error" do
+        lambda {
+          @transaction_registration.signature_verification_details
+        }.should raise_error(RuntimeError, "Transaction registration failed")
+      end
+    end
+
+    context "with a good transaction" do
+      before(:each) do
+        mock_response = mock("Transaction registration response", :failed? => false, :vps_tx_id => "sage pay transaction id", :security_key => 'security key')
+        @transaction_registration.stub(:handle_response).and_return(mock_response)
+        @transaction_registration.register!
+      end
+
+      it "should know the SagePay transaction id" do
+        sig_details = @transaction_registration.signature_verification_details
+        sig_details.vps_tx_id.should == "sage pay transaction id"
+      end
+
+      it "should know the vendor transaction id" do
+        sig_details = @transaction_registration.signature_verification_details
+        sig_details.vendor_tx_code.should == "vendor transaction id"
+      end
+
+      it "should know the vendor" do
+        sig_details = @transaction_registration.signature_verification_details
+        sig_details.vendor.should == "vendor"
+      end
+
+      it "should know the security key" do
+        sig_details = @transaction_registration.signature_verification_details
+        sig_details.security_key.should == "security key"
+      end
+    end
+  end
 end
