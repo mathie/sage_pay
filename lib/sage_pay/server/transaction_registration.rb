@@ -59,7 +59,7 @@ module SagePay
         elsif @response.failed?
           raise RuntimeError, "Transaction registration failed"
         else
-          SignatureVerificationDetails.new(self, @response)
+          @signature_verification_details ||= SignatureVerificationDetails.new(vendor, @response.security_key)
         end
       end
 
