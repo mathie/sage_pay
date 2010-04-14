@@ -37,9 +37,14 @@ if run_integration_specs?
       end
 
       it "should allow us to follow the next URL and the response should be successful" do
-        pending "URI#parse claims that the URL SagePay hands us isn't a valid URI."
         registration = @payment.register!
         uri = URI.parse(registration.next_url)
+        request = Net::HTTP::Get.new(uri.request_uri)
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true if uri.scheme == "https"
+        http.start { |http|
+          http.request(request)
+        }
       end
 
       it "should allow us to retrieve signature verification details" do
