@@ -47,10 +47,8 @@ if run_integration_specs?
         sig_details = @payment.signature_verification_details
 
         sig_details.should_not                be_nil
-        sig_details.vps_tx_id.should_not      be_nil
         sig_details.security_key.should_not   be_nil
         sig_details.vendor.should_not         be_nil
-        sig_details.vendor_tx_code.should_not be_nil
       end
     end
   end

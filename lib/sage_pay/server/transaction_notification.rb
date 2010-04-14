@@ -1,14 +1,18 @@
 module SagePay
   module Server
     class TransactionNotification
-      attr_reader :vps_protocol, :status, :status_detail, :tx_auth_no,
-        :avs_cv2, :address_result, :post_code_result, :cv2_result, :gift_aid,
-        :threed_secure_status, :cavv, :address_status, :payer_status,
-        :card_type, :last_4_digits, :vps_signature
+      attr_reader :vps_protocol, :tx_type, :vendor_tx_code, :vps_tx_id,
+        :status, :status_detail, :tx_auth_no, :avs_cv2, :address_result,
+        :post_code_result, :cv2_result, :gift_aid, :threed_secure_status,
+        :cavv, :address_status, :payer_status,:card_type, :last_4_digits,
+        :vps_signature
 
       def self.from_params(params, signature_verification_details = nil)
         key_converter = {
           "VPSProtocol"    => :vps_protocol,
+          "TxType"         => :tx_type,
+          "VendorTxCode"   => :vendor_tx_code,
+          "VPSTxId"        => :vps_tx_id,
           "Status"         => :status,
           "StatusDetail"   => :status_detail,
           "TxAuthNo"       => :tx_auth_no,
@@ -39,6 +43,11 @@ module SagePay
         }
 
         value_converter = {
+          :tx_type => {
+            "PAYMENT"      => :payment,
+            "DEFERRED"     => :deferred,
+            "AUTHENTICATE" => :authenticate
+          },
           :status => {
             "OK"            => :ok,
             "NOTAUTHED"     => :not_authed,
@@ -105,8 +114,8 @@ module SagePay
           # We need to calculate the VPS signature from the values passed in as
           # additional params from the original registration and notification.
           fields_used_in_signature = [
-            signature_verification_details.vps_tx_id,
-            signature_verification_details.vendor_tx_code,
+            params["VPSTxId"],
+            params["VendorTxCode"],
             params["Status"],
             params["TxAuthNo"],
             signature_verification_details.vendor,

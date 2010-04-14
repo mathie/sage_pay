@@ -595,16 +595,6 @@ describe TransactionRegistration do
         @transaction_registration.register!
       end
 
-      it "should know the SagePay transaction id" do
-        sig_details = @transaction_registration.signature_verification_details
-        sig_details.vps_tx_id.should == "sage pay transaction id"
-      end
-
-      it "should know the vendor transaction id" do
-        sig_details = @transaction_registration.signature_verification_details
-        sig_details.vendor_tx_code.should == "vendor transaction id"
-      end
-
       it "should know the vendor" do
         sig_details = @transaction_registration.signature_verification_details
         sig_details.vendor.should == "vendor"

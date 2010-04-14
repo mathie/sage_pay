@@ -13,8 +13,6 @@ describe TransactionNotification do
     context "with an OK status" do
       before(:each) do
         signature_verification_details = mock("Signature verification details",
-          :vps_tx_id      => "{728A5721-B45F-4570-937E-90A16B0A5000}",
-          :vendor_tx_code => "unique-tx-code",
           :vendor         => "rubaidh",
           :security_key   => "17F13DCBD8"
         )
@@ -22,6 +20,8 @@ describe TransactionNotification do
         @params = {
           "VPSProtocol"    => "2.23",
           "TxType"         => "PAYMENT",
+          "VendorTxCode"   => "unique-tx-code",
+          "VPSTxId"        => "{728A5721-B45F-4570-937E-90A16B0A5000}",
           "Status"         => "OK",
           "StatusDetail"   => "2000 : Card processed successfully.", # FIXME: Make this match reality
           "TxAuthNo"       => "1234567890",
@@ -52,6 +52,18 @@ describe TransactionNotification do
 
       it "should report the vps_protocol as '2.23'" do
         @notification.vps_protocol.should == "2.23"
+      end
+
+      it "should report the tx_type as :payment" do
+        @notification.tx_type.should == :payment
+      end
+
+      it "should report the vendor_tx_code as the vendor tx code supplied" do
+        @notification.vendor_tx_code.should == 'unique-tx-code'
+      end
+
+      it "should report the vps_tx_id as the vps_tx_id supplied" do
+        @notification.vps_tx_id.should == "{728A5721-B45F-4570-937E-90A16B0A5000}"
       end
 
       it "should report the status as :ok" do
