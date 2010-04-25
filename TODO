@@ -1,0 +1,4 @@
+# TODO
+
+* validates_associated to make sure the billing and delivery address are valid.
+* Create a basket class to encapsulate the format of a basket.

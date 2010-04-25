@@ -62,6 +62,7 @@ module SagePay
 
     def self.refund(attributes = {})
       defaults = {
+        :vendor_tx_code => TransactionCode.random,
       }.merge(default_options)
 
       SagePay::Server::Refund.new(defaults.merge(attributes))
