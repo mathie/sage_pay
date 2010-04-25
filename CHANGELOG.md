@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.8
+
+* Refund implementation
+
 ## 0.2.7
 
 * Is abort now implemented?
