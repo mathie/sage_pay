@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.9
+
+* Repeat transaction implementation.
+
 ## 0.2.8
 
 * Refund implementation

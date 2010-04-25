@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   ## If your rubyforge_project name is different, then edit it and comment out
   ## the sub! line in the Rakefile
   s.name              = 'sage_pay'
-  s.version           = '0.2.8.2'
+  s.version           = '0.2.9'
   s.date              = '2010-04-25'
   s.rubyforge_project = 'sage_pay'
 
@@ -67,6 +67,8 @@ gateway for accepting credit card payments through your web app.
     lib/sage_pay/server/registration_response.rb
     lib/sage_pay/server/related_transaction.rb
     lib/sage_pay/server/release.rb
+    lib/sage_pay/server/repeat.rb
+    lib/sage_pay/server/repeat_response.rb
     lib/sage_pay/server/response.rb
     lib/sage_pay/server/signature_verification_details.rb
     lib/sage_pay/server/transaction_code.rb
