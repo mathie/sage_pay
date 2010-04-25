@@ -110,6 +110,10 @@ module SagePay
           end
         end
 
+        if signature_verification_details.nil? && block_given?
+          signature_verification_details = yield(attributes)
+        end
+
         unless signature_verification_details.nil?
           # We need to calculate the VPS signature from the values passed in as
           # additional params from the original registration and notification.

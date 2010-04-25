@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.3
+
+* yield for the signature verification details if there's a block given in the
+  notification.
+
 ## 0.2.2
 
 * Incorporate additional fields I'd missed from the notification. That'll make
