@@ -24,7 +24,7 @@ module SagePay
           "VPSTxId" => vps_tx_id,
           "SecurityKey" => security_key,
           "TxAuthNo" => tx_auth_no,
-          "ReleaseAmount" => ("%.2f" % amount)
+          "ReleaseAmount" => ("%.2f" % release_amount)
         })
       end
 
