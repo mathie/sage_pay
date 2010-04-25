@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.10
+
+* Authorise support, I hope, which, again I hope, will make repeat actually work.
+
 ## 0.2.9
 
 * Repeat transaction implementation.
