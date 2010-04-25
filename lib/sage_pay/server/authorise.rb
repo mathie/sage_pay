@@ -1,7 +1,8 @@
 module SagePay
   module Server
     class Authorise < Command
-      attr_accessor :amount, :description, :related_transaction, :apply_avs_cv2
+      attr_accessor :description, :related_transaction, :apply_avs_cv2
+      decimal_accessor :amount
 
       validates_presence_of :amount, :description, :related_transaction
 
@@ -27,10 +28,6 @@ module SagePay
         params['ApplyAVSCV2'] = apply_avs_cv2.to_s if apply_avs_cv2.present?
 
         params
-      end
-
-      def amount=(value)
-        @amount = blank?(value) ? nil : BigDecimal.new(value.to_s)
       end
 
       def response_from_response_body(response_body)

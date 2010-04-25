@@ -43,19 +43,10 @@ module SagePay
         ]
 
         # Optional parameters that are only inserted if they are present
-        params << ['StatusDetail', status_detail] if present?(status_detail)
+        params << ['StatusDetail', status_detail] if status_detail.present?
 
         # And return the completed hash
         params
-      end
-
-      private
-      def present?(value)
-        !blank?(value)
-      end
-
-      def blank?(value)
-        value.nil? || (value.respond_to?(:empty?) && value.empty?)
       end
     end
   end

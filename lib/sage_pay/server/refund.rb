@@ -1,7 +1,8 @@
 module SagePay
   module Server
     class Refund < Command
-      attr_accessor :amount, :currency, :description, :related_transaction
+      attr_accessor :currency, :description, :related_transaction
+      decimal_accessor :amount
 
       validates_presence_of :amount, :currency, :description, :related_transaction
 
@@ -24,10 +25,6 @@ module SagePay
           "Currency"    => currency,
           "Description" => description
         }).merge(related_transaction.post_params)
-      end
-
-      def amount=(value)
-        @amount = blank?(value) ? nil : BigDecimal.new(value.to_s)
       end
 
       def response_from_response_body(response_body)

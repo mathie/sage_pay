@@ -1,7 +1,8 @@
 module SagePay
   module Server
     class Repeat < Command
-      attr_accessor :amount, :currency, :description, :related_transaction, :cv2
+      attr_accessor :currency, :description, :related_transaction, :cv2
+      decimal_accessor :amount
 
       validates_presence_of :amount, :currency, :description, :related_transaction
 
@@ -28,10 +29,6 @@ module SagePay
         params["CV2"] = cv2 if cv2.present?
 
         params
-      end
-
-      def amount=(value)
-        @amount = blank?(value) ? nil : BigDecimal.new(value.to_s)
       end
 
       def response_from_response_body(response_body)

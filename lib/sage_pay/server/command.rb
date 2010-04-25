@@ -15,6 +15,15 @@ module SagePay
 
       validates_inclusion_of :mode, :allow_blank => true, :in => [ :simulator, :test, :live ]
 
+      def self.decimal_accessor(*attrs)
+        attrs.each do |attr|
+          attr_reader attr
+          define_method("#{attr}=") do |value|
+            instance_variable_set("@#{attr}", value.blank? ? nil : BigDecimal.new(value.to_s))
+          end
+        end
+      end
+
       def initialize(attributes = {})
         @vps_protocol = "2.23"
 
@@ -84,14 +93,6 @@ module SagePay
           # FIXME: custom error response would be nice.
           raise RuntimeError, "I guess SagePay doesn't like us today."
         end
-      end
-
-      def present?(value)
-        !blank?(value)
-      end
-
-      def blank?(value)
-        value.nil? || (value.respond_to?(:empty?) && value.empty?)
       end
     end
   end

@@ -1,7 +1,8 @@
 module SagePay
   module Server
     class Release < Command
-      attr_accessor :vps_tx_id, :security_key, :tx_auth_no, :release_amount
+      attr_accessor :vps_tx_id, :security_key, :tx_auth_no
+      decimal_accessor :release_amount
 
       validates_presence_of :vps_tx_id, :security_key, :tx_auth_no,
         :release_amount
@@ -26,10 +27,6 @@ module SagePay
           "TxAuthNo" => tx_auth_no,
           "ReleaseAmount" => ("%.2f" % release_amount)
         })
-      end
-
-      def release_amount=(value)
-        @release_amount = blank?(value) ? nil : BigDecimal.new(value.to_s)
       end
 
       def live_service

@@ -1,10 +1,11 @@
 module SagePay
   module Server
     class Registration < Command
-      attr_accessor :amount, :currency, :description, :notification_url,
+      attr_accessor :currency, :description, :notification_url,
         :billing_address, :delivery_address, :customer_email, :basket,
         :allow_gift_aid, :apply_avs_cv2, :apply_3d_secure, :profile,
         :billing_agreement, :account_type
+      decimal_accessor :amount
 
       validates_presence_of :amount, :currency, :description,
         :notification_url, :billing_address, :delivery_address
@@ -74,20 +75,20 @@ module SagePay
         })
 
         # Optional parameters that are only inserted if they are present
-        params['BillingAddress2']  = billing_address.address_2     if present?(billing_address.address_2)
-        params['BillingState']     = billing_address.state         if present?(billing_address.state)
-        params['BillingPhone']     = billing_address.phone         if present?(billing_address.phone)
-        params['DeliveryAddress2'] = delivery_address.address_2    if present?(delivery_address.address_2)
-        params['DeliveryState']    = delivery_address.state        if present?(delivery_address.state)
-        params['DeliveryPhone']    = delivery_address.phone        if present?(delivery_address.phone)
-        params['CustomerEmail']    = customer_email                if present?(customer_email)
-        params['Basket']           = basket                        if present?(basket)
-        params['AllowGiftAid']     = allow_gift_aid ? "1" : "0"    if present?(allow_gift_aid)
-        params['ApplyAVSCV2']      = apply_avs_cv2.to_s            if present?(apply_avs_cv2)
-        params['Apply3DSecure']    = apply_3d_secure.to_s          if present?(apply_3d_secure)
-        params['Profile']          = profile.to_s.upcase           if present?(profile)
-        params['BillingAgreement'] = billing_agreement ? "1" : "0" if present?(billing_agreement)
-        params['AccountType']      = account_type_param            if present?(account_type)
+        params['BillingAddress2']  = billing_address.address_2     if billing_address.address_2.present?
+        params['BillingState']     = billing_address.state         if billing_address.state.present?
+        params['BillingPhone']     = billing_address.phone         if billing_address.phone.present?
+        params['DeliveryAddress2'] = delivery_address.address_2    if delivery_address.address_2.present?
+        params['DeliveryState']    = delivery_address.state        if delivery_address.state.present?
+        params['DeliveryPhone']    = delivery_address.phone        if delivery_address.phone.present?
+        params['CustomerEmail']    = customer_email                if customer_email.present?
+        params['Basket']           = basket                        if basket.present?
+        params['AllowGiftAid']     = allow_gift_aid ? "1" : "0"    if allow_gift_aid.present? || allow_gift_aid == false
+        params['ApplyAVSCV2']      = apply_avs_cv2.to_s            if apply_avs_cv2.present?
+        params['Apply3DSecure']    = apply_3d_secure.to_s          if apply_3d_secure.present?
+        params['Profile']          = profile.to_s.upcase           if profile.present?
+        params['BillingAgreement'] = billing_agreement ? "1" : "0" if billing_agreement.present? || billing_agreement == false
+        params['AccountType']      = account_type_param            if account_type.present?
 
         # And return the completed hash
         params
@@ -95,10 +96,6 @@ module SagePay
 
       def response_from_response_body(response_body)
         RegistrationResponse.from_response_body(response_body)
-      end
-
-      def amount=(value)
-        @amount = blank?(value) ? nil : BigDecimal.new(value.to_s)
       end
 
       private
