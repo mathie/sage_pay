@@ -1,6 +1,8 @@
 module SagePay
   module Server
     class Authorise < Command
+      self.tx_type = :authorise
+
       attr_accessor :description, :related_transaction, :apply_avs_cv2
       decimal_accessor :amount
 
@@ -8,16 +10,10 @@ module SagePay
 
       validates_length_of :description, :maximum => 100
 
-      validates_inclusion_of :tx_type,       :allow_blank => true, :in => [ :authorise ]
       validates_inclusion_of :apply_avs_cv2, :allow_blank => true, :in => (0..3).to_a
 
       validates_true_for :amount, :key => :amount_minimum_value, :logic => lambda { amount.nil? || amount >= BigDecimal.new("0.01")   }, :message => "is less than the minimum value (0.01)"
       validates_true_for :amount, :key => :amount_maximum_value, :logic => lambda { amount.nil? || amount <= BigDecimal.new("100000") }, :message => "is greater than the maximum value (100,000.00)"
-
-      def initialize(attributes = {})
-        @tx_type = :authorise
-        super
-      end
 
       def post_params
         params = super.merge({

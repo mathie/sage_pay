@@ -3,8 +3,10 @@ module SagePay
     class Command
       include Validatable
 
-      attr_reader :vps_protocol
-      attr_accessor :mode, :tx_type, :vendor, :vendor_tx_code
+      class_inheritable_accessor :tx_type, :vps_protocol
+      self.vps_protocol = "2.23"
+
+      attr_accessor :mode, :vendor, :vendor_tx_code
 
       validates_presence_of :vps_protocol, :mode, :tx_type, :vendor,
         :vendor_tx_code
@@ -25,8 +27,6 @@ module SagePay
       end
 
       def initialize(attributes = {})
-        @vps_protocol = "2.23"
-
         attributes.each do |k, v|
           send("#{k}=", v)
         end

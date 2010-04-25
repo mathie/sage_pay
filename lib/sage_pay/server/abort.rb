@@ -1,19 +1,14 @@
 module SagePay
   module Server
     class Abort < Command
+      self.tx_type = :abort
+
       attr_accessor :vps_tx_id, :security_key, :tx_auth_no
 
       validates_presence_of :vps_tx_id, :security_key, :tx_auth_no
 
       validates_length_of :vps_tx_id,    :is => 38
       validates_length_of :security_key, :is => 10
-
-      validates_inclusion_of :tx_type, :allow_blank => true, :in => [ :abort ]
-
-      def initialize(attributes = {})
-        @tx_type = :abort
-        super
-      end
 
       def post_params
         super.merge({
