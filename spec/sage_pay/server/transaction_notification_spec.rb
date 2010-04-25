@@ -10,36 +10,38 @@ describe TransactionNotification do
   end
 
   describe ".from_params" do
+    before(:each) do
+      @params = {
+        "VPSProtocol"    => "2.23",
+        "TxType"         => "PAYMENT",
+        "VendorTxCode"   => "unique-tx-code",
+        "VPSTxId"        => "{728A5721-B45F-4570-937E-90A16B0A5000}",
+        "Status"         => "OK",
+        "StatusDetail"   => "2000 : Card processed successfully.", # FIXME: Make this match reality
+        "TxAuthNo"       => "1234567890",
+        "AVSCV2"         => "ALL MATCH",
+        "AddressResult"  => "MATCHED",
+        "PostCodeResult" => "MATCHED",
+        "CV2Result"      => "MATCHED",
+        "GiftAid"        => "0",
+        "3DSecureStatus" => "OK",
+        "CAVV"           => "Something?",
+        "AddressStatus"  => "CONFIRMED",
+        "PayerStatus"    => "VERIFIED",
+        "CardType"       => "VISA",
+        "Last4Digits"    => "1234",
+        # FIXME: Calculated manually using the information above. Should
+        # really get one from a sample transaction...
+        "VPSSignature"   => "6AB7A7FFB5369AF953CD57A84D5C2979"
+      }
+    end
+
     context "with an OK status" do
       before(:each) do
         signature_verification_details = mock("Signature verification details",
           :vendor         => "rubaidh",
           :security_key   => "17F13DCBD8"
         )
-
-        @params = {
-          "VPSProtocol"    => "2.23",
-          "TxType"         => "PAYMENT",
-          "VendorTxCode"   => "unique-tx-code",
-          "VPSTxId"        => "{728A5721-B45F-4570-937E-90A16B0A5000}",
-          "Status"         => "OK",
-          "StatusDetail"   => "2000 : Card processed successfully.", # FIXME: Make this match reality
-          "TxAuthNo"       => "1234567890",
-          "AVSCV2"         => "ALL MATCH",
-          "AddressResult"  => "MATCHED",
-          "PostCodeResult" => "MATCHED",
-          "CV2Result"      => "MATCHED",
-          "GiftAid"        => "0",
-          "3DSecureStatus" => "OK",
-          "CAVV"           => "Something?",
-          "AddressStatus"  => "CONFIRMED",
-          "PayerStatus"    => "VERIFIED",
-          "CardType"       => "VISA",
-          "Last4Digits"    => "1234",
-          # FIXME: Calculated manually using the information above. Should
-          # really get one from a sample transaction...
-          "VPSSignature"   => "6AB7A7FFB5369AF953CD57A84D5C2979"
-        }
 
         @notification = TransactionNotification.from_params(@params, signature_verification_details)
       end
@@ -148,6 +150,42 @@ describe TransactionNotification do
 
       it "should report that the vps signature is valid" do
         @notification.should be_valid_signature
+      end
+
+      it "should generate a successful response" do
+        mock_notification_response = mock(TransactionNotificationResponse, :response => "some response")
+        TransactionNotificationResponse.should_receive(:new).with(:status => :ok, :redirect_url => "mock redirect url").and_return(mock_notification_response)
+        @notification.response("mock redirect url").should == "some response"
+      end
+    end
+
+    context "with an invalid signature" do
+      before(:each) do
+        signature_verification_details = mock("Signature verification details",
+          :vendor         => "rubaidh",
+          :security_key   => "different security key"
+        )
+
+        @notification = TransactionNotification.from_params(@params, signature_verification_details)
+      end
+
+      it "should generate a failed response" do
+        mock_notification_response = mock(TransactionNotificationResponse, :response => "can haz failure")
+        TransactionNotificationResponse.should_receive(:new).with(:status => :invalid, :redirect_url => "mock redirect url", :status_detail => "Signature did not match our expectations").and_return(mock_notification_response)
+        @notification.response("mock redirect url").should == "can haz failure"
+      end
+    end
+
+    context "with a block supplied for the signature verification details" do
+      it "should still validate the signature correctly" do
+        notification = TransactionNotification.from_params(@params) do |attributes|
+          mock("Signature verification details",
+            :vendor         => "rubaidh",
+            :security_key   => "17F13DCBD8"
+          )
+        end
+
+        notification.should be_valid_signature
       end
     end
   end
