@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.5
+
+* Carriage return and line feed. These will all be compressed into a 0.3
+  release, but I need to keep releasing so that Heroku can pick 'em up... :-/
+
 ## 0.2.4
 
 * Generate the appropriate response.
