@@ -30,6 +30,10 @@ module SagePay
         @amount = blank?(value) ? nil : BigDecimal.new(value.to_s)
       end
 
+      def response_from_response_body(response_body)
+        RefundResponse.from_response_body(response_body)
+      end
+
       def live_service
         "refund"
       end
