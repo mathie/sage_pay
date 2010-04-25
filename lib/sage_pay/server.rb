@@ -48,5 +48,12 @@ module SagePay
 
       SagePay::Server::Release.new(defaults.merge(attributes))
     end
+
+    def self.abort(attributes = {})
+      defaults = {
+      }.merge(default_options)
+
+      SagePay::Server::Abort.new(defaults.merge(attributes))
+    end
   end
 end
