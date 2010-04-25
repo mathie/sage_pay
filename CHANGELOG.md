@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.6
+
+* Is release implemented?
+
 ## 0.2.5
 
 * Carriage return and line feed. These will all be compressed into a 0.3

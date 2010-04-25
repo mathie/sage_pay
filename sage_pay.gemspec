@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   ## If your rubyforge_project name is different, then edit it and comment out
   ## the sub! line in the Rakefile
   s.name              = 'sage_pay'
-  s.version           = '0.2.5'
+  s.version           = '0.2.6'
   s.date              = '2010-04-25'
   s.rubyforge_project = 'sage_pay'
 
@@ -56,24 +56,27 @@ gateway for accepting credit card payments through your web app.
     lib/sage_pay.rb
     lib/sage_pay/server.rb
     lib/sage_pay/server/address.rb
+    lib/sage_pay/server/command.rb
+    lib/sage_pay/server/notification.rb
+    lib/sage_pay/server/notification_response.rb
+    lib/sage_pay/server/registration.rb
+    lib/sage_pay/server/registration_response.rb
+    lib/sage_pay/server/release.rb
+    lib/sage_pay/server/response.rb
     lib/sage_pay/server/signature_verification_details.rb
     lib/sage_pay/server/transaction_code.rb
-    lib/sage_pay/server/transaction_notification.rb
-    lib/sage_pay/server/transaction_notification_response.rb
-    lib/sage_pay/server/transaction_registration.rb
-    lib/sage_pay/server/transaction_registration_response.rb
     lib/sage_pay/uri_fixups.rb
     lib/validatable-ext.rb
     lib/validations/validates_inclusion_of.rb
     sage_pay.gemspec
     spec/integration/sage_pay/server_spec.rb
     spec/sage_pay/server/address_spec.rb
+    spec/sage_pay/server/notification_response_spec.rb
+    spec/sage_pay/server/notification_spec.rb
+    spec/sage_pay/server/registration_response_spec.rb
+    spec/sage_pay/server/registration_spec.rb
     spec/sage_pay/server/signature_verification_details_spec.rb
     spec/sage_pay/server/transaction_code_spec.rb
-    spec/sage_pay/server/transaction_notification_response_spec.rb
-    spec/sage_pay/server/transaction_notification_spec.rb
-    spec/sage_pay/server/transaction_registration_response_spec.rb
-    spec/sage_pay/server/transaction_registration_spec.rb
     spec/sage_pay/server_spec.rb
     spec/sage_pay_spec.rb
     spec/spec_helper.rb
