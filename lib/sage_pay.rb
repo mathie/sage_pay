@@ -7,7 +7,7 @@ require 'md5'
 require 'uuid'
 
 module SagePay
-  VERSION = '0.2.6.2'
+  VERSION = '0.2.7'
 end
 
 require 'validatable-ext'
@@ -23,4 +23,5 @@ require 'sage_pay/server/registration_response'
 require 'sage_pay/server/notification'
 require 'sage_pay/server/notification_response'
 require 'sage_pay/server/release'
+require 'sage_pay/server/abort'
 require 'sage_pay/server'

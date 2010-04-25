@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.7
+
+* Is abort now implemented?
+
 ## 0.2.6
 
 * Is release implemented?
