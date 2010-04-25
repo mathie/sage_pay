@@ -18,7 +18,7 @@ module SagePay
     # The notification URL is only relevant to registration options, but the
     # rest are relevant to all requests.
     def self.default_options
-      @default_options ||= default_registration_options.except(:notification_url)
+      default_registration_options.except(:notification_url)
     end
 
     def self.related_transaction(attributes = {})
@@ -66,6 +66,14 @@ module SagePay
       }.merge(default_options)
 
       SagePay::Server::Refund.new(defaults.merge(attributes))
+    end
+
+    def self.repeat(attributes = {})
+      defaults = {
+        :vendor_tx_code => TransactionCode.random,
+      }.merge(default_options)
+
+      SagePay::Server::Repeat.new(defaults.merge(attributes))
     end
   end
 end

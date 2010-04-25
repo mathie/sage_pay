@@ -49,19 +49,19 @@ StatusDetail=4000 : The VendorName is invalid or the account is not active.
       it "should raise an error if we try to ask for the transaction id" do
         lambda {
           @response.vps_tx_id
-        }.should raise_error RuntimeError, "Unable to retrieve the transaction id as the status was not OK."
+        }.should raise_error RuntimeError, "Unable to retrieve vps_tx_id as the status was invalid (not OK)."
       end
 
       it "should raise an error if we try to ask for the security key" do
         lambda {
           @response.security_key
-        }.should raise_error RuntimeError, "Unable to retrieve the security key as the status was not OK."
+        }.should raise_error RuntimeError, "Unable to retrieve security_key as the status was invalid (not OK)."
       end
 
       it "should raise an error if we try to ask for the next URL" do
         lambda {
           @response.next_url
-        }.should raise_error RuntimeError, "Unable to retrieve the next URL as the status was not OK."
+        }.should raise_error RuntimeError, "Unable to retrieve next_url as the status was invalid (not OK)."
       end
     end
 
@@ -104,19 +104,19 @@ StatusDetail=5000 : Your request had too many toes.
       it "should raise an error if we try to ask for the transaction id" do
         lambda {
           @response.vps_tx_id
-        }.should raise_error RuntimeError, "Unable to retrieve the transaction id as the status was not OK."
+        }.should raise_error RuntimeError, "Unable to retrieve vps_tx_id as the status was malformed (not OK)."
       end
 
       it "should raise an error if we try to ask for the security key" do
         lambda {
           @response.security_key
-        }.should raise_error RuntimeError, "Unable to retrieve the security key as the status was not OK."
+        }.should raise_error RuntimeError, "Unable to retrieve security_key as the status was malformed (not OK)."
       end
 
       it "should raise an error if we try to ask for the next URL" do
         lambda {
           @response.next_url
-        }.should raise_error RuntimeError, "Unable to retrieve the next URL as the status was not OK."
+        }.should raise_error RuntimeError, "Unable to retrieve next_url as the status was malformed (not OK)."
       end
     end
 
@@ -159,19 +159,19 @@ StatusDetail=5000 : SagePay blew up.
       it "should raise an error if we try to ask for the transaction id" do
         lambda {
           @response.vps_tx_id
-        }.should raise_error RuntimeError, "Unable to retrieve the transaction id as the status was not OK."
+        }.should raise_error RuntimeError, "Unable to retrieve vps_tx_id as the status was error (not OK)."
       end
 
       it "should raise an error if we try to ask for the security key" do
         lambda {
           @response.security_key
-        }.should raise_error RuntimeError, "Unable to retrieve the security key as the status was not OK."
+        }.should raise_error RuntimeError, "Unable to retrieve security_key as the status was error (not OK)."
       end
 
       it "should raise an error if we try to ask for the next URL" do
         lambda {
           @response.next_url
-        }.should raise_error RuntimeError, "Unable to retrieve the next URL as the status was not OK."
+        }.should raise_error RuntimeError, "Unable to retrieve next_url as the status was error (not OK)."
       end
     end
 

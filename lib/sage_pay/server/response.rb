@@ -1,7 +1,7 @@
 module SagePay
   module Server
     class Response
-      class_inheritable_hash :key_converter, :value_converter, :instance_writer => false
+      class_inheritable_hash :key_converter, :value_converter, :match_converter, :instance_writer => false
 
       self.key_converter = {
         "VPSProtocol"  => :vps_protocol,
@@ -18,7 +18,26 @@ module SagePay
         }
       }
 
+      self.match_converter = {
+        "NOTPROVIDED" => :not_provided,
+        "NOTCHECKED"  => :not_checked,
+        "MATCHED"     => :matched,
+        "NOTMATCHED"  => :not_matched
+      }
+
       attr_reader :vps_protocol, :status, :status_detail
+
+      def self.attr_accessor_if_ok(*attrs)
+        attrs.each do |attr|
+          define_method(attr) do
+            if ok?
+              instance_variable_get("@#{attr}")
+            else
+              raise RuntimeError, "Unable to retrieve #{attr} as the status was #{status} (not OK)."
+            end
+          end
+        end
+      end
 
       def self.from_response_body(response_body)
         attributes = {}
