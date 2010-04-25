@@ -25,7 +25,7 @@ module SagePay
         :delivery_address => attributes[:billing_address]
       }.merge(default_registration_options)
 
-      SagePay::Server::TransactionRegistration.new(defaults.merge(attributes))
+      SagePay::Server::Registration.new(defaults.merge(attributes))
     end
   end
 end

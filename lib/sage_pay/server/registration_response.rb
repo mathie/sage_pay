@@ -1,6 +1,6 @@
 module SagePay
   module Server
-    class TransactionRegistrationResponse
+    class RegistrationResponse
       attr_reader :vps_protocol, :status, :status_detail
 
       def self.from_response_body(response_body)

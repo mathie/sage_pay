@@ -1,6 +1,6 @@
 module SagePay
   module Server
-    class TransactionRegistration < Command
+    class Registration < Command
       attr_accessor :amount, :currency, :description, :notification_url,
         :billing_address, :delivery_address, :customer_email, :basket,
         :allow_gift_aid, :apply_avs_cv2, :apply_3d_secure, :profile,
@@ -37,9 +37,9 @@ module SagePay
 
       def signature_verification_details
         if @response.nil?
-          raise RuntimeError, "Transaction not yet registered"
+          raise RuntimeError, "Not yet registered"
         elsif @response.failed?
-          raise RuntimeError, "Transaction registration failed"
+          raise RuntimeError, "Registration failed"
         else
           @signature_verification_details ||= SignatureVerificationDetails.new(vendor, @response.security_key)
         end
@@ -94,7 +94,7 @@ module SagePay
       end
 
       def response_from_response_body(response_body)
-        TransactionRegistrationResponse.from_response_body(response_body)
+        RegistrationResponse.from_response_body(response_body)
       end
 
       def amount=(value)

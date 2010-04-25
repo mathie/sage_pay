@@ -18,7 +18,7 @@ module Factories
     Address.new(defaults.merge(overrides))
   end
 
-  def transaction_registration_factory(overrides = {})
+  def registration_factory(overrides = {})
     defaults = {
       :mode             => :test,
       :tx_type          => :payment,
@@ -31,28 +31,28 @@ module Factories
       :billing_address  => address_factory,
       :delivery_address => address_factory
     }
-    TransactionRegistration.new(defaults.merge(overrides))
+    Registration.new(defaults.merge(overrides))
   end
 
-  def transaction_registration_response_factory(overrides = {})
+  def registration_response_factory(overrides = {})
     defaults = {
     }
-    TransactionRegistrationResponse.new(defaults.merge(overrides))
+    RegistrationResponse.new(defaults.merge(overrides))
   end
 
-  def transaction_notification_factory(overrides = {})
+  def notification_factory(overrides = {})
     defaults = {
     }
-    TransactionNotification.new(defaults.merge(overrides))
+    Notification.new(defaults.merge(overrides))
   end
 
-  def transaction_notification_response_factory(overrides = {})
+  def notification_response_factory(overrides = {})
     defaults = {
       :status        => :ok,
       :status_detail => "A-OK!",
       :redirect_url  => "http://test.host/redirect"
     }
-    TransactionNotificationResponse.new(defaults.merge(overrides))
+    NotificationResponse.new(defaults.merge(overrides))
   end
 
 end

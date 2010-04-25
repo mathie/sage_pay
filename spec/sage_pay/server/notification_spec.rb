@@ -2,10 +2,10 @@ require 'spec_helper'
 
 include SagePay::Server
 
-describe TransactionNotification do
+describe Notification do
   it "should work straight from the factory" do
     lambda {
-      transaction_notification_factory.should_not be_nil
+      notification_factory.should_not be_nil
     }.should_not raise_error
   end
 
@@ -43,12 +43,12 @@ describe TransactionNotification do
           :security_key   => "17F13DCBD8"
         )
 
-        @notification = TransactionNotification.from_params(@params, signature_verification_details)
+        @notification = Notification.from_params(@params, signature_verification_details)
       end
 
       it "should successfully parse the params" do
         lambda {
-          TransactionNotification.from_params(@params).should_not be_nil
+          Notification.from_params(@params).should_not be_nil
         }.should_not raise_error
       end
 
@@ -153,8 +153,8 @@ describe TransactionNotification do
       end
 
       it "should generate a successful response" do
-        mock_notification_response = mock(TransactionNotificationResponse, :response => "some response")
-        TransactionNotificationResponse.should_receive(:new).with(:status => :ok, :redirect_url => "mock redirect url").and_return(mock_notification_response)
+        mock_notification_response = mock(NotificationResponse, :response => "some response")
+        NotificationResponse.should_receive(:new).with(:status => :ok, :redirect_url => "mock redirect url").and_return(mock_notification_response)
         @notification.response("mock redirect url").should == "some response"
       end
     end
@@ -166,19 +166,19 @@ describe TransactionNotification do
           :security_key   => "different security key"
         )
 
-        @notification = TransactionNotification.from_params(@params, signature_verification_details)
+        @notification = Notification.from_params(@params, signature_verification_details)
       end
 
       it "should generate a failed response" do
-        mock_notification_response = mock(TransactionNotificationResponse, :response => "can haz failure")
-        TransactionNotificationResponse.should_receive(:new).with(:status => :invalid, :redirect_url => "mock redirect url", :status_detail => "Signature did not match our expectations").and_return(mock_notification_response)
+        mock_notification_response = mock(NotificationResponse, :response => "can haz failure")
+        NotificationResponse.should_receive(:new).with(:status => :invalid, :redirect_url => "mock redirect url", :status_detail => "Signature did not match our expectations").and_return(mock_notification_response)
         @notification.response("mock redirect url").should == "can haz failure"
       end
     end
 
     context "with a block supplied for the signature verification details" do
       it "should still validate the signature correctly" do
-        notification = TransactionNotification.from_params(@params) do |attributes|
+        notification = Notification.from_params(@params) do |attributes|
           mock("Signature verification details",
             :vendor         => "rubaidh",
             :security_key   => "17F13DCBD8"

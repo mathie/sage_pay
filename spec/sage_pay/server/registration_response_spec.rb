@@ -2,10 +2,10 @@ require 'spec_helper'
 
 include SagePay::Server
 
-describe TransactionRegistrationResponse do
+describe RegistrationResponse do
   it "should work straight from the factory" do
     lambda {
-      transaction_registration_response_factory.should_not be_nil
+      registration_response_factory.should_not be_nil
     }.should_not raise_error
   end
 
@@ -17,12 +17,12 @@ VPSProtocol=2.23
 Status=INVALID
 StatusDetail=4000 : The VendorName is invalid or the account is not active.
         RESPONSE
-        @response = TransactionRegistrationResponse.from_response_body(@response_body)
+        @response = RegistrationResponse.from_response_body(@response_body)
       end
 
       it "should successfully parse the body" do
         lambda {
-          TransactionRegistrationResponse.from_response_body(@response_body)
+          RegistrationResponse.from_response_body(@response_body)
         }.should_not raise_error
       end
 
@@ -72,12 +72,12 @@ VPSProtocol=2.23
 Status=MALFORMED
 StatusDetail=5000 : Your request had too many toes.
         RESPONSE
-        @response = TransactionRegistrationResponse.from_response_body(@response_body)
+        @response = RegistrationResponse.from_response_body(@response_body)
       end
 
       it "should successfully parse the body" do
         lambda {
-          TransactionRegistrationResponse.from_response_body(@response_body)
+          RegistrationResponse.from_response_body(@response_body)
         }.should_not raise_error
       end
 
@@ -127,12 +127,12 @@ VPSProtocol=2.23
 Status=ERROR
 StatusDetail=5000 : SagePay blew up.
         RESPONSE
-        @response = TransactionRegistrationResponse.from_response_body(@response_body)
+        @response = RegistrationResponse.from_response_body(@response_body)
       end
 
       it "should successfully parse the body" do
         lambda {
-          TransactionRegistrationResponse.from_response_body(@response_body)
+          RegistrationResponse.from_response_body(@response_body)
         }.should_not raise_error
       end
 
@@ -186,12 +186,12 @@ SecurityKey=17F13DCBD8
 NextURL=https://test.sagepay.com/Simulator/VSPServerPaymentPage.asp?TransactionID={728A5721-B45F-4570-937E-90A16B0A5000}
         RESPONSE
 
-        @response = TransactionRegistrationResponse.from_response_body(@response_body)
+        @response = RegistrationResponse.from_response_body(@response_body)
       end
 
       it "should successfully parse the body" do
         lambda {
-          TransactionRegistrationResponse.from_response_body(@response_body)
+          RegistrationResponse.from_response_body(@response_body)
         }.should_not raise_error
       end
 
