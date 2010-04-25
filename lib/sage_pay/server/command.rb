@@ -60,7 +60,7 @@ module SagePay
       end
 
       def response_from_response_body(response_body)
-        raise NotImplementedError, "Subclass of command must implement response_from_response_body to generate a response object of the right type."
+        Response.from_response_body(response_body)
       end
 
       private

@@ -15,8 +15,22 @@ module SagePay
     # of your environment files, if you're doing this with a Rails app.
     self.default_registration_options = {}
 
+    # The notification URL is only relevant to registration options, but the
+    # rest are relevant to all requests.
+    def self.default_options
+      @default_options ||= default_registration_options.except(:notification_url)
+    end
+
     def self.payment(attributes = {})
       registration({ :tx_type => :payment }.merge(attributes))
+    end
+
+    def self.deferred(attributes = {})
+      registration({ :tx_type => :deferred }.merge(attributes))
+    end
+
+    def self.authenticate(attributes = {})
+      registration({ :tx_type => :authenticate }.merge(attributes))
     end
 
     def self.registration(attributes)
@@ -26,6 +40,13 @@ module SagePay
       }.merge(default_registration_options)
 
       SagePay::Server::Registration.new(defaults.merge(attributes))
+    end
+
+    def self.release(attributes = {})
+      defaults = {
+      }.merge(default_options)
+
+      SagePay::Server::Release.new(defaults.merge(attributes))
     end
   end
 end
