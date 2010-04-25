@@ -177,6 +177,14 @@ module SagePay
       def valid_signature?
         @calculated_hash == vps_signature
       end
+
+      def response(redirect_url)
+        if valid_signature?
+          SagePay::Server::TransactionNotificationResponse.new(:status => :ok, :redirect_url => redirect_url)
+        else
+          SagePay::Server::TransactionNotificationResponse.new(:status => :invalid, :redirect_url => redirect_url, :status_detail => "Signature did not match our expectations")
+        end.response
+      end
     end
   end
 end
