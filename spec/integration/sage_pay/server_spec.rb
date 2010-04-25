@@ -23,21 +23,21 @@ if run_integration_specs?
       end
 
       it "should successfully register the payment with SagePay" do
-        @payment.register!.should_not be_nil
+        @payment.run!.should_not be_nil
       end
 
       it "should be a valid registered payment" do
-        registration = @payment.register!
+        registration = @payment.run!
         registration.should be_ok
       end
 
       it "should have a next URL" do
-        registration = @payment.register!
+        registration = @payment.run!
         registration.next_url.should_not be_nil
       end
 
       it "should allow us to follow the next URL and the response should be successful" do
-        registration = @payment.register!
+        registration = @payment.run!
         uri = URI.parse(registration.next_url)
         request = Net::HTTP::Get.new(uri.request_uri)
         http = Net::HTTP.new(uri.host, uri.port)
@@ -48,7 +48,7 @@ if run_integration_specs?
       end
 
       it "should allow us to retrieve signature verification details" do
-        @payment.register!
+        @payment.run!
         sig_details = @payment.signature_verification_details
 
         sig_details.should_not                be_nil

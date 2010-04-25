@@ -502,7 +502,7 @@ describe TransactionRegistration do
     end
   end
 
-  describe "#register!" do
+  describe "#run!" do
     context "if SagePay is having a bad day" do
       before(:each) do
         @transaction_registration = transaction_registration_factory
@@ -511,7 +511,7 @@ describe TransactionRegistration do
 
       it "should raise an exception to say that we couldn't talk to SagePay" do
         lambda {
-          @transaction_registration.register!
+          @transaction_registration.run!
         }.should raise_error RuntimeError, "I guess SagePay doesn't like us today."
       end
     end
@@ -526,32 +526,32 @@ describe TransactionRegistration do
       end
 
       it "should return a newly created TransactionRegistrationResponse with the response" do
-        response = @transaction_registration.register!
+        response = @transaction_registration.run!
         response.should == @mock_response
       end
 
       it "should pass the response body to TransactionRegistrationResponse.from_response_body to let it parse and initialize" do
         TransactionRegistrationResponse.should_receive(:from_response_body).with("mock response body")
-        @transaction_registration.register!
+        @transaction_registration.run!
       end
 
       it "should post the request to SagePay" do
         @transaction_registration.should_receive(:post)
-        @transaction_registration.register!
+        @transaction_registration.run!
       end
 
       it "should not allow us to attempt to register twice with the same vendor transaction code" do
-        @transaction_registration.register!
+        @transaction_registration.run!
         lambda {
-          @transaction_registration.register!
+          @transaction_registration.run!
         }.should raise_error(RuntimeError, "This vendor transaction code has already been registered")
       end
 
       it "should allow us to register twice if we change the vendor transaction code in between times" do
-        @transaction_registration.register!
+        @transaction_registration.run!
         lambda {
           @transaction_registration.vendor_tx_code = TransactionCode.random
-          @transaction_registration.register!.should == @mock_response
+          @transaction_registration.run!.should == @mock_response
         }.should_not raise_error(RuntimeError, "This vendor transaction code has already been registered")
       end
     end
@@ -578,7 +578,7 @@ describe TransactionRegistration do
       before(:each) do
         mock_response = mock("Transaction registration response", :failed? => true)
         @transaction_registration.stub(:handle_response).and_return(mock_response)
-        @transaction_registration.register!
+        @transaction_registration.run!
       end
 
       it "should raise an error" do
@@ -592,7 +592,7 @@ describe TransactionRegistration do
       before(:each) do
         mock_response = mock("Transaction registration response", :failed? => false, :vps_tx_id => "sage pay transaction id", :security_key => 'security key')
         @transaction_registration.stub(:handle_response).and_return(mock_response)
-        @transaction_registration.register!
+        @transaction_registration.run!
       end
 
       it "should know the vendor" do
