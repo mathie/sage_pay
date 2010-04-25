@@ -39,10 +39,6 @@ module SagePay
       def simulator_service
         "VendorReleaseTx"
       end
-
-      def response_from_response_body(response_body)
-        SagePay::Server::ReleaseResponse.from_response_body(response_body)
-      end
     end
   end
 end
