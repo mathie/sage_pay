@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.4
+
+* Generate the appropriate response.
+
 ## 0.2.3
 
 * yield for the signature verification details if there's a block given in the
