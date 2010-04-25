@@ -52,7 +52,7 @@ describe TransactionNotificationResponse do
         :status_detail => nil
       )
       transaction_notification_response.response.should == <<-RESPONSE.chomp
-Status=OK
+Status=OK\r
 RedirectURL=http://test.host/some/redirect
       RESPONSE
     end
@@ -66,9 +66,9 @@ RedirectURL=http://test.host/some/redirect
       # FIXME: I'm asserting here that I don't have to URI-encode the body
       # here. OK?
       transaction_notification_response.response.should == <<-RESPONSE.chomp
-Status=INVALID
-RedirectURL=http://test.host/some/redirect
-StatusDetail=Totally didn't expect that notification, dude.
+Status=INVALID\r
+RedirectURL=http://test.host/some/redirect\r
+StatusDetail=Totally didn't expect that notification, dude.\r
       RESPONSE
     end
   end
