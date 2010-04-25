@@ -21,6 +21,10 @@ module SagePay
       @default_options ||= default_registration_options.except(:notification_url)
     end
 
+    def self.related_transaction(attributes = {})
+      SagePay::Server::RelatedTransaction.new(attributes)
+    end
+
     def self.payment(attributes = {})
       registration({ :tx_type => :payment }.merge(attributes))
     end
@@ -54,6 +58,13 @@ module SagePay
       }.merge(default_options)
 
       SagePay::Server::Abort.new(defaults.merge(attributes))
+    end
+
+    def self.refund(attributes = {})
+      defaults = {
+      }.merge(default_options)
+
+      SagePay::Server::Refund.new(defaults.merge(attributes))
     end
   end
 end
