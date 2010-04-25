@@ -27,7 +27,7 @@ module SagePay
         response_params.map do |tuple|
           key, value = tuple
           "#{key}=#{value}"
-        end.join("\n")
+        end.join("\r\n")
       end
 
 
