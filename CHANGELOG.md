@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.11
+
+* Cancel support for cancelling existing authorised transactions.
+
 ## 0.2.10
 
 * Authorise support, I hope, which, again I hope, will make repeat actually work.
