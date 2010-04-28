@@ -17,8 +17,9 @@ module SagePay
 
     # The notification URL is only relevant to registration options, but the
     # rest are relevant to all requests.
+    # FIXME: This should be Hash#only instead of Hash#except!
     def self.default_options
-      default_registration_options.except(:notification_url)
+      default_registration_options.except(:notification_url, :profile)
     end
 
     def self.related_transaction(attributes = {})
