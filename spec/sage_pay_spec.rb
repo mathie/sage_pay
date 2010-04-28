@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SagePay do
-  it "should be version 0.2.11" do
-    SagePay::VERSION.should == '0.2.11'
+  it "should be version 0.2.12" do
+    SagePay::VERSION.should == '0.2.12'
   end
 end
