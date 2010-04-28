@@ -94,7 +94,7 @@ task :release => :build do
 end
 
 desc "Build the gem"
-task :build => :gemspec do
+task :build => [:spec, :gemspec] do
   sh "mkdir -p pkg"
   sh "gem build #{gemspec_file}"
   sh "mv #{gem_file} pkg"
