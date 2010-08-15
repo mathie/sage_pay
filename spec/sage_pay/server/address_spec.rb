@@ -100,10 +100,22 @@ describe SagePay::Server::Address do
       ]
     end
 
+    it "should require a US state to be present if the country is the US" do
+      address = address_factory(:country => "US", :state => "")
+      address.should_not be_valid
+      address.errors.on(:state).should == "is required if the country is US"
+    end
+
+    it "should require the US state to be absent if the country is not in the US" do
+      address = address_factory(:country => "GB", :state => "WY")
+      address.should_not be_valid
+      address.errors.on(:state).should == "is present but the country is not US"
+    end
+
     it "should validate the state against a list of US states" do
-      address = address_factory(:state => "WY")
+      address = address_factory(:country => "US", :state => "WY")
       address.should be_valid
-      address = address_factory(:state => "AA")
+      address = address_factory(:country => "US", :state => "AA")
       address.should_not be_valid
       address.errors.on(:state).should == "is not a US state"
     end
