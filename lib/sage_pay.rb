@@ -7,7 +7,7 @@ require 'md5'
 require 'uuid'
 
 module SagePay
-  VERSION = '0.2.12'
+  VERSION = '0.2.13'
 end
 
 require 'validatable-ext'

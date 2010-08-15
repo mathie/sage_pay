@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   ## If your rubyforge_project name is different, then edit it and comment out
   ## the sub! line in the Rakefile
   s.name              = 'sage_pay'
-  s.version           = '0.2.12'
-  s.date              = '2010-04-28'
+  s.version           = '0.2.13'
+  s.date              = '2010-08-15'
   s.rubyforge_project = 'sage_pay'
 
   ## Make sure your summary is short. The description may be as long
@@ -51,6 +51,8 @@ gateway for accepting credit card payments through your web app.
   # = MANIFEST =
   s.files = %w[
     CHANGELOG.md
+    Gemfile
+    Gemfile.lock
     LICENSE
     README.md
     Rakefile

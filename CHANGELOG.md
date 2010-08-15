@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.2.13
+
+* If the country for an address is the US, then the US state is required.
+  Otherwise, it should not be supplied since it only make sense in the context
+  of US states.
+
+* Use Bundler to track development dependencies.
+
+* Record that ActiveSupport is actually a dependency.
+
+## 0.2.12
+
+* Somehow didn't make it into the ChangeLog. Some bug fix or other I'd
+  imagine. :)
+
 ## 0.2.11
 
 * Cancel support for cancelling existing authorised transactions.
