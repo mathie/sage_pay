@@ -35,7 +35,7 @@ module URI
         (?:\\#(#{PATTERN::FRAGMENT}))?            (?# 9: fragment)
       "
     end
-    remove_const :ABS_URI
+    #remove_const :ABS_URI if defined? :ABS_URI
     ABS_URI = Regexp.new('^' + PATTERN::X_ABS_URI + '$', #'
                          Regexp::EXTENDED, 'N').freeze
   end

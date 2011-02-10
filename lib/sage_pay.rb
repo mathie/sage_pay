@@ -3,7 +3,7 @@ require 'validatable'
 require 'bigdecimal'
 require 'net/https'
 require 'uri'
-require 'md5'
+require 'digest/md5'
 require 'uuid'
 
 module SagePay
