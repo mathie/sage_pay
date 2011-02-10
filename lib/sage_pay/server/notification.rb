@@ -136,7 +136,7 @@ module SagePay
             params["CardType"],
             params["Last4Digits"]
           ]
-          attributes[:calculated_hash] = Digest::MD5.md5(fields_used_in_signature.join).to_s.upcase
+          attributes[:calculated_hash] = Digest::MD5.hexdigest(fields_used_in_signature.join).upcase
         end
 
         new(attributes)
