@@ -1,7 +1,7 @@
 module SagePay
   module Server
     class Response
-      class_inheritable_hash :key_converter, :value_converter, :match_converter, :instance_writer => false
+      class_attribute :key_converter, :value_converter, :match_converter, :instance_writer => false
 
       self.key_converter = {
         "VPSProtocol"  => :vps_protocol,
