@@ -3,10 +3,16 @@ require 'spec_helper'
 describe SagePay::Server do
   describe ".payment" do
     before(:each) do
+
+      @vendor = "codescrum"
+      #@notification_url = "https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorRegisterTx"
+      @notification_url = "https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorRegisterTx"
+
       SagePay::Server.default_registration_options = {
         :mode => :test,
-        :vendor => "rubaidh",
-        :notification_url => "http://test.host/notification"
+        :vendor => @vendor,
+        #:notification_url => "http://test.host/notification"
+        :notification_url => @notification_url
       }
     end
 
@@ -14,12 +20,12 @@ describe SagePay::Server do
       SagePay::Server.default_registration_options = {}
     end
 
-    it "should pass in the default registration options" do
+    it "should pass in the default registration options", :focus do
 
       payment = SagePay::Server.payment
       payment.mode.should             == :test
-      payment.vendor.should           == "rubaidh"
-      payment.notification_url.should == "http://test.host/notification"
+      payment.vendor.should           == @vendor
+      payment.notification_url.should == @notification_url
     end
 
     it "should generate a vendor transaction code automatically" do

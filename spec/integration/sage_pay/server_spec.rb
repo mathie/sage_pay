@@ -3,10 +3,15 @@ require 'spec_helper'
 if run_integration_specs?
   describe SagePay::Server, "integration specs" do
     before(:each) do
+      @vendor = "codescrum"
+      #@notification_url = "https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorRegisterTx"
+      @notification_url = "http://190.146.87.50"
+
       SagePay::Server.default_registration_options = {
         :mode => :simulator,
-        :vendor => "rubaidh",
-        :notification_url => "http://test.host/notification"
+        :vendor => @vendor,
+        #:notification_url => "http://test.host/notification"
+        :notification_url => @notification_url
       }
     end
 
@@ -25,11 +30,13 @@ if run_integration_specs?
       end
 
       it "should successfully register the payment with SagePay" do
-        @payment.run!.should_not be_nil
+        result = @payment.run!
+        result.should_not be_nil
       end
 
       it "should be a valid registered payment" do
         registration = @payment.run!
+        puts "RRRR" + registration.status_detail
         registration.should be_ok
       end
 

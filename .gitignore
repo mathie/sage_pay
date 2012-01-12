@@ -1,4 +1,4 @@
-/pkg
-/coverage
-/.bundle
-*.swp
+.rvmrc
+.idea/
+.bundle/
+
