@@ -47,6 +47,7 @@ if run_integration_specs?
 
       it "should allow us to follow the next URL and the response should be successful" do
         registration = @payment.run!
+        puts registration.next_url
         uri = URI.parse(registration.next_url)
         request = Net::HTTP::Get.new(uri.request_uri)
         http = Net::HTTP.new(uri.host, uri.port)

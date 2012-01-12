@@ -53,7 +53,8 @@ Spec::Rake::SpecTask.new(:coverage) do |coverage|
   coverage.rcov_opts << '--exclude' << '\.rvm,spec'
 end
 
-require 'rake/rdoctask'
+#require 'rake/rdoctask'
+require 'rdoc/task'
 Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "#{name} #{version}"
@@ -63,7 +64,7 @@ end
 
 desc "Open an irb session preloaded with this library"
 task :console do
-  sh "irb -rubygems -Ilib -r ./lib/#{name}.rb -r spec/support/factories.rb"
+  sh "irb -rubygems -Ilib -r ./lib/#{name}.rb -r ./spec/support/factories.rb"
 end
 
 #############################################################################
