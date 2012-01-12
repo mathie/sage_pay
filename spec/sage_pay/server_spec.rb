@@ -4,7 +4,7 @@ describe SagePay::Server do
   describe ".payment" do
     before(:each) do
 
-      @vendor = "codescrum"
+      @vendor = "codescrumpills"
       #@notification_url = "https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorRegisterTx"
       @notification_url = "https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorRegisterTx"
 
