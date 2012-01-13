@@ -1,5 +1,4 @@
 require 'active_support/core_ext/class'
-#require 'validatable'
 require 'bigdecimal'
 require 'net/https'
 require 'uri'
@@ -14,9 +13,6 @@ require 'active_model/naming'
 require 'active_model/validator'
 require 'active_model/validations'
 require 'active_model/translation'
-#require 'active_model/naming'
-
-#require 'validatable-ext'
 
 require 'sage_pay/uri_fixups'
 require 'sage_pay/server/address'

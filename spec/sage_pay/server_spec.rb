@@ -4,15 +4,10 @@ describe SagePay::Server do
   describe ".payment" do
     before(:each) do
 
-      @vendor = "codescrumpills"
-      #@notification_url = "https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorRegisterTx"
-      @notification_url = "https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorRegisterTx"
-
       SagePay::Server.default_registration_options = {
         :mode => :test,
-        :vendor => @vendor,
-        #:notification_url => "http://test.host/notification"
-        :notification_url => @notification_url
+        :vendor => TEST_VENDOR_NAME,
+        :notification_url => TEST_NOTIFICATION_URL
       }
     end
 
