@@ -1,5 +1,5 @@
 require 'active_support/core_ext/class'
-require 'validatable'
+#require 'validatable'
 require 'bigdecimal'
 require 'net/https'
 require 'uri'
@@ -9,6 +9,12 @@ require 'uuid'
 module SagePay
   VERSION = '0.2.13'
 end
+
+require 'active_model/naming'
+require 'active_model/validator'
+require 'active_model/validations'
+require 'active_model/translation'
+#require 'active_model/naming'
 
 #require 'validatable-ext'
 
