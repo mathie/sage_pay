@@ -3,7 +3,7 @@ require 'spec_helper'
 if run_integration_specs?
   describe SagePay::Server, "integration specs" do
     before(:each) do
-      @vendor = "codescrumpills"
+      @vendor = "codescrumjairo"
       #@notification_url = "https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorRegisterTx"
       @notification_url = "http://190.146.87.50"
 
