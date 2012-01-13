@@ -1,4 +1,4 @@
-require 'active_support'
+require 'active_support/core_ext/class'
 require 'validatable'
 require 'bigdecimal'
 require 'net/https'

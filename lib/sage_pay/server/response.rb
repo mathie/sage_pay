@@ -1,6 +1,7 @@
 module SagePay
   module Server
     class Response
+
       class_attribute :key_converter, :value_converter, :match_converter, :instance_writer => false
 
       self.key_converter = {
