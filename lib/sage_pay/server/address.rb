@@ -37,9 +37,10 @@ module SagePay
 
       # The state's presence is required if the country is the US, and
       # verboten otherwise.
-      validates_true_for :state, :key => :state_required_in_us, :logic => lambda { in_us? ? state.present? : true }, :message => "is required if the country is US"
-      validates_true_for :state, :key => :verboten_outside_us,  :logic => lambda { in_us? ? true : !state.present? }, :message => "is present but the country is not US"
 
+      validates :state, :presence => {:message => "is required if the country is US"}, :if => :in_us?
+      validates :state, :acceptance => { :accept => nil, :message => "is present but the country is not US" }, :unless => :in_us?
+      
       def initialize(attributes = {})
         attributes.each do |k, v|
           send("#{k}=", v)

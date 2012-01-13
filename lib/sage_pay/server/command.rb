@@ -1,7 +1,7 @@
 module SagePay
   module Server
     class Command
-      include Validatable
+      include ActiveModel::Validations
 
       class_attribute :tx_type, :vps_protocol
       

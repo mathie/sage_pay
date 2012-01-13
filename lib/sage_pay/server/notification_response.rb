@@ -1,7 +1,7 @@
 module SagePay
   module Server
     class NotificationResponse
-      include Validatable
+      include ActiveModel::Validations
 
       attr_accessor :status, :status_detail, :redirect_url
 

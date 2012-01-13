@@ -12,6 +12,7 @@ group :development do
   gem 'rspec', '1.3.0'
 end
 
+gem "awesome_print", '1.0.1', :group => [:test, :development]
 group :development do
   gem 'hirb', '~> 0.6.0'
   gem 'wirble', '~> 0.1.3'
