@@ -1,7 +1,7 @@
 module SagePay
   module Server
     class Address
-      include Validatable
+      include ActiveModel::Validations
 
       class << self
         attr_accessor :us_states, :iso_3166_country_codes

@@ -10,7 +10,7 @@ module SagePay
   VERSION = '0.2.13'
 end
 
-require 'validatable-ext'
+#require 'validatable-ext'
 
 require 'sage_pay/uri_fixups'
 require 'sage_pay/server/address'
