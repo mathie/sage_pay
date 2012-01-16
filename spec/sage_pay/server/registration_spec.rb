@@ -71,11 +71,11 @@ describe Registration do
 
       registration = registration_factory(:amount => "0.00")
       registration.should_not be_valid
-      registration.errors.on(:amount).should include("is less than the minimum value (0.01)")
+      registration.errors[:amount].should include("is less than the minimum value (0.01)")
 
       registration = registration_factory(:amount => "-23")
       registration.should_not be_valid
-      registration.errors.on(:amount).should include("is less than the minimum value (0.01)")
+      registration.errors[:amount].should include("is less than the minimum value (0.01)")
     end
 
     it "should allow the amount to be a maximum of 100,000.00" do
@@ -84,11 +84,11 @@ describe Registration do
 
       registration = registration_factory(:amount => "100000.01")
       registration.should_not be_valid
-      registration.errors.on(:amount).should include("is greater than the maximum value (100,000.00)")
+      registration.errors[:amount].should include("is greater than the maximum value (100,000.00)")
 
       registration = registration_factory(:amount => "123456")
       registration.should_not be_valid
-      registration.errors.on(:amount).should include("is greater than the maximum value (100,000.00)")
+      registration.errors[:amount].should include("is greater than the maximum value (100,000.00)")
     end
 
     it "should allow the transaction type to be one of :payment, :deferred or :authenticate" do
@@ -103,7 +103,7 @@ describe Registration do
 
       registration = registration_factory(:tx_type => :chickens)
       registration.should_not be_valid
-      registration.errors.on(:tx_type).should include("is not in the list")
+      registration.errors[:tx_type].should include("is not in the list")
     end
 
     it "should allow the mode to be one of :simulator, :test or :live" do
@@ -118,7 +118,7 @@ describe Registration do
 
       registration = registration_factory(:mode => :chickens)
       registration.should_not be_valid
-      registration.errors.on(:mode).should include("is not in the list")
+      registration.errors[:mode].should include("is not in the list")
     end
 
     it "should allow the gift aid setting to be true or false" do
@@ -130,7 +130,7 @@ describe Registration do
 
       registration = registration_factory(:allow_gift_aid => "chickens")
       registration.should_not be_valid
-      registration.errors.on(:allow_gift_aid).should include("is not in the list")
+      registration.errors[:allow_gift_aid].should include("is not in the list")
     end
 
     it "should allow apply_avs_cv2 to be 0 through 3 (see docs for what that means)" do
@@ -148,7 +148,7 @@ describe Registration do
 
       registration = registration_factory(:apply_avs_cv2 => 4)
       registration.should_not be_valid
-      registration.errors.on(:apply_avs_cv2).should include("is not in the list")
+      registration.errors[:apply_avs_cv2].should include("is not in the list")
     end
 
     it "should allow apply_3d_secure to be 0 through 3 (see docs for what that means)" do
@@ -166,7 +166,7 @@ describe Registration do
 
       registration = registration_factory(:apply_3d_secure => 4)
       registration.should_not be_valid
-      registration.errors.on(:apply_3d_secure).should include("is not in the list")
+      registration.errors[:apply_3d_secure].should include("is not in the list")
     end
 
     it "should allow profile to be normal or low" do
@@ -178,7 +178,7 @@ describe Registration do
 
       registration = registration_factory(:profile => :chickens)
       registration.should_not be_valid
-      registration.errors.on(:profile).should include("is not in the list")
+      registration.errors[:profile].should include("is not in the list")
     end
 
     it "should allow billing_agreement to be true or false" do
@@ -190,7 +190,7 @@ describe Registration do
 
       registration = registration_factory(:billing_agreement => "chickens")
       registration.should_not be_valid
-      registration.errors.on(:billing_agreement).should include("is not in the list")
+      registration.errors[:billing_agreement].should include("is not in the list")
     end
 
     it "should allow the account type to be one of ecommerce, continuous authority or mail order" do
@@ -205,7 +205,7 @@ describe Registration do
 
       registration = registration_factory(:account_type => :chickens)
       registration.should_not be_valid
-      registration.errors.on(:account_type).should include("is not in the list")
+      registration.errors[:account_type].should include("is not in the list")
     end
   end
 

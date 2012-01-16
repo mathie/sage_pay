@@ -15,12 +15,12 @@ describe SagePay::Server do
       SagePay::Server.default_registration_options = {}
     end
 
-    it "should pass in the default registration options", :focus do
+    it "should pass in the default registration options" do
 
       payment = SagePay::Server.payment
       payment.mode.should             == :test
-      payment.vendor.should           == @vendor
-      payment.notification_url.should == @notification_url
+      payment.vendor.should           == TEST_VENDOR_NAME
+      payment.notification_url.should == TEST_NOTIFICATION_URL
     end
 
     it "should generate a vendor transaction code automatically" do
