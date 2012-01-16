@@ -15,6 +15,7 @@ require 'active_model/validations'
 require 'active_model/translation'
 
 require 'sage_pay/uri_fixups'
+require 'sage_pay/locale_initializer'
 require 'sage_pay/server/address'
 require 'sage_pay/server/transaction_code'
 require 'sage_pay/server/signature_verification_details'
