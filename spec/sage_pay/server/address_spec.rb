@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe SagePay::Server::Address do
+  include ValidationMatchers
   it "should be valid straight from the factory" do
     lambda {
       address_factory.should be_valid

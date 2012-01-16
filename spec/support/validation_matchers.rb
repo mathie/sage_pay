@@ -1,4 +1,4 @@
-#module ValidationMatchers
+module ValidationMatchers
 #  def validates_the_presence_of(model_name, attribute, message = "can't be empty")
 #    model = model_factory(model_name, attribute => "")
 #    model.should_not be_valid
@@ -55,17 +55,17 @@
 #    end
 #  end
 #
-#  def validates_the_format_of(model_name, attribute, examples, message = "is invalid")
-#    (examples[:invalid] || []).each do |invalid|
-#      model = model_factory(model_name, attribute => invalid)
-#      model.should_not be_valid
-#      model.errors.on(attribute).should == message
-#    end
-#
-#    (examples[:valid] || []).each do |valid|
-#      model = model_factory(model_name, attribute => valid)
-#      model.should be_valid
-#      model.errors.on(attribute).should be_nil
-#    end
-#  end
-#end
+  def validates_the_format_of(model_name, attribute, examples, message = "is invalid")
+    (examples[:invalid] || []).each do |invalid|
+      model = model_factory(model_name, attribute => invalid)
+      model.should_not be_valid
+      model.errors[attribute][0].should == message
+    end
+
+    (examples[:valid] || []).each do |valid|
+      model = model_factory(model_name, attribute => valid)
+      model.should be_valid
+      model.errors[attribute][0].should be_nil
+    end
+  end
+end
