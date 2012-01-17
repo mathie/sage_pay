@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'rake'
-require 'spec/rake/spectask'
+#require 'spec/rake/spectask'
 require 'date'
 
 #############################################################################
@@ -46,12 +46,12 @@ end
 
 task :default => :spec
 
-Spec::Rake::SpecTask.new
-
-Spec::Rake::SpecTask.new(:coverage) do |coverage|
-  coverage.rcov = true
-  coverage.rcov_opts << '--exclude' << '\.rvm,spec'
-end
+#Spec::Rake::SpecTask.new
+#
+#Spec::Rake::SpecTask.new(:coverage) do |coverage|
+#  coverage.rcov = true
+#  coverage.rcov_opts << '--exclude' << '\.rvm,spec'
+#end
 
 #require 'rake/rdoctask'
 require 'rdoc/task'

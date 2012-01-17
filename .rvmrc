@@ -1,5 +1,1 @@
-#rvm use ruby-1.8.7-p249@jd_sage_pay
 rvm use ruby-1.9.2-p290@jd_sage_pay
-#rvm use 1.8.7-p249@sage_pay
-#rvm use ruby-1.9.2-p180@stage_casting
-
