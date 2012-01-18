@@ -25,7 +25,6 @@ describe NotificationResponse do
 
       notification_response = notification_response_factory(:status => :invalid, :status_detail => "")
       notification_response.should_not be_valid
-      p notification_response.errors
       notification_response.errors[:status_detail].should include("can't be empty")
     end
 
