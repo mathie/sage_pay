@@ -43,10 +43,10 @@ too.
 For running the integration tests, please read Sage Pay Online documentation and add 
 a configuration file 'spec/support/vendor_config.rb' with the following parameters:
 
-TEST_VENDOR_NAME = <a valid name registered with Sage Pay>
-TEST_NOTIFICATION_URL = <a valid url>
-SIMULATOR_VENDOR_NAME = <a valid name registered with Sage Pay>
-SIMULATOR_NOTIFICATION_URL = <a valid url>
+TEST_VENDOR_NAME = valid_name_registered_with_sage_pay
+TEST_NOTIFICATION_URL = valid_url
+SIMULATOR_VENDOR_NAME = valid_name_registered_with_sage_pay
+SIMULATOR_NOTIFICATION_URL = valid_url
 
 Please note that you need to include your current IP address in the Sage Pay Simulator portal.
 The Simulator only accepts calls from white listed IP addresses.
