@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   ## the sub! line in the Rakefile
   s.name              = 'sage_pay'
   s.version           = '0.2.13'
-  s.date              = '2010-08-15'
+  s.date              = '2012-01-19'
   s.rubyforge_project = 'sage_pay'
 
   ## Make sure your summary is short. The description may be as long
@@ -57,7 +57,9 @@ gateway for accepting credit card payments through your web app.
     README.md
     Rakefile
     TODO
+    config/locales/en.yml
     lib/sage_pay.rb
+    lib/sage_pay/locale_initializer.rb
     lib/sage_pay/server.rb
     lib/sage_pay/server/abort.rb
     lib/sage_pay/server/address.rb
@@ -78,8 +80,6 @@ gateway for accepting credit card payments through your web app.
     lib/sage_pay/server/signature_verification_details.rb
     lib/sage_pay/server/transaction_code.rb
     lib/sage_pay/uri_fixups.rb
-    lib/validatable-ext.rb
-    lib/validations/validates_inclusion_of.rb
     sage_pay.gemspec
     spec/integration/sage_pay/server_spec.rb
     spec/sage_pay/server/address_spec.rb
@@ -94,6 +94,7 @@ gateway for accepting credit card payments through your web app.
     spec/spec_helper.rb
     spec/support/factories.rb
     spec/support/integration.rb
+    spec/support/remarkable.rb
     spec/support/validation_matchers.rb
   ]
   # = MANIFEST =
