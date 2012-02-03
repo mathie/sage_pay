@@ -20,7 +20,10 @@ require 'sage_pay/server/address'
 require 'sage_pay/server/transaction_code'
 require 'sage_pay/server/signature_verification_details'
 require 'sage_pay/server/related_transaction'
+
 require 'sage_pay/server/command'
+
+require 'sage_pay/server/token_registration'
 require 'sage_pay/server/response'
 require 'sage_pay/server/registration'
 require 'sage_pay/server/registration_response'

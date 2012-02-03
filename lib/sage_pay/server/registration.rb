@@ -16,7 +16,7 @@ module SagePay
       validates_length_of :customer_email,   :maximum => 255
       validates_length_of :basket,           :maximum => 7_500
 
-      validates_inclusion_of :tx_type,           :allow_blank => true, :in => [ :payment, :deferred, :authenticate ]
+      validates_inclusion_of :tx_type,           :allow_blank => true, :in => [ :payment, :deferred, :authenticate, :token ]
       validates_inclusion_of :allow_gift_aid,    :allow_blank => true, :in => [ true, false ]
       validates_inclusion_of :apply_avs_cv2,     :allow_blank => true, :in => (0..3).to_a
       validates_inclusion_of :apply_3d_secure,   :allow_blank => true, :in => (0..3).to_a

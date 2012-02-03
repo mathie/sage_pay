@@ -5,8 +5,8 @@ if run_integration_specs?
     before(:each) do
       SagePay::Server.default_registration_options = {
         :mode => :simulator,
-        :vendor => SIMULATOR_VENDOR_NAME,
-        :notification_url => SIMULATOR_NOTIFICATION_URL
+        :vendor => TEST_VENDOR_NAME,
+        :notification_url => TEST_NOTIFICATION_URL
       }
     end
 
@@ -31,6 +31,7 @@ if run_integration_specs?
 
       it "should be a valid registered payment" do
         registration = @payment.run!
+        puts "Registration failed> #{registration.inspect}" unless registration.ok?
         registration.should be_ok
       end
 
@@ -126,7 +127,9 @@ if run_integration_specs?
 
       it "should have a next URL" do
         registration = @payment.run!
-        registration.next_url.should_not be_nil
+        next_url = registration.next_url
+        puts "Next URL given by gateway > #{next_url}" if next_url
+        next_url.should_not be_nil
       end
 
       it "should allow us to follow the next URL and the response should be successful" do
