@@ -4,9 +4,9 @@ if run_integration_specs?
   describe SagePay::Server, "integration specs" do
     before(:each) do
       SagePay::Server.default_registration_options = {
-        :mode => :simulator,
-        :vendor => TEST_VENDOR_NAME,
-        :notification_url => TEST_NOTIFICATION_URL
+          :mode => :showpost,
+          :vendor => TEST_VENDOR_NAME,
+          :notification_url => TEST_NOTIFICATION_URL
       }
     end
 
@@ -17,10 +17,10 @@ if run_integration_specs?
     describe ".payment" do
       before(:each) do
         @payment = SagePay::Server.payment(
-          :description => "Demo payment",
-          :amount => 12.34,
-          :currency => "GBP",
-          :billing_address => address_factory
+            :description => "Demo payment",
+            :amount => 12.34,
+            :currency => "GBP",
+            :billing_address => address_factory
         )
       end
 
@@ -29,7 +29,7 @@ if run_integration_specs?
         result.should_not be_nil
       end
 
-      it "should be a valid registered payment" do
+      it "should be a valid registered payment", :focus do
         registration = @payment.run!
         puts "Registration failed> #{registration.inspect}" unless registration.ok?
         registration.should be_ok
@@ -37,7 +37,9 @@ if run_integration_specs?
 
       it "should have a next URL" do
         registration = @payment.run!
-        registration.next_url.should_not be_nil
+        next_url = registration.next_url
+        puts "    Next URL given by gateway > #{next_url}" if next_url
+        next_url.should_not be_nil
       end
 
       it "should allow us to follow the next URL and the response should be successful" do
@@ -64,10 +66,10 @@ if run_integration_specs?
     describe ".payment with a US address" do
       before(:each) do
         @payment = SagePay::Server.payment(
-          :description => "Demo payment",
-          :amount => 12.34,
-          :currency => "GBP",
-          :billing_address => address_factory(:country => "US", :state => "WY")
+            :description => "Demo payment",
+            :amount => 12.34,
+            :currency => "GBP",
+            :billing_address => address_factory(:country => "US", :state => "WY")
         )
       end
 
@@ -82,7 +84,9 @@ if run_integration_specs?
 
       it "should have a next URL" do
         registration = @payment.run!
-        registration.next_url.should_not be_nil
+        next_url = registration.next_url
+        puts "    Next URL given by gateway > #{next_url}" if next_url
+        next_url.should_not be_nil
       end
 
       it "should allow us to follow the next URL and the response should be successful" do
@@ -109,10 +113,10 @@ if run_integration_specs?
     describe ".deferred" do
       before(:each) do
         @payment = SagePay::Server.deferred(
-          :description => "Demo payment",
-          :amount => 12.34,
-          :currency => "GBP",
-          :billing_address => address_factory
+            :description => "Demo payment",
+            :amount => 12.34,
+            :currency => "GBP",
+            :billing_address => address_factory
         )
       end
 
@@ -128,7 +132,7 @@ if run_integration_specs?
       it "should have a next URL" do
         registration = @payment.run!
         next_url = registration.next_url
-        puts "Next URL given by gateway > #{next_url}" if next_url
+        puts "    Next URL given by gateway > #{next_url}" if next_url
         next_url.should_not be_nil
       end
 

@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'colorize'
+require 'awesome_print'
 
 $: << File.join(File.dirname(__FILE__), '..', 'lib')
 require 'sage_pay'
