@@ -78,7 +78,7 @@ module SagePay
       def post
         parsed_uri = URI.parse(url)
         begin
-          ap "MIAAAAUUUUU #{ap parsed_uri}"
+          ap "Parsed uri #{ap parsed_uri}"
           ap "TIME.NOW #{ap Time.now}"
           ap "DATETIME.NOW #{ap DateTime.now}"
           ap "DATETIME.NOWUTC #{ap DateTime.now.utc}"
