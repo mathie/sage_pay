@@ -78,16 +78,23 @@ module SagePay
       def post
         parsed_uri = URI.parse(url)
         begin
-          ap "Parsed uri #{ap parsed_uri}"
-          ap "TIME.NOW #{ap Time.now}"
-          ap "DATETIME.NOW #{ap DateTime.now}"
-          ap "DATETIME.NOWUTC #{ap DateTime.now.utc}"
+          ap "Parsed uri #{parsed_uri}"
+          ap "TIME.NOW #{Time.now}"
+          ap "DATETIME.NOW #{DateTime.now}"
+          ap "DATETIME.NOWUTC #{DateTime.now.utc}"
         rescue
-
+          puts " error parsing or getting Time.now"
         end
 
         request = Net::HTTP::Post.new(parsed_uri.request_uri)
         request.form_data = post_params
+
+        begin
+          puts " post_params: "
+          ap post_params
+        rescue
+          puts " getting params"
+        end
 
         http = Net::HTTP.new(parsed_uri.host, parsed_uri.port)
         http.use_ssl = true if parsed_uri.scheme == "https"
@@ -100,11 +107,11 @@ module SagePay
         case response.code.to_i
           when 200
             response = response_from_response_body(response.body)
-            ap response.awesome_inspect
+            ap response
             response
           else
             # FIXME: custom error response would be nice.
-            raise RuntimeError, "I guess SagePay doesn't like us today."
+            raise RuntimeError, "I guess SagePay doesn't like us today: #{response.inspect}"
         end
       end
     end

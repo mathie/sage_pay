@@ -5,13 +5,16 @@ module SagePay
       self.tx_type = :token
       attr_accessor :currency, :notification_url
 
+      validates_presence_of :notification_url
+
       validates_length_of :currency,         :is      => 3
       validates_length_of :notification_url, :maximum => 255
 
 
       def post_params
         params = super.merge({
-          "Currency" => currency
+          "Currency"         => currency,
+          "NotificationURL"  => notification_url,
         })
         params
       end

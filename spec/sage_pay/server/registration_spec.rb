@@ -512,7 +512,7 @@ describe Registration do
       it "should raise an exception to say that we couldn't talk to SagePay" do
         lambda {
           @registration.run!
-        }.should raise_error RuntimeError, "I guess SagePay doesn't like us today."
+        }.should raise_error RuntimeError, "I guess SagePay doesn't like us today." # almost, because now its custom message
       end
     end
 

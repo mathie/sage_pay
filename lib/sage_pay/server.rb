@@ -38,6 +38,15 @@ module SagePay
       registration({ :tx_type => :authenticate }.merge(attributes))
     end
 
+    def self.authenticate_other(attributes)
+      defaults = {
+          :vendor_tx_code   => TransactionCode.random,
+          :delivery_address => attributes[:billing_address]
+      }.merge(default_registration_options)
+
+      SagePay::Server::Authenticate.new(defaults.merge(attributes))
+    end
+
     def self.registration(attributes)
       defaults = {
           :vendor_tx_code   => TransactionCode.random,
@@ -97,6 +106,7 @@ module SagePay
           :vendor_tx_code   => TransactionCode.random,
           :currency   => "GBP"
       }.merge(default_registration_options)
+      #registration({ :tx_type => :deferred }.merge(attributes))
       SagePay::Server::TokenRegistration.new(defaults.merge(attributes))
     end
 
