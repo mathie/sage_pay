@@ -177,7 +177,7 @@ if run_integration_specs?
         registration.should be_ok
       end
 
-      it "should have a next URL"  do
+      it "should have a next URL", :focus do
         ap @token_registration
         #
         registration = @token_registration.run!
@@ -198,7 +198,7 @@ if run_integration_specs?
         )
       end
 
-      it "should have a next URL", :focus do
+      it "should have a next URL" do
         ap @authenticated_transaction
         #
         registration = @authenticated_transaction.run!

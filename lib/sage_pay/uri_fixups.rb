@@ -6,3 +6,4 @@ module URI
   unreserved = REGEXP::PATTERN::UNRESERVED
   DEFAULT_PARSER = Parser.new(:UNRESERVED => unreserved + "\{\}")
 end
+
