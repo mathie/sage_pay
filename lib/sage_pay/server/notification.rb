@@ -27,6 +27,8 @@ module SagePay
           "PayerStatus"    => :payer_status,
           "CardType"       => :card_type,
           "Last4Digits"    => :last_4_digits,
+          "ExpiryDate"     => :expiry_date,
+          "Token"          => :token,
           "VPSSignature"   => :vps_signature
         }
 

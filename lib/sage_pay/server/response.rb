@@ -10,6 +10,9 @@ module SagePay
         "StatusDetail" => :status_detail,
         "VPSTxId"      => :vps_tx_id,
         "SecurityKey"  => :security_key,
+        "ExpiryDate"   => :expiry_date,
+        "Token"        => :token,
+        "SecurityKey"  => :security_key,
         "NextURL"      => :next_url
       }
 
