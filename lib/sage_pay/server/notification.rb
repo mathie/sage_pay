@@ -5,7 +5,7 @@ module SagePay
                   :status, :status_detail, :tx_auth_no, :avs_cv2, :address_result,
                   :post_code_result, :cv2_result, :gift_aid, :threed_secure_status,
                   :cavv, :address_status, :payer_status,:card_type, :last_4_digits,
-                  :vps_signature
+                  :vps_signature, :token, :expiry_date
 
       def self.from_params(params, signature_verification_details = nil)
         key_converter = {
