@@ -177,7 +177,7 @@ if run_integration_specs?
         registration.should be_ok
       end
 
-      it "should have a next URL", :focus do
+      it "should have a next URL" do
         ap @token_registration
         #
         registration = @token_registration.run!
@@ -187,6 +187,28 @@ if run_integration_specs?
       end
 
     end
+
+    describe ".token_payment" do
+      before(:each) do
+        @token_registration = SagePay::Server.token_registration(
+            :currency => "GBP",
+            :notification_url => TEST_NOTIFICATION_URL
+        )
+      end
+
+      it "should successfully register the payment with SagePay", :focus do
+        registration = @token_registration.run!
+        puts "Registration failed> #{registration}" unless registration.ok?
+        registration.should be_ok
+        next_url = registration.next_url
+        puts "    Next URL given by gateway > #{next_url}" if next_url
+        next_url.should_not be_nil
+      end
+
+      it "should successfully pay using the token" do
+      end
+    end
+
 
     context ".authenticate and .authorize" do
       before(:each) do
