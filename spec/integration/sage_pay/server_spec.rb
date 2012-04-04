@@ -203,6 +203,14 @@ if run_integration_specs?
         next_url = registration.next_url
         puts "    Next URL given by gateway > #{next_url}" if next_url
         next_url.should_not be_nil
+
+        full_path = File.expand_path("../../../stub_sage_server/last_security_key.yml", __FILE__)
+        yaml_obj = YAML::dump(registration)
+        File.open(full_path, 'w') do |f|
+          f.write yaml_obj
+        end
+        puts "saved returned values to #{full_path}"
+
       end
 
       it "should successfully pay using the token" do

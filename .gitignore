@@ -1,3 +1,6 @@
 .idea/
 .bundle/
 spec/support/vendor_config.rb
+spec/stub_sage_server/last_security_key.yml
+spec/stub_sage_server/responses/
+

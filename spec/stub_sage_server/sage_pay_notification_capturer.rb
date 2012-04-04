@@ -5,7 +5,13 @@ require 'active_support/core_ext/string'
 require 'active_support/core_ext/object/try'
 #require 'colorize' # gem install colorize
 
+require File.expand_path("../../support/vendor_config.rb", __FILE__)
 require File.expand_path("../uri_fixups.rb", __FILE__)
+#require '/Users/spare/GitHub/sage_pay_jairo/spec/stub_sage_server/uri_fixups.rb'
+#require File.expand_path("../../../lib/sage_pay.rb", __FILE__)
+
+$: << File.join(File.dirname(__FILE__), '../..', 'lib')
+require 'sage_pay'
 
 puts "Initiating SagePay Notification capturer..."
 port_to_use = 80
@@ -50,11 +56,36 @@ end
 # Receive posts to this URL, must be the same as the notification url used by
 post notification_url do
   puts '  Receiving notification:'
+  puts ' params are '
+  ap params
 
   # Process a descriptive filename
   file_name = process_filename_from params
 
+  # Need to generate response
+  puts 'generating notification object to generate Ok response'
+
+  SagePay::Server.default_registration_options = {
+    :mode => :test,
+    :vendor => TEST_VENDOR_NAME,
+    :notification_url => TEST_NOTIFICATION_URL
+  }
+  puts "params from last notification"
+  name = File.expand_path("../last_security_key.yml", __FILE__)
+  response_obj = YAML::load(File.open(name))
+  ap response_obj
+  ap TEST_VENDOR_NAME
+
+  notification = SagePay::Server::Notification.from_params(params) do
+    SagePay::Server::SignatureVerificationDetails.new(TEST_VENDOR_NAME, response_obj.security_key)
+  end
+  reply_message = notification.response('http://google.com')
+  
+  puts "replying with"
+  ap reply_message
   # Write to file in any case to avoid lossing information
   capture_response file_name, params
   puts "--------------------------------"
+  
+  reply_message
 end
