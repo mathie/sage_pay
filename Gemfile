@@ -16,5 +16,6 @@ group :development, :test do
   gem 'wirble', '~> 0.1.3'
   gem 'wirb', '~> 0.4.1'
   gem 'colorize', '~> 0.5.8'
+  gem 'sinatra'
   gem 'remarkable_activemodel', '>=4.0.0.alpha2'
 end
