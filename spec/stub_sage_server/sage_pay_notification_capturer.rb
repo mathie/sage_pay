@@ -52,7 +52,7 @@ def capture_response(file_name, params)
   puts "  Capturing response in #{full_path}"
   puts "  File name is #{file_name}"
 end
-
+$counter = 0
 # Receive posts to this URL, must be the same as the notification url used by
 post notification_url do
   puts '  Receiving notification:'
@@ -76,16 +76,30 @@ post notification_url do
   ap response_obj
   ap TEST_VENDOR_NAME
 
-  notification = SagePay::Server::Notification.from_params(params) do
-    SagePay::Server::SignatureVerificationDetails.new(TEST_VENDOR_NAME, response_obj.security_key)
-  end
-  reply_message = notification.response('http://google.com')
-  
+  reply_message = receive_token_notification(TEST_VENDOR_NAME, response_obj.security_key)
+
+  puts "Notification Counter: #{$counter}"
+
   puts "replying with"
   ap reply_message
   # Write to file in any case to avoid lossing information
   capture_response file_name, params
   puts "--------------------------------"
   
+  $counter += 1
   reply_message
+end
+
+def receive_token_notification(vendor, security_key)
+  notification = SagePay::Server::Notification.from_params(params) do
+    SagePay::Server::SignatureVerificationDetails.new(vendor, security_key)
+  end
+  full_path = File.expand_path("../token.yml", __FILE__)
+  yaml_obj = YAML::dump(params)
+  File.open(full_path, 'w') { |f| f.write yaml_obj }
+  notification.response('http://google.com')
+end
+
+def receive_payment_notification(vendor, security_key)
+  puts "receving PAYMENT notification"
 end

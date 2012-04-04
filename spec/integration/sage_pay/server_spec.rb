@@ -206,9 +206,7 @@ if run_integration_specs?
 
         full_path = File.expand_path("../../../stub_sage_server/last_security_key.yml", __FILE__)
         yaml_obj = YAML::dump(registration)
-        File.open(full_path, 'w') do |f|
-          f.write yaml_obj
-        end
+        File.open(full_path, 'w') { |f| f.write yaml_obj }
         puts "saved returned values to #{full_path}"
 
       end
