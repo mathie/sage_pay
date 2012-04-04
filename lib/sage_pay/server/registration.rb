@@ -4,7 +4,7 @@ module SagePay
       attr_accessor :currency, :description, :notification_url,
         :billing_address, :delivery_address, :customer_email, :basket,
         :allow_gift_aid, :apply_avs_cv2, :apply_3d_secure, :profile,
-        :billing_agreement, :account_type
+        :billing_agreement, :account_type, :token, :store_token
       decimal_accessor :amount
 
       validates_presence_of :amount, :currency, :description,
@@ -89,6 +89,8 @@ module SagePay
         params['Profile']          = profile.to_s.upcase           if profile.present?
         params['BillingAgreement'] = billing_agreement ? "1" : "0" if billing_agreement.present? || billing_agreement == false
         params['AccountType']      = account_type_param            if account_type.present?
+        params['Token']            = token                         if token.present?
+        params['StoreToken']       = store_token ? "1" : "0"       if token.present?
 
         # And return the completed hash
         params

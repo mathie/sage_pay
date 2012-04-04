@@ -161,8 +161,7 @@ if run_integration_specs?
     describe ".token_registration" do
       before(:each) do
         @token_registration = SagePay::Server.token_registration(
-            :currency => "GBP",
-            :notification_url => TEST_NOTIFICATION_URL
+            :currency => "GBP"
         )
       end
 
@@ -179,7 +178,6 @@ if run_integration_specs?
 
       it "should have a next URL" do
         ap @token_registration
-        #
         registration = @token_registration.run!
         next_url = registration.next_url
         puts "    Next URL given by gateway > #{next_url}" if next_url
@@ -191,30 +189,44 @@ if run_integration_specs?
     describe ".token_payment" do
       before(:each) do
         @token_registration = SagePay::Server.token_registration(
-            :currency => "GBP",
-            :notification_url => TEST_NOTIFICATION_URL
+            :currency => "GBP"
         )
+
       end
 
-      it "should successfully register the payment with SagePay", :focus do
+      it "should register the token and save it for the next test" do
+        #initially register the token with SagePay gateway
         registration = @token_registration.run!
         puts "Registration failed> #{registration}" unless registration.ok?
-        registration.should be_ok
         next_url = registration.next_url
         puts "    Next URL given by gateway > #{next_url}" if next_url
-        next_url.should_not be_nil
-
         full_path = File.expand_path("../../../stub_sage_server/last_security_key.yml", __FILE__)
         yaml_obj = YAML::dump(registration)
         File.open(full_path, 'w') { |f| f.write yaml_obj }
         puts "saved returned values to #{full_path}"
+      end
+
+      it "should use a registered token as the ", :focus do
+
+        stored_params = YAML::load(File.open(File.expand_path("../../../stub_sage_server/responses/token_ok.yml", __FILE__)))
+        stored_token = stored_params["Token"]
+
+        @payment = SagePay::Server.payment(
+            :description => "Demo payment with TOKEN #{stored_token}",
+            :amount => 99.75,
+            :currency => "GBP",
+            :billing_address => address_factory,
+            :token => stored_token,
+            :store_token => true)
+
+        registration = @payment.run!
+        next_url = registration.next_url
+        puts "    Next URL given by gateway > #{next_url}" if next_url
 
       end
 
-      it "should successfully pay using the token" do
-      end
+
     end
-
 
     context ".authenticate and .authorize" do
       before(:each) do
