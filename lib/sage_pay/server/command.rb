@@ -89,13 +89,6 @@ module SagePay
         request = Net::HTTP::Post.new(parsed_uri.request_uri)
         request.form_data = post_params
 
-        begin
-          puts " post_params: "
-          ap post_params
-        rescue
-          puts " getting params"
-        end
-
         http = Net::HTTP.new(parsed_uri.host, parsed_uri.port)
         http.use_ssl = true if parsed_uri.scheme == "https"
         http.start { |http|
@@ -107,7 +100,6 @@ module SagePay
         case response.code.to_i
           when 200
             response = response_from_response_body(response.body)
-            ap response
             response
           else
             # FIXME: custom error response would be nice.

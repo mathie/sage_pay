@@ -177,7 +177,6 @@ if run_integration_specs?
       end
 
       it "should have a next URL" do
-        ap @token_registration
         registration = @token_registration.run!
         next_url = registration.next_url
         puts "    Next URL given by gateway > #{next_url}" if next_url
@@ -206,7 +205,7 @@ if run_integration_specs?
         puts "saved returned values to #{full_path}"
       end
 
-      it "should use a registered token as the ", :focus do
+      it "should use a registered token as the " do
 
         stored_params = YAML::load(File.open(File.expand_path("../../../stub_sage_server/responses/token_ok.yml", __FILE__)))
         stored_token = stored_params["Token"]
@@ -239,7 +238,6 @@ if run_integration_specs?
       end
 
       it "should have a next URL" do
-        ap @authenticated_transaction
         #
         registration = @authenticated_transaction.run!
         next_url = registration.next_url
