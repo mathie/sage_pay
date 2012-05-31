@@ -37,3 +37,16 @@ and you're good to go.
 This gem currently implements SagePay protocol version 2.23. The client app
 I'm writing is in Rails, so there are probably some assumptions around that,
 too.
+
+# Test Configuration
+
+For running the integration tests, please read Sage Pay Online documentation and add 
+a configuration file 'spec/support/vendor_config.rb' with the following parameters:
+
+TEST_VENDOR_NAME = valid_name_registered_with_sage_pay <br />
+TEST_NOTIFICATION_URL = valid_url <br />
+SIMULATOR_VENDOR_NAME = valid_name_registered_with_sage_pay <br />
+SIMULATOR_NOTIFICATION_URL = valid_url <br />
+
+Please note that you need to include your current IP address in the Sage Pay Simulator portal.
+The Simulator only accepts calls from white listed IP addresses.

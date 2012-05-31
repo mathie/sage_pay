@@ -1,12 +1,18 @@
 module SagePay
   module Server
     class Response
-      class_inheritable_hash :key_converter, :value_converter, :match_converter, :instance_writer => false
+
+      class_attribute :key_converter, :value_converter, :match_converter, :instance_writer => false
 
       self.key_converter = {
         "VPSProtocol"  => :vps_protocol,
         "Status"       => :status,
         "StatusDetail" => :status_detail,
+        "VPSTxId"      => :vps_tx_id,
+        "ExpiryDate"   => :expiry_date,
+        "Token"        => :token,
+        "SecurityKey"  => :security_key,
+        "NextURL"      => :next_url
       }
 
       self.value_converter = {
@@ -25,7 +31,7 @@ module SagePay
         "NOTMATCHED"  => :not_matched
       }
 
-      attr_reader :vps_protocol, :status, :status_detail
+      attr_reader :vps_protocol, :status, :status_detail, :vps_tx_id, :security_key, :next_url
 
       def self.attr_accessor_if_ok(*attrs)
         attrs.each do |attr|

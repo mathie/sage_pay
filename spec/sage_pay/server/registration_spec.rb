@@ -36,34 +36,34 @@ describe Registration do
   end
 
   describe "validations" do
-    it { validates_the_presence_of(:registration, :mode)             }
-    it { validates_the_presence_of(:registration, :tx_type)          }
-    it { validates_the_presence_of(:registration, :vendor)           }
-    it { validates_the_presence_of(:registration, :vendor_tx_code)   }
-    it { validates_the_presence_of(:registration, :amount)           }
-    it { validates_the_presence_of(:registration, :currency)         }
-    it { validates_the_presence_of(:registration, :description)      }
-    it { validates_the_presence_of(:registration, :notification_url) }
-    it { validates_the_presence_of(:registration, :billing_address)  }
-    it { validates_the_presence_of(:registration, :delivery_address) }
+    should_validate_presence_of(:mode)
+    should_validate_presence_of(:tx_type)
+    should_validate_presence_of(:vendor)
+    should_validate_presence_of(:vendor_tx_code)
+    should_validate_presence_of(:amount)
+    should_validate_presence_of(:currency)
+    should_validate_presence_of(:description)
+    should_validate_presence_of(:notification_url)
+    should_validate_presence_of(:billing_address)
+    should_validate_presence_of(:delivery_address)
 
-    it { does_not_require_the_presence_of(:registration, :customer_email)    }
-    it { does_not_require_the_presence_of(:registration, :basket)            }
-    it { does_not_require_the_presence_of(:registration, :allow_gift_aid)    }
-    it { does_not_require_the_presence_of(:registration, :apply_avs_cv2)     }
-    it { does_not_require_the_presence_of(:registration, :apply_3d_secure)   }
-    it { does_not_require_the_presence_of(:registration, :profile)           }
-    it { does_not_require_the_presence_of(:registration, :billing_agreement) }
-    it { does_not_require_the_presence_of(:registration, :account_type)      }
+    should_not_validate_presence_of(:customer_email)
+    should_not_validate_presence_of(:basket)
+    should_not_validate_presence_of(:allow_gift_aid)
+    should_not_validate_presence_of(:apply_avs_cv2)
+    should_not_validate_presence_of(:apply_3d_secure)
+    should_not_validate_presence_of(:profile)
+    should_not_validate_presence_of(:billing_agreement)
+    should_not_validate_presence_of(:account_type)
 
-    it { validates_the_length_of(:registration, :vendor,           :max => 15)    }
-    it { validates_the_length_of(:registration, :vendor_tx_code,   :max => 40)    }
-    it { validates_the_length_of(:registration, :currency,         :exactly => 3) }
-    it { validates_the_length_of(:registration, :description,      :max => 100)   }
-    it { validates_the_length_of(:registration, :notification_url, :max => 255)   }
-    it { validates_the_length_of(:registration, :notification_url, :max => 255)   }
-    it { validates_the_length_of(:registration, :customer_email,   :max => 255)   }
-    it { validates_the_length_of(:registration, :basket,           :max => 7500)  }
+    should_validate_length_of(:vendor, :maximum => 15)
+    should_validate_length_of(:vendor_tx_code, :maximum => 40)
+    should_validate_length_of(:currency, :exactly => 3)
+    should_validate_length_of(:description, :maximum => 100)
+    should_validate_length_of(:notification_url, :maximum => 255)
+    should_validate_length_of(:notification_url, :maximum => 255)
+    should_validate_length_of(:customer_email, :maximum => 255)
+    should_validate_length_of(:basket, :maximum => 7500)
 
     it "should allow the amount to be a minimum of 0.01" do
       registration = registration_factory(:amount => "0.01")
@@ -71,11 +71,11 @@ describe Registration do
 
       registration = registration_factory(:amount => "0.00")
       registration.should_not be_valid
-      registration.errors.on(:amount).should include("is less than the minimum value (0.01)")
+      registration.errors[:amount].should include("is less than the minimum value (0.01)")
 
       registration = registration_factory(:amount => "-23")
       registration.should_not be_valid
-      registration.errors.on(:amount).should include("is less than the minimum value (0.01)")
+      registration.errors[:amount].should include("is less than the minimum value (0.01)")
     end
 
     it "should allow the amount to be a maximum of 100,000.00" do
@@ -84,11 +84,11 @@ describe Registration do
 
       registration = registration_factory(:amount => "100000.01")
       registration.should_not be_valid
-      registration.errors.on(:amount).should include("is greater than the maximum value (100,000.00)")
+      registration.errors[:amount].should include("is greater than the maximum value (100,000.00)")
 
       registration = registration_factory(:amount => "123456")
       registration.should_not be_valid
-      registration.errors.on(:amount).should include("is greater than the maximum value (100,000.00)")
+      registration.errors[:amount].should include("is greater than the maximum value (100,000.00)")
     end
 
     it "should allow the transaction type to be one of :payment, :deferred or :authenticate" do
@@ -103,7 +103,7 @@ describe Registration do
 
       registration = registration_factory(:tx_type => :chickens)
       registration.should_not be_valid
-      registration.errors.on(:tx_type).should include("is not in the list")
+      registration.errors[:tx_type].should include("is not in the list")
     end
 
     it "should allow the mode to be one of :simulator, :test or :live" do
@@ -118,7 +118,7 @@ describe Registration do
 
       registration = registration_factory(:mode => :chickens)
       registration.should_not be_valid
-      registration.errors.on(:mode).should include("is not in the list")
+      registration.errors[:mode].should include("is not in the list")
     end
 
     it "should allow the gift aid setting to be true or false" do
@@ -130,7 +130,7 @@ describe Registration do
 
       registration = registration_factory(:allow_gift_aid => "chickens")
       registration.should_not be_valid
-      registration.errors.on(:allow_gift_aid).should include("is not in the list")
+      registration.errors[:allow_gift_aid].should include("is not in the list")
     end
 
     it "should allow apply_avs_cv2 to be 0 through 3 (see docs for what that means)" do
@@ -148,7 +148,7 @@ describe Registration do
 
       registration = registration_factory(:apply_avs_cv2 => 4)
       registration.should_not be_valid
-      registration.errors.on(:apply_avs_cv2).should include("is not in the list")
+      registration.errors[:apply_avs_cv2].should include("is not in the list")
     end
 
     it "should allow apply_3d_secure to be 0 through 3 (see docs for what that means)" do
@@ -166,7 +166,7 @@ describe Registration do
 
       registration = registration_factory(:apply_3d_secure => 4)
       registration.should_not be_valid
-      registration.errors.on(:apply_3d_secure).should include("is not in the list")
+      registration.errors[:apply_3d_secure].should include("is not in the list")
     end
 
     it "should allow profile to be normal or low" do
@@ -178,7 +178,7 @@ describe Registration do
 
       registration = registration_factory(:profile => :chickens)
       registration.should_not be_valid
-      registration.errors.on(:profile).should include("is not in the list")
+      registration.errors[:profile].should include("is not in the list")
     end
 
     it "should allow billing_agreement to be true or false" do
@@ -190,7 +190,7 @@ describe Registration do
 
       registration = registration_factory(:billing_agreement => "chickens")
       registration.should_not be_valid
-      registration.errors.on(:billing_agreement).should include("is not in the list")
+      registration.errors[:billing_agreement].should include("is not in the list")
     end
 
     it "should allow the account type to be one of ecommerce, continuous authority or mail order" do
@@ -205,7 +205,7 @@ describe Registration do
 
       registration = registration_factory(:account_type => :chickens)
       registration.should_not be_valid
-      registration.errors.on(:account_type).should include("is not in the list")
+      registration.errors[:account_type].should include("is not in the list")
     end
   end
 
@@ -512,7 +512,7 @@ describe Registration do
       it "should raise an exception to say that we couldn't talk to SagePay" do
         lambda {
           @registration.run!
-        }.should raise_error RuntimeError, "I guess SagePay doesn't like us today."
+        }.should raise_error RuntimeError, "I guess SagePay doesn't like us today." # almost, because now its custom message
       end
     end
 
