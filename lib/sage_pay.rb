@@ -1,25 +1,32 @@
-require 'active_support'
-require 'validatable'
+require 'active_support/core_ext/class'
 require 'bigdecimal'
 require 'net/https'
 require 'uri'
-require 'md5'
+require 'digest/md5'
 require 'uuid'
 
 module SagePay
   VERSION = '0.2.13'
 end
 
-require 'validatable-ext'
+require 'active_model/naming'
+require 'active_model/validator'
+require 'active_model/validations'
+require 'active_model/translation'
 
 require 'sage_pay/uri_fixups'
+require 'sage_pay/locale_initializer'
 require 'sage_pay/server/address'
 require 'sage_pay/server/transaction_code'
 require 'sage_pay/server/signature_verification_details'
 require 'sage_pay/server/related_transaction'
+
 require 'sage_pay/server/command'
+
+require 'sage_pay/server/token_registration'
 require 'sage_pay/server/response'
 require 'sage_pay/server/registration'
+require 'sage_pay/server/authenticate'
 require 'sage_pay/server/registration_response'
 require 'sage_pay/server/notification'
 require 'sage_pay/server/notification_response'

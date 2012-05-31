@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe SagePay::Server::Address do
+  include ValidationMatchers
   it "should be valid straight from the factory" do
     lambda {
       address_factory.should be_valid
@@ -8,24 +9,25 @@ describe SagePay::Server::Address do
   end
 
   describe "validations" do
-    it { validates_the_presence_of(:address, :first_names) }
-    it { validates_the_presence_of(:address, :surname)     }
-    it { validates_the_presence_of(:address, :address_1)   }
-    it { validates_the_presence_of(:address, :city)        }
-    it { validates_the_presence_of(:address, :post_code)   }
-    it { validates_the_presence_of(:address, :country)     }
+    it { validate_presence_of(:first_names) }
+    it { validate_presence_of(:surname)     }
+    it { validate_presence_of(:address_1)   }
+    it { validate_presence_of(:city)        }
+    it { validate_presence_of(:post_code)   }
+    it { validate_presence_of(:country)     }
 
-    it { does_not_require_the_presence_of(:address, :address_2) }
-    it { does_not_require_the_presence_of(:address, :state)     }
-    it { does_not_require_the_presence_of(:address, :phone)     }
+    should_not_validate_presence_of(:address_2)
+    should_not_validate_presence_of(:state)
+    should_not_validate_presence_of(:phone)
 
-    it { validates_the_length_of(:address, :first_names, :max => 20)  }
-    it { validates_the_length_of(:address, :surname,     :max => 20)  }
-    it { validates_the_length_of(:address, :address_1,   :max => 100) }
-    it { validates_the_length_of(:address, :address_2,   :max => 100) }
-    it { validates_the_length_of(:address, :city,        :max => 40)  }
-    it { validates_the_length_of(:address, :post_code,   :max => 10)  }
-    it { validates_the_length_of(:address, :phone,       :max => 20)  }
+    should_validate_length_of(:first_names, :maximum => 20)
+    should_validate_length_of(:surname,     :maximum => 20)
+    should_validate_length_of(:address_1,   :maximum => 100)
+    should_validate_length_of(:address_2,   :maximum => 100)
+    should_validate_length_of(:city,        :maximum => 40)
+    should_validate_length_of(:post_code,   :maximum => 10)
+    should_validate_length_of(:phone,       :maximum => 20)
+
 
     it "validates the format of first names" do
       validates_the_format_of :address, :first_names,
@@ -103,13 +105,13 @@ describe SagePay::Server::Address do
     it "should require a US state to be present if the country is the US" do
       address = address_factory(:country => "US", :state => "")
       address.should_not be_valid
-      address.errors.on(:state).should == "is required if the country is US"
+      address.errors[:state].should == ["is required if the country is US"]
     end
 
     it "should require the US state to be absent if the country is not in the US" do
       address = address_factory(:country => "GB", :state => "WY")
       address.should_not be_valid
-      address.errors.on(:state).should == "is present but the country is not US"
+      address.errors[:state].should == ["is present but the country is not US"]
     end
 
     it "should validate the state against a list of US states" do
@@ -117,7 +119,7 @@ describe SagePay::Server::Address do
       address.should be_valid
       address = address_factory(:country => "US", :state => "AA")
       address.should_not be_valid
-      address.errors.on(:state).should == "is not a US state"
+      address.errors[:state].should == ["is not a US state"]
     end
 
     it "should validate the country against a list of ISO 3166-1 country codes" do
@@ -125,7 +127,7 @@ describe SagePay::Server::Address do
       address.should be_valid
       address = address_factory(:country => "AA")
       address.should_not be_valid
-      address.errors.on(:country).should == "is not an ISO3166-1 country code"
+      address.errors[:country].should == ["is not an ISO3166-1 country code"]
     end
   end
 end

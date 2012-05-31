@@ -1,21 +1,22 @@
 module SagePay
   module Server
     class Command
-      include Validatable
+      include ActiveModel::Validations
 
-      class_inheritable_accessor :tx_type, :vps_protocol
+      class_attribute :tx_type, :vps_protocol
+
       self.vps_protocol = "2.23"
 
       attr_accessor :mode, :vendor, :vendor_tx_code
 
       validates_presence_of :vps_protocol, :mode, :tx_type, :vendor,
-        :vendor_tx_code
+                            :vendor_tx_code
 
       validates_length_of :vps_protocol,     :is      => 4
       validates_length_of :vendor,           :maximum => 15
       validates_length_of :vendor_tx_code,   :maximum => 40
 
-      validates_inclusion_of :mode, :allow_blank => true, :in => [ :simulator, :test, :live ]
+      validates_inclusion_of :mode, :allow_blank => true, :in => [ :showpost, :simulator, :test, :live ]
 
       def self.decimal_accessor(*attrs)
         attrs.each do |attr|
@@ -46,25 +47,26 @@ module SagePay
 
       def url
         case mode
-        when :simulator
-          "https://test.sagepay.com/simulator/VSPServerGateway.asp?Service=#{simulator_service}"
-        when :test
-          "https://test.sagepay.com/gateway/service/#{live_service}.vsp"
-        when :live
-          "https://live.sagepay.com/gateway/service/#{live_service}.vsp"
-        else
-          raise ArgumentError, "Invalid transaction mode"
+          when :showpost
+            "https://test.sagepay.com/showpost/showpost.asp?Service=#{simulator_service}"
+          when :simulator
+            "https://test.sagepay.com/simulator/VSPServerGateway.asp?Service=#{simulator_service}"
+          when :test
+            "https://test.sagepay.com/gateway/service/#{live_service}.vsp"
+          when :live
+            "https://live.sagepay.com/gateway/service/#{live_service}.vsp"
+          else
+            raise ArgumentError, "Invalid transaction mode"
         end
       end
 
       def post_params
         raise ArgumentError, "Invalid transaction registration options (see errors hash for details)" unless valid?
-
         {
-          "VPSProtocol"        => vps_protocol,
-          "TxType"             => tx_type.to_s.upcase,
-          "Vendor"             => vendor,
-          "VendorTxCode"       => vendor_tx_code,
+            "VPSProtocol"        => vps_protocol,
+            "TxType"             => tx_type.to_s.upcase,
+            "Vendor"             => vendor,
+            "VendorTxCode"       => vendor_tx_code,
         }
       end
 
@@ -75,6 +77,15 @@ module SagePay
       private
       def post
         parsed_uri = URI.parse(url)
+        #begin
+        #  ap "Parsed uri #{parsed_uri}"
+        #  ap "TIME.NOW #{Time.now}"
+        #  ap "DATETIME.NOW #{DateTime.now}"
+        #  ap "DATETIME.NOWUTC #{DateTime.now.utc}"
+        #rescue
+        #  puts " error parsing or getting Time.now"
+        #end
+
         request = Net::HTTP::Post.new(parsed_uri.request_uri)
         request.form_data = post_params
 
@@ -87,11 +98,12 @@ module SagePay
 
       def handle_response(response)
         case response.code.to_i
-        when 200
-          response_from_response_body(response.body)
-        else
-          # FIXME: custom error response would be nice.
-          raise RuntimeError, "I guess SagePay doesn't like us today."
+          when 200
+            response = response_from_response_body(response.body)
+            response
+          else
+            # FIXME: custom error response would be nice.
+            raise RuntimeError, "I guess SagePay doesn't like us today: #{response.inspect}"
         end
       end
     end
