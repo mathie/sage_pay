@@ -131,7 +131,6 @@ if run_integration_specs?
 
       it "should have a next URL" do
         registration = @deferred.run!
-        puts registration.response.inspect
         next_url = registration.next_url
         puts "    Next URL given by gateway > #{next_url}" if next_url
         next_url.should_not be_nil
