@@ -6,8 +6,8 @@ describe SagePay::Server do
 
       SagePay::Server.default_registration_options = {
         :mode => :test,
-        :vendor => TEST_VENDOR_NAME,
-        :notification_url => TEST_NOTIFICATION_URL
+        :vendor => SIMULATOR_VENDOR_NAME,
+        :notification_url => SIMULATOR_NOTIFICATION_URL
       }
     end
 
@@ -19,8 +19,8 @@ describe SagePay::Server do
 
       payment = SagePay::Server.payment
       payment.mode.should             == :test
-      payment.vendor.should           == TEST_VENDOR_NAME
-      payment.notification_url.should == TEST_NOTIFICATION_URL
+      payment.vendor.should           == SIMULATOR_VENDOR_NAME
+      payment.notification_url.should == SIMULATOR_NOTIFICATION_URL
     end
 
     it "should generate a vendor transaction code automatically" do

@@ -48,16 +48,16 @@ end
 
 puts "Loading vendor configuration...".green
 errors = []
-errors << "TEST_VENDOR_NAME is not set" unless defined? TEST_VENDOR_NAME
-errors << "TEST_NOTIFICATION_URL is not set" unless defined? TEST_NOTIFICATION_URL
+errors << "SIMULATOR_VENDOR_NAME is not set" unless defined? SIMULATOR_VENDOR_NAME
+errors << "SIMULATOR_NOTIFICATION_URL is not set" unless defined? SIMULATOR_NOTIFICATION_URL
 
 unless errors.empty?
   puts "config file below, place custom settings in spec/support/vendor_config.rb as below:".cyan
   example_file = <<EXAMPLE_FILE
   # spec/support/vendor_config.rb
 
-  TEST_VENDOR_NAME = "testvendor"
-  TEST_NOTIFICATION_URL= "http://test.host/notification"
+  SIMULATOR_VENDOR_NAME = "testvendor"
+  SIMULATOR_NOTIFICATION_URL= "http://test.host/notification"
 EXAMPLE_FILE
   puts example_file.light_white
   puts errors.join("\n").red

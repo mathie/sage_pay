@@ -19,12 +19,12 @@ puts "Initiating SagePay Notification capturer..."
 
 SagePay::Server.default_registration_options = {
     :mode => :test,
-    :vendor => TEST_VENDOR_NAME,
-    :notification_url => TEST_NOTIFICATION_URL
+    :vendor => SIMULATOR_VENDOR_NAME,
+    :notification_url => SIMULATOR_NOTIFICATION_URL
 }
 
-puts "  Using TEST_VENDOR_NAME #{TEST_VENDOR_NAME}"
-puts "  Using TEST_NOTIFICATION_URL #{TEST_NOTIFICATION_URL}"
+puts "  Using SIMULATOR_VENDOR_NAME #{SIMULATOR_VENDOR_NAME}"
+puts "  Using SIMULATOR_NOTIFICATION_URL #{SIMULATOR_NOTIFICATION_URL}"
 
 # Listen config
 
@@ -88,7 +88,7 @@ post notification_url do
   ap registration_response
 
   # Render the reply message in the required format
-  reply_message = generate_reply(TEST_VENDOR_NAME, registration_response.security_key, params)
+  reply_message = generate_reply(SIMULATOR_VENDOR_NAME, registration_response.security_key, params)
   puts "  replying with:"
   ap reply_message
   puts "----------------------------------------"
