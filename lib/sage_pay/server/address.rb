@@ -2,6 +2,7 @@ module SagePay
   module Server
     class Address
       include ActiveModel::Validations
+      include SagePay::Validators
 
       attr_accessor :first_names, :surname, :address_1, :address_2, :city,
         :post_code, :country, :state, :phone
@@ -10,10 +11,10 @@ module SagePay
 
       # FIXME: This regexp isn't correctly matching accented characters. I
       # think it's a Ruby version issue so I'm punting for the moment.
-      validates_format_of :first_names, :surname, :with => NameFormat
-      validates_format_of :address_1, :address_2, :city, :with => AddressFormat
-      validates_format_of :post_code, :with => PostCodeFormat
-      validates_format_of :phone, :with => PhoneFormat
+      validates_format_of :first_names, :surname, :with => NAME_FORMAT
+      validates_format_of :address_1, :address_2, :city, :with => ADDRESS_FORMAT
+      validates_format_of :post_code, :with => POST_CODE_FORMAT
+      validates_format_of :phone, :with => PHONE_FORMAT
 
       validates_length_of :first_names, :surname, :maximum => 20
       validates_length_of :address_1, :address_2, :maximum => 100
@@ -26,8 +27,8 @@ module SagePay
       # contains two-character strings, so this validation has no real win.
       # validates_length_of :country, :state, :maximum => 2
 
-      validates_inclusion_of :state,   :in => USStateOptions, :allow_blank => true, :message => "is not a US state"
-      validates_inclusion_of :country, :in => CountryOptions, :allow_blank => true, :message => "is not an ISO3166-1 country code"
+      validates_inclusion_of :state,   :in => US_STATE_OPTIONS, :allow_blank => true, :message => "is not a US state"
+      validates_inclusion_of :country, :in => COUNTRY_OPTIONS, :allow_blank => true, :message => "is not an ISO3166-1 country code"
 
       # The state's presence is required if the country is the US, and
       # verboten otherwise.
