@@ -117,7 +117,7 @@ describe SagePay::Server::Address do
     it "should validate the state against a list of US states" do
       address = address_factory(:country => "US", :state => "WY")
       address.should be_valid
-      address = address_factory(:country => "US", :state => "AA")
+      address = address_factory(:country => "US", :state => "AB")
       address.should_not be_valid
       address.errors[:state].should == ["is not a US state"]
     end
