@@ -1,5 +1,6 @@
 /pkg
 /rdoc
+/coverage
 /.bundle
 *.swp
 Gemfile.lock

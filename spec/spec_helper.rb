@@ -1,5 +1,12 @@
 require 'rubygems'
 
+if ENV['COVERAGE']
+  require 'simplecov'
+  SimpleCov.start do
+    add_filter '/spec/'
+  end
+end
+
 $: << File.join(File.dirname(__FILE__), '..', 'lib')
 require 'sage_pay'
 
