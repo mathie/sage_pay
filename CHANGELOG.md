@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.0
+
+* Ruby 1.9 compatibility. Note that Ruby 1.8.x is no longer supported due to
+  the different way in which `URI` needs to be patched to support `{` and `}`
+  in the URLs. Thanks to @jairodiaz, @moomerman and @gato-omega for
+  contributing!
+
+* The validation regular expressions have been pulled out into a module so that
+  you can also use them in your higher level models. Thanks, @lenary!
+
 ## 0.2.13
 
 * If the country for an address is the US, then the US state is required.
