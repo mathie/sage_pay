@@ -1,7 +1,9 @@
-SagePay
-=======
+# SagePay
 
-# Description
+[![Build Status](https://secure.travis-ci.org/mathie/sage_pay.png?branch=master)](http://travis-ci.org/mathie/sage_pay)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/mathie/sage_pay)
+
+## Description
 
 This is a Ruby library for integrating with SagePay. SagePay is a payment
 gateway for accepting credit card payments through your web app. It offers
@@ -23,22 +25,26 @@ The current client app I'm writing is using SagePay Server, so that's where
 the current implementation will be focused. Direct will follow when I (or
 somebody else) has the impetus to do so.
 
-# Installation
+## Installation
 
-You should be able to install the gem directly from Gemcutter, the newly
-default Rubygems repository. Simply do:
+You should be able to install the gem directly from Rubygems. Simply do:
 
     (sudo) gem install sage_pay
 
-and you're good to go.
+and you're good to go. If you're adding it as a dependency to an existing
+project and you're using bundler, simply add:
 
-# Assumptions
+    gem 'sage_pay'
+
+to your `Gemfile` and you're also good to go.
+
+## Assumptions
 
 This gem currently implements SagePay protocol version 2.23. The client app
 I'm writing is in Rails, so there are probably some assumptions around that,
 too.
 
-# Test Configuration
+## Test Configuration
 
 For running the integration tests, you'll need a valid SagePay account on the
 simulator. If you want to run the integration tests, pass in your vendor name
