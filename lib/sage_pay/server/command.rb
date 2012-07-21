@@ -86,7 +86,7 @@ module SagePay
         if parsed_uri.scheme == "https"
           http.use_ssl = true
           http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-          http.ca_path = '/etc/ssl/certs' if File.directory?('/etc/ssl/certs')
+          http.ca_file = '/etc/ssl/certs/ca-certificates.crt' if File.exists?('/etc/ssl/certs/ca-certificates.crt')
         end
 
         http.start { |http|
