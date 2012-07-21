@@ -10,8 +10,8 @@ describe NotificationResponse do
   end
 
   describe "validations" do
-    it { should validate_presence_of :status }
-    it { should validate_presence_of :redirect_url }
+    it { validates_the_presence_of(:notification_response, :status) }
+    it { validates_the_presence_of(:notification_response, :redirect_url) }
 
     it "validates the presence of the status_detail field only if the status is something other than OK" do
       notification_response = notification_response_factory(:status => :ok, :status_detail => nil)
@@ -25,8 +25,8 @@ describe NotificationResponse do
       notification_response.errors[:status_detail].should include("can't be empty")
     end
 
-    should_validate_length_of(:redirect_url,  :maximum => 255)
-    should_validate_length_of(:status_detail, :maximum => 255)
+    it { validates_the_length_of(:notification_response, :redirect_url,  :max => 255) }
+    it { validates_the_length_of(:notification_response, :status_detail, :max => 255) }
 
     it "should allow the status to be one of :ok, :invalid or :error" do
       notification_response = notification_response_factory(:status => :ok)

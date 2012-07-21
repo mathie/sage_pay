@@ -33,7 +33,6 @@ gateway for accepting credit card payments through your web app.
 
   s.add_development_dependency('rspec')
   s.add_development_dependency('rake')
-  s.add_development_dependency('remarkable_activemodel')
 
   s.files = %w[
     .rbenv-version
@@ -84,7 +83,6 @@ gateway for accepting credit card payments through your web app.
     spec/spec_helper.rb
     spec/support/factories.rb
     spec/support/integration.rb
-    spec/support/remarkable.rb
     spec/support/validation_matchers.rb
   ]
 

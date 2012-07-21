@@ -34,7 +34,7 @@ module SagePay
       # verboten otherwise.
 
       validates :state, :presence => {:message => "is required if the country is US"}, :if => :in_us?
-      validates :state, :acceptance => { :accept => nil, :message => "is present but the country is not US" }, :unless => :in_us?
+      validates_inclusion_of :state, :in => ['', nil], :message => "is present but the country is not US", :unless => :in_us?
 
       def initialize(attributes = {})
         attributes.each do |k, v|

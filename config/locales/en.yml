@@ -4,3 +4,5 @@ en:
       blank: "can't be empty"
       inclusion: 'is not in the list'
       invalid: 'is invalid'
+      too_long: 'is invalid'
+      wrong_length: 'is invalid'
