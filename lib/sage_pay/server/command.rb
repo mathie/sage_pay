@@ -82,7 +82,12 @@ module SagePay
         request.form_data = post_params
 
         http = Net::HTTP.new(parsed_uri.host, parsed_uri.port)
-        http.use_ssl = true if parsed_uri.scheme == "https"
+
+        if parsed_uri.scheme == "https"
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+        end
+
         http.start { |http|
           http.request(request)
         }
