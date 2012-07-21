@@ -5,15 +5,15 @@ require 'uri'
 require 'digest/md5'
 require 'uuid'
 
-module SagePay
-  VERSION = '0.2.13'
-end
-
 require 'active_model/naming'
 require 'active_model/validator'
 require 'active_model/validations'
 require 'active_model/translation'
 
+module SagePay
+end
+
+require 'sage_pay/version'
 require 'sage_pay/uri_fixups'
 require 'sage_pay/locale_initializer'
 require 'sage_pay/validators'
