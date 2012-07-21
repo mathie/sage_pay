@@ -37,13 +37,16 @@ gateway for accepting credit card payments through your web app.
 
   ## List your runtime dependencies here. Runtime dependencies are those
   ## that are needed for an end user to actually USE your code.
-  s.add_dependency('activesupport', [">= 2.3.8"])
-  s.add_dependency('validatable',   [">= 1.6.7"])
+  s.add_dependency('activesupport', [">= 3.1.3"])
+  s.add_dependency('activemodel',   [">= 3.1.0"])
   s.add_dependency('uuid',          [">= 2.3.0"])
+  s.add_dependency('i18n',          [">= 0.6.0"])
 
   ## List your development dependencies here. Development dependencies are
   ## those that are only needed during development
   s.add_development_dependency('rspec')
+  s.add_development_dependency('rake')
+  s.add_development_dependency('remarkable_activemodel')
 
   ## Leave this section as-is. It will be automatically generated from the
   ## contents of your Git repository via the gemspec task. DO NOT REMOVE
