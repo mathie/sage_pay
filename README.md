@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/mathie/sage_pay.png?branch=master)](http://travis-ci.org/mathie/sage_pay)
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/mathie/sage_pay)
-
+[![Dependency Status](https://gemnasium.com/mathie/sage_pay.png)](https://gemnasium.com/mathie/sage_pay)
 ## Description
 
 This is a Ruby library for integrating with SagePay. SagePay is a payment
