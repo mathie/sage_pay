@@ -2,104 +2,102 @@ module SagePay
   module Server
     class Notification
       attr_reader :vps_protocol, :tx_type, :vendor_tx_code, :vps_tx_id,
-                  :status, :status_detail, :tx_auth_no, :avs_cv2, :address_result,
-                  :post_code_result, :cv2_result, :gift_aid, :threed_secure_status,
-                  :cavv, :address_status, :payer_status,:card_type, :last_4_digits,
-                  :vps_signature, :token, :expiry_date
+        :status, :status_detail, :tx_auth_no, :avs_cv2, :address_result,
+        :post_code_result, :cv2_result, :gift_aid, :threed_secure_status,
+        :cavv, :address_status, :payer_status,:card_type, :last_4_digits,
+        :vps_signature
 
       def self.from_params(params, signature_verification_details = nil)
         key_converter = {
-            "VPSProtocol"    => :vps_protocol,
-            "TxType"         => :tx_type,
-            "VendorTxCode"   => :vendor_tx_code,
-            "VPSTxId"        => :vps_tx_id,
-            "Status"         => :status,
-            "StatusDetail"   => :status_detail,
-            "TxAuthNo"       => :tx_auth_no,
-            "AVSCV2"         => :avs_cv2,
-            "AddressResult"  => :address_result,
-            "PostCodeResult" => :post_code_result,
-            "CV2Result"      => :cv2_result,
-            "GiftAid"        => :gift_aid,
-            "3DSecureStatus" => :threed_secure_status,
-            "CAVV"           => :cavv,
-            "AddressStatus"  => :address_status,
-            "PayerStatus"    => :payer_status,
-            "CardType"       => :card_type,
-            "Last4Digits"    => :last_4_digits,
-            "ExpiryDate"     => :expiry_date,
-            "Token"          => :token,
-            "VPSSignature"   => :vps_signature
+          "VPSProtocol"    => :vps_protocol,
+          "TxType"         => :tx_type,
+          "VendorTxCode"   => :vendor_tx_code,
+          "VPSTxId"        => :vps_tx_id,
+          "Status"         => :status,
+          "StatusDetail"   => :status_detail,
+          "TxAuthNo"       => :tx_auth_no,
+          "AVSCV2"         => :avs_cv2,
+          "AddressResult"  => :address_result,
+          "PostCodeResult" => :post_code_result,
+          "CV2Result"      => :cv2_result,
+          "GiftAid"        => :gift_aid,
+          "3DSecureStatus" => :threed_secure_status,
+          "CAVV"           => :cavv,
+          "AddressStatus"  => :address_status,
+          "PayerStatus"    => :payer_status,
+          "CardType"       => :card_type,
+          "Last4Digits"    => :last_4_digits,
+          "VPSSignature"   => :vps_signature
         }
 
         match_converter = {
-            "NOTPROVIDED" => :not_provided,
-            "NOTCHECKED"  => :not_checked,
-            "MATCHED"     => :matched,
-            "NOTMATCHED"  => :not_matched
+          "NOTPROVIDED" => :not_provided,
+          "NOTCHECKED"  => :not_checked,
+          "MATCHED"     => :matched,
+          "NOTMATCHED"  => :not_matched
         }
 
         true_false_converter = {
-            "0" => false,
-            "1" => true
+          "0" => false,
+          "1" => true
         }
 
         value_converter = {
-            :tx_type => {
-                "PAYMENT"      => :payment,
-                "DEFERRED"     => :deferred,
-                "AUTHENTICATE" => :authenticate
-            },
-            :status => {
-                "OK"            => :ok,
-                "NOTAUTHED"     => :not_authed,
-                "ABORT"         => :abort,
-                "REJECTED"      => :rejected,
-                "AUTHENTICATED" => :authenticated,
-                "REGISTERED"    => :registered,
-                "ERROR"         => :error
-            },
-            :avs_cv2 => {
-                "ALL MATCH"                => :all_match,
-                "SECURITY CODE MATCH ONLY" => :security_code_match_only,
-                "ADDRESS MATCH ONLY"       => :address_match_only,
-                "NO DATA MATCHES"          => :no_data_matches,
-                "DATA NOT CHECKED"         => :data_not_checked
-            },
-            :address_result   => match_converter,
-            :post_code_result => match_converter,
-            :cv2_result       => match_converter,
-            :gift_aid         => true_false_converter,
-            :threed_secure_status => {
-                "OK"           => :ok,
-                "NOTCHECKED"   => :not_checked,
-                "NOTAVAILABLE" => :not_available,
-                "NOTAUTHED"    => :not_authed,
-                "INCOMPLETE"   => :incomplete,
-                "ERROR"        => :error
-            },
-            :address_status => {
-                "NONE"        => :none,
-                "CONFIRMED"   => :confirmed,
-                "UNCONFIRMED" => :unconfirmed
-            },
-            :payer_status => {
-                "VERIFIED"   => :verified,
-                "UNVERIFIED" => :unverified
-            },
-            :card_type => {
-                "VISA"    => :visa,
-                "MC"      => :mastercard,
-                "DELTA"   => :visa_delta,
-                "SOLO"    => :solo,
-                "MAESTRO" => :maestro,
-                "UKE"     => :visa_electron,
-                "AMEX"    => :american_express,
-                "DC"      => :diners,
-                "JCB"     => :jcb,
-                "LASER"   => :laser,
-                "PAYPAL"  => :paypal
-            }
+          :tx_type => {
+            "PAYMENT"      => :payment,
+            "DEFERRED"     => :deferred,
+            "AUTHENTICATE" => :authenticate
+          },
+          :status => {
+            "OK"            => :ok,
+            "NOTAUTHED"     => :not_authed,
+            "ABORT"         => :abort,
+            "REJECTED"      => :rejected,
+            "AUTHENTICATED" => :authenticated,
+            "REGISTERED"    => :registered,
+            "ERROR"         => :error
+          },
+          :avs_cv2 => {
+            "ALL MATCH"                => :all_match,
+            "SECURITY CODE MATCH ONLY" => :security_code_match_only,
+            "ADDRESS MATCH ONLY"       => :address_match_only,
+            "NO DATA MATCHES"          => :no_data_matches,
+            "DATA NOT CHECKED"         => :data_not_checked
+          },
+          :address_result   => match_converter,
+          :post_code_result => match_converter,
+          :cv2_result       => match_converter,
+          :gift_aid         => true_false_converter,
+          :threed_secure_status => {
+            "OK"           => :ok,
+            "NOTCHECKED"   => :not_checked,
+            "NOTAVAILABLE" => :not_available,
+            "NOTAUTHED"    => :not_authed,
+            "INCOMPLETE"   => :incomplete,
+            "ERROR"        => :error
+          },
+          :address_status => {
+            "NONE"        => :none,
+            "CONFIRMED"   => :confirmed,
+            "UNCONFIRMED" => :unconfirmed
+          },
+          :payer_status => {
+            "VERIFIED"   => :verified,
+            "UNVERIFIED" => :unverified
+          },
+          :card_type => {
+            "VISA"    => :visa,
+            "MC"      => :mastercard,
+            "DELTA"   => :visa_delta,
+            "SOLO"    => :solo,
+            "MAESTRO" => :maestro,
+            "UKE"     => :visa_electron,
+            "AMEX"    => :american_express,
+            "DC"      => :diners,
+            "JCB"     => :jcb,
+            "LASER"   => :laser,
+            "PAYPAL"  => :paypal
+          }
         }
 
         attributes = {}
@@ -119,37 +117,25 @@ module SagePay
         unless signature_verification_details.nil?
           # We need to calculate the VPS signature from the values passed in as
           # additional params from the original registration and notification.
-          if attributes[:token]
-            fields_used_in_signature = [
-                params["VPSTxId"],
-                params["VendorTxCode"],
-                params["Status"],
-                signature_verification_details.vendor,
-                params["Token"],
-                signature_verification_details.security_key,
-            ]
-          else
-            fields_used_in_signature = [
-                params["VPSTxId"],
-                params["VendorTxCode"],
-                params["Status"],
-                params["TxAuthNo"],
-                signature_verification_details.vendor,
-                params["AVSCV2"],
-                signature_verification_details.security_key,
-                params["AddressResult"],
-                params["PostCodeResult"],
-                params["CV2Result"],
-                params["GiftAid"],
-                params["3DSecureStatus"],
-                params["CAVV"],
-                params["AddressStatus"],
-                params["PayerStatus"],
-                params["CardType"],
-                params["Last4Digits"]
-            ]
-          end
-
+          fields_used_in_signature = [
+            params["VPSTxId"],
+            params["VendorTxCode"],
+            params["Status"],
+            params["TxAuthNo"],
+            signature_verification_details.vendor,
+            params["AVSCV2"],
+            signature_verification_details.security_key,
+            params["AddressResult"],
+            params["PostCodeResult"],
+            params["CV2Result"],
+            params["GiftAid"],
+            params["3DSecureStatus"],
+            params["CAVV"],
+            params["AddressStatus"],
+            params["PayerStatus"],
+            params["CardType"],
+            params["Last4Digits"]
+          ]
           attributes[:calculated_hash] = Digest::MD5.hexdigest(fields_used_in_signature.join).upcase
         end
 

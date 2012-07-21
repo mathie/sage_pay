@@ -40,12 +40,12 @@ too.
 
 # Test Configuration
 
-For running the integration tests, please read Sage Pay Online documentation
-and add a configuration file `spec/support/vendor_config.rb` with the following
-parameters:
+For running the integration tests, you'll need a valid SagePay account on the
+simulator. If you want to run the integration tests, pass in your vendor name
+with the environment variable `VENDOR_NAME`. If you don't supply a vendor name,
+the integration tests will be skipped. For example:
 
-    SIMULATOR_VENDOR_NAME = valid_name_registered_with_sage_pay
-    SIMULATOR_NOTIFICATION_URL = valid_url
+    VENDOR_NAME=rubaidh bundle exec rake spec
 
 Please note that you need to include your current IP address in the Sage Pay
 Simulator portal.  The Simulator only accepts calls from white listed IP

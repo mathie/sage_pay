@@ -3,11 +3,6 @@ require 'spec_helper'
 include SagePay::Server
 
 describe NotificationResponse do
-
-  it { should validate_presence_of :status }
-  it { should validate_presence_of :redirect_url }
-
-
   it "should work straight from the factory" do
     lambda {
       notification_response_factory.should be_valid
@@ -15,6 +10,8 @@ describe NotificationResponse do
   end
 
   describe "validations" do
+    it { should validate_presence_of :status }
+    it { should validate_presence_of :redirect_url }
 
     it "validates the presence of the status_detail field only if the status is something other than OK" do
       notification_response = notification_response_factory(:status => :ok, :status_detail => nil)
@@ -50,9 +47,9 @@ describe NotificationResponse do
   describe "#response" do
     it "should produce the expected response for an OK status" do
       notification_response = notification_response_factory(
-          :status => :ok,
-          :redirect_url => "http://test.host/some/redirect",
-          :status_detail => nil
+        :status => :ok,
+        :redirect_url => "http://test.host/some/redirect",
+        :status_detail => nil
       )
       notification_response.response.should == <<-RESPONSE.chomp
 Status=OK\r
@@ -62,9 +59,9 @@ RedirectURL=http://test.host/some/redirect
 
     it "should produce the expected response for an invalid status" do
       notification_response = notification_response_factory(
-          :status => :invalid,
-          :redirect_url => "http://test.host/some/redirect",
-          :status_detail => "Totally didn't expect that notification, dude."
+        :status => :invalid,
+        :redirect_url => "http://test.host/some/redirect",
+        :status_detail => "Totally didn't expect that notification, dude."
       )
       # FIXME: I'm asserting here that I don't have to URI-encode the body
       # here. OK?

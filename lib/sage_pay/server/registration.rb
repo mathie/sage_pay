@@ -4,7 +4,7 @@ module SagePay
       attr_accessor :currency, :description, :notification_url,
         :billing_address, :delivery_address, :customer_email, :basket,
         :allow_gift_aid, :apply_avs_cv2, :apply_3d_secure, :profile,
-        :billing_agreement, :account_type, :token, :store_token
+        :billing_agreement, :account_type
       decimal_accessor :amount
 
       validates_presence_of :amount, :currency, :description,
@@ -16,7 +16,7 @@ module SagePay
       validates_length_of :customer_email,   :maximum => 255
       validates_length_of :basket,           :maximum => 7_500
 
-      validates_inclusion_of :tx_type,           :allow_blank => true, :in => [ :payment, :deferred, :authenticate, :token ] # token needs to be included?
+      validates_inclusion_of :tx_type,           :allow_blank => true, :in => [ :payment, :deferred, :authenticate ]
       validates_inclusion_of :allow_gift_aid,    :allow_blank => true, :in => [ true, false ]
       validates_inclusion_of :apply_avs_cv2,     :allow_blank => true, :in => (0..3).to_a
       validates_inclusion_of :apply_3d_secure,   :allow_blank => true, :in => (0..3).to_a
@@ -89,8 +89,6 @@ module SagePay
         params['Profile']          = profile.to_s.upcase           if profile.present?
         params['BillingAgreement'] = billing_agreement ? "1" : "0" if billing_agreement.present? || billing_agreement == false
         params['AccountType']      = account_type_param            if account_type.present?
-        params['Token']            = token                         if token.present?
-        params['StoreToken']       = store_token ? "1" : "0"       if token.present?
 
         # And return the completed hash
         params

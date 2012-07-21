@@ -3,11 +3,10 @@ require 'spec_helper'
 describe SagePay::Server do
   describe ".payment" do
     before(:each) do
-
       SagePay::Server.default_registration_options = {
         :mode => :test,
-        :vendor => SIMULATOR_VENDOR_NAME,
-        :notification_url => SIMULATOR_NOTIFICATION_URL
+        :vendor => 'dummyvendor',
+        :notification_url => 'http://test.host/notification'
       }
     end
 
@@ -19,8 +18,8 @@ describe SagePay::Server do
 
       payment = SagePay::Server.payment
       payment.mode.should             == :test
-      payment.vendor.should           == SIMULATOR_VENDOR_NAME
-      payment.notification_url.should == SIMULATOR_NOTIFICATION_URL
+      payment.vendor.should           == 'dummyvendor'
+      payment.notification_url.should == 'http://test.host/notification'
     end
 
     it "should generate a vendor transaction code automatically" do

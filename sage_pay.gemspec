@@ -63,7 +63,6 @@ gateway for accepting credit card payments through your web app.
     lib/sage_pay/server.rb
     lib/sage_pay/server/abort.rb
     lib/sage_pay/server/address.rb
-    lib/sage_pay/server/authenticate.rb
     lib/sage_pay/server/authorise.rb
     lib/sage_pay/server/cancel.rb
     lib/sage_pay/server/command.rb
@@ -79,7 +78,6 @@ gateway for accepting credit card payments through your web app.
     lib/sage_pay/server/repeat_response.rb
     lib/sage_pay/server/response.rb
     lib/sage_pay/server/signature_verification_details.rb
-    lib/sage_pay/server/token_registration.rb
     lib/sage_pay/server/transaction_code.rb
     lib/sage_pay/uri_fixups.rb
     sage_pay.gemspec

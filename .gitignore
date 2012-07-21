@@ -1,7 +1,4 @@
-.idea/
-.bundle/
-spec/support/vendor_config.rb
-spec/stub_sage_server/last_security_key.yml
-spec/stub_sage_server/responses/
-spec/stub_sage_server/token.yml
-
+/pkg
+/coverage
+/.bundle
+*.swp

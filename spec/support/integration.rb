@@ -1,9 +1,9 @@
-if ENV["SKIP_INTEGRATION"]
-  STDERR.puts "Skipping integration tests, as SKIP_INTEGRATION has been defined in the environment"
-else
-  STDERR.puts "Running integration tests. Set SKIP_INTEGRATION=true to skip them."
+def run_integration_specs?
+  ENV["VENDOR_NAME"].present?
 end
 
-def run_integration_specs?
-  ENV["SKIP_INTEGRATION"].nil?
+if run_integration_specs?
+  STDERR.puts "Running integration tests with vendor name #{ENV["VENDOR_NAME"]}."
+else
+  STDERR.puts "Skipping integration tests, re-run with VENDOR_NAME set to a simulator account to enable them."
 end

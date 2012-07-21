@@ -38,19 +38,10 @@ module SagePay
       registration({ :tx_type => :authenticate }.merge(attributes))
     end
 
-    def self.authenticate_other(attributes)
-      defaults = {
-          :vendor_tx_code   => TransactionCode.random,
-          :delivery_address => attributes[:billing_address]
-      }.merge(default_registration_options)
-
-      SagePay::Server::Authenticate.new(defaults.merge(attributes))
-    end
-
     def self.registration(attributes)
       defaults = {
-          :vendor_tx_code   => TransactionCode.random,
-          :delivery_address => attributes[:billing_address]
+        :vendor_tx_code   => TransactionCode.random,
+        :delivery_address => attributes[:billing_address]
       }.merge(default_registration_options)
 
       SagePay::Server::Registration.new(defaults.merge(attributes))
@@ -72,7 +63,7 @@ module SagePay
 
     def self.refund(attributes = {})
       defaults = {
-          :vendor_tx_code => TransactionCode.random,
+        :vendor_tx_code => TransactionCode.random,
       }.merge(default_options)
 
       SagePay::Server::Refund.new(defaults.merge(attributes))
@@ -80,7 +71,7 @@ module SagePay
 
     def self.authorise(attributes = {})
       defaults = {
-          :vendor_tx_code => TransactionCode.random,
+        :vendor_tx_code => TransactionCode.random,
       }.merge(default_options)
 
       SagePay::Server::Authorise.new(defaults.merge(attributes))
@@ -95,20 +86,10 @@ module SagePay
 
     def self.repeat(attributes = {})
       defaults = {
-          :vendor_tx_code => TransactionCode.random,
+        :vendor_tx_code => TransactionCode.random,
       }.merge(default_options)
 
       SagePay::Server::Repeat.new(defaults.merge(attributes))
     end
-
-    def self.token_registration(attributes = {})
-      defaults = {
-          :vendor_tx_code   => TransactionCode.random,
-          :currency   => "GBP"
-      }.merge(default_registration_options)
-      #registration({ :tx_type => :deferred }.merge(attributes))
-      SagePay::Server::TokenRegistration.new(defaults.merge(attributes))
-    end
-
   end
 end
