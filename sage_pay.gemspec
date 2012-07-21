@@ -40,7 +40,6 @@ gateway for accepting credit card payments through your web app.
     .rspec
     CHANGELOG.md
     Gemfile
-    Gemfile.lock
     LICENSE
     README.md
     Rakefile
