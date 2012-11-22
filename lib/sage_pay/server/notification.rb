@@ -1,6 +1,15 @@
 module SagePay
   module Server
     class Notification
+      class_attribute :personal_credit_card_types, :instance_writer => false
+      self.personal_credit_card_types = [ :visa, :mastercard ].freeze
+
+      class_attribute :commercial_card_types, :instance_writer => false
+      self.commercial_card_types = [ :american_express, :diners, :jcb ].freeze
+
+      class_attribute :debit_card_types, :instance_writer => false
+      self.debit_card_types = [ :visa_delta, :maestro, :visa_electron, :solo, :laser ].freeze
+
       attr_reader :vps_protocol, :tx_type, :vendor_tx_code, :vps_tx_id,
         :status, :status_detail, :tx_auth_no, :avs_cv2, :address_result,
         :post_code_result, :cv2_result, :gift_aid, :threed_secure_status,
@@ -176,6 +185,22 @@ module SagePay
 
       def valid_signature?
         @calculated_hash == vps_signature
+      end
+
+      def credit_card?
+        personal_credit_card? || commercial_card?
+      end
+
+      def personal_credit_card?
+        personal_credit_card_types.include?(card_type)
+      end
+
+      def commercial_card?
+        commercial_card_types.include?(card_type)
+      end
+
+      def debit_card?
+        debit_card_types.include?(card_type)
       end
 
       def response(redirect_url)

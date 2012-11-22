@@ -189,4 +189,256 @@ describe Notification do
       end
     end
   end
+
+  describe "divining different card types" do
+    describe 'VISA card type' do
+      before(:each) do
+        params = {
+          'CardType' => 'VISA'
+        }
+        @notification = Notification.from_params(params)
+      end
+
+      it 'is a credit card' do
+        @notification.should be_a_credit_card
+      end
+
+      it 'is a personal credit card' do
+        @notification.should be_a_personal_credit_card
+      end
+
+      it 'is not a commercial card' do
+        @notification.should_not be_a_commercial_card
+      end
+
+      it 'is not a debit card' do
+        @notification.should_not be_a_debit_card
+      end
+    end
+
+    describe 'MC (MasterCard) card type' do
+      before(:each) do
+        params = {
+          'CardType' => 'MC'
+        }
+        @notification = Notification.from_params(params)
+      end
+
+      it 'is a credit card' do
+        @notification.should be_a_credit_card
+      end
+
+      it 'is a personal credit card' do
+        @notification.should be_a_personal_credit_card
+      end
+
+      it 'is not a commercial card' do
+        @notification.should_not be_a_commercial_card
+      end
+
+      it 'is not a debit card' do
+        @notification.should_not be_a_debit_card
+      end
+    end
+
+    describe 'VISA Delta card type' do
+      before(:each) do
+        params = {
+          'CardType' => 'DELTA'
+        }
+        @notification = Notification.from_params(params)
+      end
+
+      it 'is not a credit card' do
+        @notification.should_not be_a_credit_card
+      end
+
+      it 'is not a personal credit card' do
+        @notification.should_not be_a_personal_credit_card
+      end
+
+      it 'is not a commercial card' do
+        @notification.should_not be_a_commercial_card
+      end
+
+      it 'is a debit card' do
+        @notification.should be_a_debit_card
+      end
+    end
+
+    describe 'Solo card type' do
+      before(:each) do
+        params = {
+          'CardType' => 'SOLO'
+        }
+        @notification = Notification.from_params(params)
+      end
+
+      it 'is not a credit card' do
+        @notification.should_not be_a_credit_card
+      end
+
+      it 'is not a personal credit card' do
+        @notification.should_not be_a_personal_credit_card
+      end
+
+      it 'is not a commercial card' do
+        @notification.should_not be_a_commercial_card
+      end
+
+      it 'is a debit card' do
+        @notification.should be_a_debit_card
+      end
+    end
+
+    describe 'Maestro card type' do
+      before(:each) do
+        params = {
+          'CardType' => 'MAESTRO'
+        }
+        @notification = Notification.from_params(params)
+      end
+
+      it 'is not a credit card' do
+        @notification.should_not be_a_credit_card
+      end
+
+      it 'is not a personal credit card' do
+        @notification.should_not be_a_personal_credit_card
+      end
+
+      it 'is not a commercial card' do
+        @notification.should_not be_a_commercial_card
+      end
+
+      it 'is a debit card' do
+        @notification.should be_a_debit_card
+      end
+    end
+
+    describe 'VISA Electron card type' do
+      before(:each) do
+        params = {
+          'CardType' => 'UKE'
+        }
+        @notification = Notification.from_params(params)
+      end
+
+      it 'is not a credit card' do
+        @notification.should_not be_a_credit_card
+      end
+
+      it 'is not a personal credit card' do
+        @notification.should_not be_a_personal_credit_card
+      end
+
+      it 'is not a commercial card' do
+        @notification.should_not be_a_commercial_card
+      end
+
+      it 'is a debit card' do
+        @notification.should be_a_debit_card
+      end
+    end
+
+    describe 'Laser card type' do
+      before(:each) do
+        params = {
+          'CardType' => 'LASER'
+        }
+        @notification = Notification.from_params(params)
+      end
+
+      it 'is not a credit card' do
+        @notification.should_not be_a_credit_card
+      end
+
+      it 'is not a personal credit card' do
+        @notification.should_not be_a_personal_credit_card
+      end
+
+      it 'is not a commercial card' do
+        @notification.should_not be_a_commercial_card
+      end
+
+      it 'is a debit card' do
+        @notification.should be_a_debit_card
+      end
+    end
+
+    describe 'American Express card type' do
+      before(:each) do
+        params = {
+          'CardType' => 'AMEX'
+        }
+        @notification = Notification.from_params(params)
+      end
+
+      it 'is a credit card' do
+        @notification.should be_a_credit_card
+      end
+
+      it 'is not a personal credit card' do
+        @notification.should_not be_a_personal_credit_card
+      end
+
+      it 'is a commercial card' do
+        @notification.should be_a_commercial_card
+      end
+
+      it 'is not a debit card' do
+        @notification.should_not be_a_debit_card
+      end
+    end
+
+    describe 'Diners card type' do
+      before(:each) do
+        params = {
+          'CardType' => 'DC'
+        }
+        @notification = Notification.from_params(params)
+      end
+
+      it 'is a credit card' do
+        @notification.should be_a_credit_card
+      end
+
+      it 'is not a personal credit card' do
+        @notification.should_not be_a_personal_credit_card
+      end
+
+      it 'is a commercial card' do
+        @notification.should be_a_commercial_card
+      end
+
+      it 'is not a debit card' do
+        @notification.should_not be_a_debit_card
+      end
+    end
+
+    describe 'JCB card type' do
+      before(:each) do
+        params = {
+          'CardType' => 'JCB'
+        }
+        @notification = Notification.from_params(params)
+      end
+
+      it 'is a credit card' do
+        @notification.should be_a_credit_card
+      end
+
+      it 'is not a personal credit card' do
+        @notification.should_not be_a_personal_credit_card
+      end
+
+      it 'is a commercial card' do
+        @notification.should be_a_commercial_card
+      end
+
+      it 'is not a debit card' do
+        @notification.should_not be_a_debit_card
+      end
+    end
+  end
 end
