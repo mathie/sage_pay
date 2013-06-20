@@ -17,6 +17,9 @@ if ENV['COVERAGE']
   end
 end
 
+require 'coveralls'
+Coveralls.wear!
+
 $: << File.join(File.dirname(__FILE__), '..', 'lib')
 require 'sage_pay'
 
