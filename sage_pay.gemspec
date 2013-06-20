@@ -36,7 +36,6 @@ gateway for accepting credit card payments through your web app.
   s.add_development_dependency('rake')
 
   s.files = %w[
-    .rbenv-version
     .rspec
     CHANGELOG.md
     Gemfile
