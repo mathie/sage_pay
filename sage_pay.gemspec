@@ -53,6 +53,7 @@ gateway for accepting credit card payments through your web app.
     lib/sage_pay/server/cancel.rb
     lib/sage_pay/server/command.rb
     lib/sage_pay/server/notification.rb
+    lib/sage_pay/server/notification_params_converter.rb
     lib/sage_pay/server/notification_response.rb
     lib/sage_pay/server/refund.rb
     lib/sage_pay/server/refund_response.rb
@@ -64,6 +65,7 @@ gateway for accepting credit card payments through your web app.
     lib/sage_pay/server/repeat_response.rb
     lib/sage_pay/server/response.rb
     lib/sage_pay/server/signature_verification_details.rb
+    lib/sage_pay/server/signature_verifier.rb
     lib/sage_pay/server/transaction_code.rb
     lib/sage_pay/uri_fixups.rb
     lib/sage_pay/validators.rb
@@ -78,6 +80,7 @@ gateway for accepting credit card payments through your web app.
     spec/sage_pay/server/signature_verification_details_spec.rb
     spec/sage_pay/server/transaction_code_spec.rb
     spec/sage_pay/server_spec.rb
+    spec/sage_pay/uri_spec.rb
     spec/sage_pay_spec.rb
     spec/spec_helper.rb
     spec/support/factories.rb
