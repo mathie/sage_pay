@@ -1,6 +1,6 @@
 require 'rubygems'
 
-if ENV['COVERAGE']
+if ENV['COVERAGE'] && RUBY_VERSION >= '1.9'
   require 'simplecov'
   require 'simplecov-rcov'
   class SimpleCov::Formatter::MergedFormatter
@@ -17,8 +17,10 @@ if ENV['COVERAGE']
   end
 end
 
-require 'coveralls'
-Coveralls.wear!
+if RUBY_VERSION >= '1.9'
+  require 'coveralls'
+  Coveralls.wear!
+end
 
 $: << File.join(File.dirname(__FILE__), '..', 'lib')
 require 'sage_pay'
