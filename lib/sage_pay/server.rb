@@ -22,6 +22,12 @@ module SagePay
       default_registration_options.except(:notification_url, :profile)
     end
 
+    def self.default_transaction_options
+      default_options.merge({
+        :vendor_tx_code => TransactionCode.random
+      })
+    end
+
     def self.related_transaction(attributes = {})
       SagePay::Server::RelatedTransaction.new(attributes)
     end
@@ -48,48 +54,27 @@ module SagePay
     end
 
     def self.release(attributes = {})
-      defaults = {
-      }.merge(default_options)
-
-      SagePay::Server::Release.new(defaults.merge(attributes))
+      SagePay::Server::Release.new(default_options.merge(attributes))
     end
 
     def self.abort(attributes = {})
-      defaults = {
-      }.merge(default_options)
-
-      SagePay::Server::Abort.new(defaults.merge(attributes))
+      SagePay::Server::Abort.new(default_options.merge(attributes))
     end
 
     def self.refund(attributes = {})
-      defaults = {
-        :vendor_tx_code => TransactionCode.random,
-      }.merge(default_options)
-
-      SagePay::Server::Refund.new(defaults.merge(attributes))
+      SagePay::Server::Refund.new(default_transaction_options.merge(attributes))
     end
 
     def self.authorise(attributes = {})
-      defaults = {
-        :vendor_tx_code => TransactionCode.random,
-      }.merge(default_options)
-
-      SagePay::Server::Authorise.new(defaults.merge(attributes))
+      SagePay::Server::Authorise.new(default_transaction_options.merge(attributes))
     end
 
     def self.cancel(attributes = {})
-      defaults = {
-      }.merge(default_options)
-
-      SagePay::Server::Cancel.new(defaults.merge(attributes))
+      SagePay::Server::Cancel.new(default_options.merge(attributes))
     end
 
     def self.repeat(attributes = {})
-      defaults = {
-        :vendor_tx_code => TransactionCode.random,
-      }.merge(default_options)
-
-      SagePay::Server::Repeat.new(defaults.merge(attributes))
+      SagePay::Server::Repeat.new(default_transaction_options.merge(attributes))
     end
   end
 end

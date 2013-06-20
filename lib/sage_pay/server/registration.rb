@@ -55,7 +55,16 @@ module SagePay
       end
 
       def post_params
-        params = super.merge({
+        super.merge(mandatory_post_params).merge(optional_post_params)
+      end
+
+      def response_from_response_body(response_body)
+        RegistrationResponse.from_response_body(response_body)
+      end
+
+      private
+      def mandatory_post_params
+        {
           "Amount"             => ("%.2f" % amount),
           "Currency"           => currency.upcase,
           "Description"        => description,
@@ -72,33 +81,28 @@ module SagePay
           "DeliveryCity"       => delivery_address.city,
           "DeliveryPostCode"   => delivery_address.post_code,
           "DeliveryCountry"    => delivery_address.country,
-        })
-
-        # Optional parameters that are only inserted if they are present
-        params['BillingAddress2']  = billing_address.address_2     if billing_address.address_2.present?
-        params['BillingState']     = billing_address.state         if billing_address.state.present?
-        params['BillingPhone']     = billing_address.phone         if billing_address.phone.present?
-        params['DeliveryAddress2'] = delivery_address.address_2    if delivery_address.address_2.present?
-        params['DeliveryState']    = delivery_address.state        if delivery_address.state.present?
-        params['DeliveryPhone']    = delivery_address.phone        if delivery_address.phone.present?
-        params['CustomerEmail']    = customer_email                if customer_email.present?
-        params['Basket']           = basket                        if basket.present?
-        params['AllowGiftAid']     = allow_gift_aid ? "1" : "0"    if allow_gift_aid.present? || allow_gift_aid == false
-        params['ApplyAVSCV2']      = apply_avs_cv2.to_s            if apply_avs_cv2.present?
-        params['Apply3DSecure']    = apply_3d_secure.to_s          if apply_3d_secure.present?
-        params['Profile']          = profile.to_s.upcase           if profile.present?
-        params['BillingAgreement'] = billing_agreement ? "1" : "0" if billing_agreement.present? || billing_agreement == false
-        params['AccountType']      = account_type_param            if account_type.present?
-
-        # And return the completed hash
-        params
+        }
       end
 
-      def response_from_response_body(response_body)
-        RegistrationResponse.from_response_body(response_body)
+      def optional_post_params
+        {}.tap do |optional_params|
+          optional_params['BillingAddress2']  = billing_address.address_2     if billing_address.address_2.present?
+          optional_params['BillingState']     = billing_address.state         if billing_address.state.present?
+          optional_params['BillingPhone']     = billing_address.phone         if billing_address.phone.present?
+          optional_params['DeliveryAddress2'] = delivery_address.address_2    if delivery_address.address_2.present?
+          optional_params['DeliveryState']    = delivery_address.state        if delivery_address.state.present?
+          optional_params['DeliveryPhone']    = delivery_address.phone        if delivery_address.phone.present?
+          optional_params['CustomerEmail']    = customer_email                if customer_email.present?
+          optional_params['Basket']           = basket                        if basket.present?
+          optional_params['AllowGiftAid']     = allow_gift_aid ? "1" : "0"    if allow_gift_aid.present? || allow_gift_aid == false
+          optional_params['ApplyAVSCV2']      = apply_avs_cv2.to_s            if apply_avs_cv2.present?
+          optional_params['Apply3DSecure']    = apply_3d_secure.to_s          if apply_3d_secure.present?
+          optional_params['Profile']          = profile.to_s.upcase           if profile.present?
+          optional_params['BillingAgreement'] = billing_agreement ? "1" : "0" if billing_agreement.present? || billing_agreement == false
+          optional_params['AccountType']      = account_type_param            if account_type.present?
+        end
       end
 
-      private
       def account_type_param
         case account_type
         when :ecommerce
