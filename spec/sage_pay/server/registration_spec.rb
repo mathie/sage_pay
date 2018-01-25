@@ -506,7 +506,7 @@ describe Registration do
     context "if SagePay is having a bad day" do
       before(:each) do
         @registration = registration_factory
-        @registration.stub(:post).and_return(mock("HTTP Response", :code => "500"))
+        @registration.stub(:post).and_return(double("HTTP Response", :code => "500"))
       end
 
       it "should raise an exception to say that we couldn't talk to SagePay" do
@@ -518,8 +518,8 @@ describe Registration do
 
     context "when SagePay can return a useful response" do
       before(:each) do
-        @mock_http_response = mock("HTTP response", :code => "200", :body => "mock response body")
-        @mock_response = mock("Transaction registration response")
+        @mock_http_response = double("HTTP response", :code => "200", :body => "mock response body")
+        @mock_response = double("Transaction registration response")
         @registration = registration_factory
         @registration.stub(:post).and_return(@mock_http_response)
         RegistrationResponse.stub(:from_response_body).and_return @mock_response
@@ -559,7 +559,7 @@ describe Registration do
 
   describe "#signature_verification_details" do
     before(:each) do
-      mock_response = mock("Transaction registration response", :vps_tx_id => "sage pay transaction id", :security_key => 'security key')
+      mock_response = double("Transaction registration response", :vps_tx_id => "sage pay transaction id", :security_key => 'security key')
 
       @registration = registration_factory :vendor_tx_code => "vendor transaction id", :vendor => "vendor"
       @registration.stub(:handle_response).and_return(mock_response)
@@ -576,7 +576,7 @@ describe Registration do
 
     context "with a transaction which failed" do
       before(:each) do
-        mock_response = mock("Transaction registration response", :failed? => true)
+        mock_response = double("Transaction registration response", :failed? => true)
         @registration.stub(:handle_response).and_return(mock_response)
         @registration.run!
       end
@@ -590,7 +590,7 @@ describe Registration do
 
     context "with a good transaction" do
       before(:each) do
-        mock_response = mock("Transaction registration response", :failed? => false, :vps_tx_id => "sage pay transaction id", :security_key => 'security key')
+        mock_response = double("Transaction registration response", :failed? => false, :vps_tx_id => "sage pay transaction id", :security_key => 'security key')
         @registration.stub(:handle_response).and_return(mock_response)
         @registration.run!
       end

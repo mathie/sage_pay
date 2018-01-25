@@ -25,12 +25,12 @@ if run_integration_specs?
       end
 
       it "should successfully register the payment with SagePay" do
-        @payment.run!.should_not be_nil
+        expect(@payment.run!).not_to be_nil
       end
 
       it "should be a valid registered payment" do
         registration = @payment.run!
-        registration.should be_ok
+        expect(registration).to be_ok
       end
 
       it "should have a next URL" do
@@ -75,7 +75,7 @@ if run_integration_specs?
 
       it "should be a valid registered payment" do
         registration = @payment.run!
-        registration.should be_ok
+        expect(registration).to be_ok
       end
 
       it "should have a next URL" do

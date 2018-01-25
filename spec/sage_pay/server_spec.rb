@@ -33,15 +33,15 @@ describe SagePay::Server do
     end
 
     it "should duplicate the billing address to the delivery address if no billing address is supplied" do
-      address = mock("Home address")
+      address = double("Home address")
 
       payment = SagePay::Server.payment :billing_address => address
       payment.delivery_address.should == address
     end
 
     it "should not overwrite a delivery address if one is supplied" do
-      billing_address = mock("Billing address")
-      delivery_address = mock("Delivery address")
+      billing_address = double("Billing address")
+      delivery_address = double("Delivery address")
 
       payment = SagePay::Server.payment :billing_address => billing_address, :delivery_address => delivery_address
       payment.delivery_address.should == delivery_address
