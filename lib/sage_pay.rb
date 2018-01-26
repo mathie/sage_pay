@@ -5,10 +5,13 @@ require 'uri'
 require 'digest/md5'
 require 'uuid'
 
-require 'active_model/naming'
-require 'active_model/validator'
-require 'active_model/validations'
-require 'active_model/translation'
+require 'active_model'
+require 'active_support'
+# require 'active_support/concern'
+# require 'active_model/naming'
+# require 'active_model/validator'
+# require 'active_model/validations'
+# require 'active_model/translation'
 
 module SagePay
 end

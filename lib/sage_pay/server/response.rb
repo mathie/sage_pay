@@ -60,6 +60,7 @@ module SagePay
 
       def initialize(attributes = {})
         attributes.each do |k, v|
+          next unless k
           # We're only providing readers, not writers, so we have to directly
           # set the instance variable.
           instance_variable_set("@#{k}", v)
