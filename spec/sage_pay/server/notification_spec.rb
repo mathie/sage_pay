@@ -38,7 +38,7 @@ describe Notification do
 
     context "with an OK status" do
       before(:each) do
-        signature_verification_details = mock("Signature verification details",
+        signature_verification_details = double("Signature verification details",
           :vendor         => "rubaidh",
           :security_key   => "17F13DCBD8"
         )
@@ -117,7 +117,7 @@ describe Notification do
       end
 
       it "should report gift aid as false" do
-        @notification.gift_aid.should be_false
+        @notification.gift_aid.should be false
       end
 
       it "should report the 3d secure status as :ok" do
@@ -153,7 +153,7 @@ describe Notification do
       end
 
       it "should generate a successful response" do
-        mock_notification_response = mock(NotificationResponse, :response => "some response")
+        mock_notification_response = double(NotificationResponse, :response => "some response")
         NotificationResponse.should_receive(:new).with(:status => :ok, :redirect_url => "mock redirect url").and_return(mock_notification_response)
         @notification.response("mock redirect url").should == "some response"
       end
@@ -161,7 +161,7 @@ describe Notification do
 
     context "with an invalid signature" do
       before(:each) do
-        signature_verification_details = mock("Signature verification details",
+        signature_verification_details = double("Signature verification details",
           :vendor         => "rubaidh",
           :security_key   => "different security key"
         )
@@ -170,7 +170,7 @@ describe Notification do
       end
 
       it "should generate a failed response" do
-        mock_notification_response = mock(NotificationResponse, :response => "can haz failure")
+        mock_notification_response = double(NotificationResponse, :response => "can haz failure")
         NotificationResponse.should_receive(:new).with(:status => :invalid, :redirect_url => "mock redirect url", :status_detail => "Signature did not match our expectations").and_return(mock_notification_response)
         @notification.response("mock redirect url").should == "can haz failure"
       end
@@ -179,7 +179,7 @@ describe Notification do
     context "with a block supplied for the signature verification details" do
       it "should still validate the signature correctly" do
         notification = Notification.from_params(@params) do |attributes|
-          mock("Signature verification details",
+          double("Signature verification details",
             :vendor         => "rubaidh",
             :security_key   => "17F13DCBD8"
           )
