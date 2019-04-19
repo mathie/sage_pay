@@ -19,19 +19,19 @@ describe Registration do
     it "should accept a float for the amount and convert it to a BigDecimal interally" do
       registration = registration_factory(:amount => 12.34)
       registration.should be_valid
-      registration.amount.should == BigDecimal.new("12.34")
+      registration.amount.should == BigDecimal("12.34")
     end
 
     it "should accept an integer for the amount and convert it to a BigDecimal interally" do
       registration = registration_factory(:amount => 12)
       registration.should be_valid
-      registration.amount.should == BigDecimal.new("12")
+      registration.amount.should == BigDecimal("12")
     end
 
     it "should accept a string for the amount and convert it to a BigDecimal interally" do
       registration = registration_factory(:amount => "12")
       registration.should be_valid
-      registration.amount.should == BigDecimal.new("12")
+      registration.amount.should == BigDecimal("12")
     end
   end
 

@@ -24,7 +24,7 @@ module Factories
       :tx_type          => :payment,
       :vendor           => "BobTheBuilder",
       :vendor_tx_code   => "random-transaction-id",
-      :amount           => BigDecimal.new("35.49"),
+      :amount           => BigDecimal("35.49"),
       :currency         => "GBP",
       :description      => "Factory payment",
       :notification_url => "http://test.host/notification",

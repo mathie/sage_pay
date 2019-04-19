@@ -22,7 +22,7 @@ module SagePay
         attrs.each do |attr|
           attr_reader attr
           define_method("#{attr}=") do |value|
-            instance_variable_set("@#{attr}", value.blank? ? nil : BigDecimal.new(value.to_s))
+            instance_variable_set("@#{attr}", value.blank? ? nil : BigDecimal(value.to_s))
           end
         end
       end
