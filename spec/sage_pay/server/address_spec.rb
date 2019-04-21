@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe SagePay::Server::Address do
   it "should be valid straight from the factory" do
-    lambda {
-      address_factory.should be_valid
-    }.should_not raise_error
+    expect {
+      expect(address_factory).to be_valid
+    }.to_not raise_error
   end
 
   describe "validations" do

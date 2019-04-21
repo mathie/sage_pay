@@ -4,9 +4,9 @@ include SagePay::Server
 
 describe Notification do
   it "should work straight from the factory" do
-    lambda {
+    expect {
       notification_factory.should_not be_nil
-    }.should_not raise_error
+    }.to_not raise_error
   end
 
   describe ".from_params" do
@@ -154,8 +154,8 @@ describe Notification do
 
       it "should generate a successful response" do
         mock_notification_response = double(NotificationResponse, :response => "some response")
-        NotificationResponse.should_receive(:new).with(:status => :ok, :redirect_url => "mock redirect url").and_return(mock_notification_response)
-        @notification.response("mock redirect url").should == "some response"
+        expect(NotificationResponse).to receive(:new).with(:status => :ok, :redirect_url => "mock redirect url").and_return(mock_notification_response)
+        expect(@notification.response("mock redirect url")).to eq "some response"
       end
     end
 
@@ -171,8 +171,8 @@ describe Notification do
 
       it "should generate a failed response" do
         mock_notification_response = double(NotificationResponse, :response => "can haz failure")
-        NotificationResponse.should_receive(:new).with(:status => :invalid, :redirect_url => "mock redirect url", :status_detail => "Signature did not match our expectations").and_return(mock_notification_response)
-        @notification.response("mock redirect url").should == "can haz failure"
+        expect(NotificationResponse).to receive(:new).with(:status => :invalid, :redirect_url => "mock redirect url", :status_detail => "Signature did not match our expectations").and_return(mock_notification_response)
+        expect(@notification.response("mock redirect url")).to eq "can haz failure"
       end
     end
 

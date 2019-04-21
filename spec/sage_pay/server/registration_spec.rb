@@ -506,7 +506,7 @@ describe Registration do
     context "if SagePay is having a bad day" do
       before(:each) do
         @registration = registration_factory
-        @registration.stub(:post).and_return(double("HTTP Response", :code => "500"))
+        expect(@registration).to receive(:post).and_return(double("HTTP Response", :code => "500"))
       end
 
       it "should raise an exception to say that we couldn't talk to SagePay" do
@@ -527,7 +527,7 @@ describe Registration do
 
       it "should return a newly created RegistrationResponse with the response" do
         response = @registration.run!
-        response.should == @mock_response
+        expect(response).to eq @mock_response
       end
 
       it "should pass the response body to RegistrationResponse.from_response_body to let it parse and initialize" do
