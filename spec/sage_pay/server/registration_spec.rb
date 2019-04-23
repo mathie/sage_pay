@@ -19,19 +19,19 @@ describe Registration do
     it "should accept a float for the amount and convert it to a BigDecimal interally" do
       registration = registration_factory(:amount => 12.34)
       registration.should be_valid
-      registration.amount.should == BigDecimal.new("12.34")
+      registration.amount.should == BigDecimal("12.34")
     end
 
     it "should accept an integer for the amount and convert it to a BigDecimal interally" do
       registration = registration_factory(:amount => 12)
       registration.should be_valid
-      registration.amount.should == BigDecimal.new("12")
+      registration.amount.should == BigDecimal("12")
     end
 
     it "should accept a string for the amount and convert it to a BigDecimal interally" do
       registration = registration_factory(:amount => "12")
       registration.should be_valid
-      registration.amount.should == BigDecimal.new("12")
+      registration.amount.should == BigDecimal("12")
     end
   end
 
@@ -506,7 +506,7 @@ describe Registration do
     context "if SagePay is having a bad day" do
       before(:each) do
         @registration = registration_factory
-        @registration.stub(:post).and_return(double("HTTP Response", :code => "500"))
+        expect(@registration).to receive(:post).and_return(double("HTTP Response", :code => "500"))
       end
 
       it "should raise an exception to say that we couldn't talk to SagePay" do
@@ -527,7 +527,7 @@ describe Registration do
 
       it "should return a newly created RegistrationResponse with the response" do
         response = @registration.run!
-        response.should == @mock_response
+        expect(response).to eq @mock_response
       end
 
       it "should pass the response body to RegistrationResponse.from_response_body to let it parse and initialize" do
