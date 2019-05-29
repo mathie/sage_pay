@@ -3,4 +3,6 @@
 # ------------------------------------------------------------------------------
 # Semaphore settings
 # ------------------------------------------------------------------------------
-export APP_SEMAPHORE_ID='0f5e9575-4f9a-4846-92b0-6a5a5903703a'
+#
+# This gem is not yet on semaphore for some reason
+# export APP_SEMAPHORE_ID=''
