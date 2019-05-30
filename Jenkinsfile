@@ -6,17 +6,13 @@ pipeline {
   options {
     ansiColor('xterm')
     disableConcurrentBuilds()
-    buildDiscarder(logRotator(numToKeepStr: '10')) // only keep artifacts of the
-last 10 builds
+    buildDiscarder(logRotator(numToKeepStr: '10')) // only keep artifacts of the last 10 builds
   }
 
   parameters {
-    booleanParam(name: 'PRE_NOTIFY', defaultValue: true, description: 'Notify of
-start of build for master branch')
-    booleanParam(name: 'BUILD_GEM', defaultValue: true, description: "Build and
-push ${PROJECT} gem to Gemstash")
-    booleanParam(name: 'POST_NOTIFY', defaultValue: true, description: 'Notify
-of the result of the build for master branch')
+    booleanParam(name: 'PRE_NOTIFY', defaultValue: true, description: 'Notify of start of build for master branch')
+    booleanParam(name: 'BUILD_GEM', defaultValue: true, description: "Build and push ${PROJECT} gem to Gemstash")
+    booleanParam(name: 'POST_NOTIFY', defaultValue: true, description: 'Notify of the result of the build for master branch')
   }
 
   environment {
@@ -35,9 +31,7 @@ of the result of the build for master branch')
         }
       }
       steps {
-        sh "bnw_runner ./_pipeline/utils/slack_notification_on_master.sh
-${PROJECT} ${currentBuild.currentResult} 'Starting build for ${PROJECT}
-v${GEM_VERSION}'"
+        sh "bnw_runner ./_pipeline/utils/slack_notification_on_master.sh ${PROJECT} ${currentBuild.currentResult} 'Starting build for ${PROJECT} v${GEM_VERSION}'"
       }
     }
 
@@ -54,8 +48,7 @@ v${GEM_VERSION}'"
       post {
         failure {
           script {
-            sh "bnw_runner ./_pipeline/utils/slack_notification_on_master.sh
-${PROJECT} FAILURE '${PROJECT} BUILD step has failed'"
+            sh "bnw_runner ./_pipeline/utils/slack_notification_on_master.sh ${PROJECT} FAILURE '${PROJECT} BUILD step has failed'"
           }
         }
       }
@@ -69,9 +62,7 @@ ${PROJECT} FAILURE '${PROJECT} BUILD step has failed'"
         }
       }
       steps {
-        sh "bnw_runner ./_pipeline/utils/slack_notification_on_master.sh
-${PROJECT} ${currentBuild.currentResult} 'Completed build for ${PROJECT}
-v${GEM_VERSION}'"
+        sh "bnw_runner ./_pipeline/utils/slack_notification_on_master.sh ${PROJECT} ${currentBuild.currentResult} 'Completed build for ${PROJECT} v${GEM_VERSION}'"
       }
     }
   }
