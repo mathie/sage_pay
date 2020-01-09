@@ -7,14 +7,8 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.rubygems_version = '1.3.6'
 
-  gem_version = if ENV['GEM_PRE_RELEASE'].nil? || ENV['GEM_PRE_RELEASE'].empty?
-                  SagePay::VERSION
-                else
-                  "#{SagePay::VERSION}.#{ENV['GEM_PRE_RELEASE']}"
-                end
-
   s.name              = 'sage_pay'
-  s.version           = gem_version
+  s.version           = SagePay::VERSION
   s.date              = '2012-07-21'
   s.rubyforge_project = 'sage_pay'
 
